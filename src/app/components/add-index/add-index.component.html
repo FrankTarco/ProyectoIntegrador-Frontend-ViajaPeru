@@ -1,0 +1,107 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css">
+<header>
+    <a href="#" class="brand"><img src="../../../assets/img/smarbuslogo.png" class="img-bus" alt=""></a>
+    <div class="menu-btn">
+
+    </div>
+    <div class="navigation">
+        <div class="navigation-items">
+            <a href="#">Inicio</a>
+            <a href="login">Aplicación</a>
+            <a href="index">Compras online</a>
+            <a href="#">Acerca de</a>
+        </div>
+    </div>
+
+</header>
+
+<section class="home">
+    <video class="video-slide active" src="../../../assets/index/1.mp4" autoplay muted loop></video>
+    <video class="video-slide" src="../../../assets/index/2.mp4" autoplay muted loop></video>
+    <video class="video-slide" src="../../../assets/index/3.mp4" autoplay muted loop></video>
+    <video class="video-slide" src="../../../assets/index/4.mp4" autoplay muted loop></video>
+    <video class="video-slide" src="../../../assets/index/5.mp4" autoplay muted loop></video>
+    <div class="content active">
+        <h1>Lima.<br><span>Piura</span></h1>
+        <p>Bienvenidos a la emocionante travesía que te llevará desde la vibrante ciudad de Lima hasta la cautivadora Piura, a través de SmartBus, la empresa de transportes que redefine la forma en que viajas. Si estás listo para sumergirte en un viaje lleno de comodidad, seguridad y estilo, estás en el lugar adecuado.</p>
+        <a class="btn-super-2" href="#"><span class="text-btn">Leer mas</span></a>
+    </div>
+
+    <div class="content">
+        <h1>Lima.<br><span>Huacho</span></h1>
+        <p>Nuestro compromiso va más allá de simplemente moverte de un lugar a otro. Queremos que disfrutes de cada etapa de tu viaje, desde el momento en que subes a bordo. Olvídate del estrés y las preocupaciones de viajar, porque nosotros nos encargamos de todos los detalles.</p>
+        <a class="btn-super-2" href="#"><span class="text-btn">Leer mas</span></a>
+    </div>
+
+    <div class="content">
+        <h1>Lima.<br><span>Huaraz</span></h1>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit quas totam quod mollitia, debitis consectetur. Numquam doloribus iste nisi dolorum, cupiditate nulla? Iure eum nobis deleniti libero sit inventore ipsa.</p>
+        <a class="btn-super-2" href="#"><span class="text-btn">Leer mas</span></a>
+    </div>
+
+    <div class="content">
+        <h1>Lima.<br><span>Tarma</span></h1>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit quas totam quod mollitia, debitis consectetur. Numquam doloribus iste nisi dolorum, cupiditate nulla? Iure eum nobis deleniti libero sit inventore ipsa.</p>
+        <a class="btn-super-2" href="#"><span class="text-btn">Leer mas</span></a>
+    </div>
+
+    <div class="content">
+        <h1>Lima.<br><span>Chiclayo</span></h1>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit quas totam quod mollitia, debitis consectetur. Numquam doloribus iste nisi dolorum, cupiditate nulla? Iure eum nobis deleniti libero sit inventore ipsa.</p>
+        <a class="btn-super-2" href="#"><span class="text-btn">Leer mas</span></a>
+    </div>
+
+    <div class="media-icons">
+        <a href=""><i class="fab fa-facebook-f"></i></a>
+        <a href=""><i class="fab fa-instagram"></i></a>
+        <a href=""><i class="fab fa-twitter"></i></a>
+    </div>
+    <div class="slider-navigation">
+        <div class="nav-btn active"></div>
+        <div class="nav-btn"></div>
+        <div class="nav-btn"></div>
+        <div class="nav-btn"></div>
+        <div class="nav-btn"></div>
+    </div>
+</section>
+
+
+<script>
+
+    const menuBtn = document.querySelector('.menu-btn');
+    const navigation = document.querySelector('.navigation');
+
+    menuBtn.addEventListener('click',() => {
+        menuBtn.classList.toggle('active');
+        navigation.classList.toggle('active');
+    });
+
+    const btns = document.querySelectorAll('.nav-btn');
+    const slides = document.querySelectorAll('.video-slide');
+    const contents = document.querySelectorAll('.content');
+
+    var slideNav = function(manual){
+        btns.forEach((btn) => {
+            btn.classList.remove('active');
+        });
+
+        slides.forEach((slide) => {
+            slide.classList.remove('active');
+        });
+
+        contents.forEach((content) => {
+            content.classList.remove('active');
+        });
+
+
+        btns[manual].classList.add('active');
+        slides[manual].classList.add('active');
+        contents[manual].classList.add('active');
+    }
+
+    btns.forEach((btn,i) => {
+        btn.addEventListener('click',() =>{
+            slideNav(i);
+        });
+    });
+</script>
