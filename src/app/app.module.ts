@@ -9,11 +9,19 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppMaterialModule } from './app.material.module';
 import { MatIconModule } from '@angular/material/icon';
 import { AddVentaComponent } from './components/add-venta/add-venta.component';
+import { AddMenuComponent } from './components/add-menu/add-menu.component';
+import { AddBusComponent } from './components/add-bus/add-bus.component';
+import { AddDestinoComponent } from './components/add-destino/add-destino.component';
+import { AddEditBusComponent } from './dialogs/add-edit-bus/add-edit-bus.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    AddVentaComponent
+    AddVentaComponent,
+    AddMenuComponent,
+    AddBusComponent,
+    AddDestinoComponent,
+    AddEditBusComponent
   ],
   imports: [
     BrowserModule,

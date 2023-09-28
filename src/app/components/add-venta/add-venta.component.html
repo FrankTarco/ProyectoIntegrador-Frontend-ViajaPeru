@@ -2,7 +2,7 @@
     <header class="bg_animate" style="height: 600px;">
       <div class="header_nav">
           <div class="contenedor">
-              <img src="../../../assets/img/smarbuslogo.png" alt="" class="bg-bus">                
+              <img src="../../../assets/img/viajaperulogo.png" alt="" class="bg-bus">                
           </div>
       </div>
 
@@ -37,7 +37,7 @@
             <div class="col-sm-12 col-xs-12 col-lg-3 mt-2">
             <mat-form-field style="width: 100%;">
                 <mat-label>Desde</mat-label>
-                <mat-select>
+                <mat-select (selectionChange)="cambioSelect($event.value)">
                     <mat-option value="-1"> [Seleccione] </mat-option>
                     <mat-option  *ngFor="let x of lstDestinos" [value]="x.cod_destino">
                         {{x.nombre}}

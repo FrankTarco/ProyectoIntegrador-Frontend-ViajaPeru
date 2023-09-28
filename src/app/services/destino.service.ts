@@ -2,8 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Destino } from '../models/destino.model';
 import { Observable } from 'rxjs';
+import { AppSettings } from '../app.settings';
 
-const urlBase = "http://localhost:8090/rest/destino";
+const urlBase = AppSettings.API_ENDPOINT+'/destino';
 
 @Injectable({
   providedIn: 'root'

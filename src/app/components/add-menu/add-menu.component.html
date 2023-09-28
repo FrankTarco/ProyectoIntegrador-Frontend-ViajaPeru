@@ -1,0 +1,69 @@
+<mat-toolbar class="mat-elevation-z8">
+    <button
+      mat-icon-button
+      *ngIf="sidenav.mode === 'over'"
+      (click)="sidenav.toggle()"
+    >
+    <p *ngIf="!sidenav.opened">O</p>
+    <p *ngIf="sidenav.opened">X</p>
+
+    </button>
+    <img src="../../../assets/img/viajaperulogo.png" alt="" width="180px">
+    Aplicativo web
+    
+  </mat-toolbar>
+  
+  <mat-sidenav-container>
+    <mat-sidenav #sidenav="matSidenav" class="mat-elevation-z8">
+      <img
+        class="avatar mat-elevation-z8"
+        src="https://source.unsplash.com/c_GmwfHBDzk/200x200"
+      />
+  
+      <h4 class="name">John Smith</h4>
+      <p class="designation">Software Engineer</p>
+  
+      <mat-divider></mat-divider>
+  
+      <button mat-button class="menu-button" (click)="cambiarElemento('bus')">
+        <span>Buses</span>
+      </button>
+      <button mat-button class="menu-button" (click)="cambiarElemento('destino')">
+        <span>Destinos</span>
+      </button>
+      <button mat-button class="menu-button" routerLink="/about">
+        <span>Conductores</span>
+      </button>
+      <button mat-button class="menu-button" routerLink="/about">
+        <span>Terramozas</span>
+      </button>
+  
+      <mat-divider></mat-divider>
+  
+      <button mat-button class="menu-button" routerLink="/help">
+        <span>Equipos</span>
+      </button>
+      <button mat-button class="menu-button" routerLink="/help">
+        <span>Itinerarios</span>
+      </button>
+
+      <mat-divider></mat-divider>
+      <button mat-button class="menu-button" (click)="cambiarElemento('venta')">
+        <span>Ventas</span>
+      </button>
+
+    </mat-sidenav>
+    <mat-sidenav-content>
+      <div class="content mat-elevation-z2">
+        <div class="">
+
+
+          <app-add-bus *ngIf="elementoActual == 'bus'"></app-add-bus>
+          <app-add-destino *ngIf="elementoActual == 'destino'"></app-add-destino>
+          <app-add-venta *ngIf="elementoActual == 'venta'"></app-add-venta>
+
+        </div>
+    
+      </div>
+    </mat-sidenav-content>
+  </mat-sidenav-container>

@@ -1,0 +1,86 @@
+mat-toolbar {
+    background: #2e2e2e;
+    color: rgb(124, 124, 124);
+    font-style: italic;
+    font-size: 17px;
+  }
+  
+
+  mat-sidenav {
+    margin: 16px;
+    width: 200px;
+    border-right: none;
+    background: #ce0a0ad2;
+    color: white;
+    border-radius: 10px;
+    padding: 16px;
+    text-align: center;
+  }
+
+  
+
+  ::-webkit-scrollbar{
+    width: 7px;
+  }
+  ::-webkit-scrollbar-thumb{
+    background: #2e2e2e;
+    transition: 0.3s ease;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover{
+    background: #ca0707;
+  }
+
+
+  .content {
+    height: calc(100vh - 100px);
+    border-radius: 10px;
+    margin: 16px;
+    margin-left: 32px;
+  
+    padding: 16px;
+  
+    overflow: auto;
+  }
+  
+  mat-sidenav-container {
+    height: calc(100vh - 65px);
+  }
+  
+  .menu-button {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    font-size: 1rem;
+  }
+  span{
+    color: white;
+    font-size: 13px;
+    font-weight: normal;
+  }
+  
+  .avatar {
+    margin-top: 16px;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+  }
+  
+  .name {
+    margin-top: 8px;
+    font-weight: normal;
+  }
+  
+  .designation {
+    margin-top: 2px;
+    font-size: 0.7rem;
+    color: lightgrey;
+  }
+  
+  mat-divider {
+    margin-top: 16px;
+    margin-bottom: 16px;
+    background-color: rgba(255, 255, 255, 0.5);
+  }
+

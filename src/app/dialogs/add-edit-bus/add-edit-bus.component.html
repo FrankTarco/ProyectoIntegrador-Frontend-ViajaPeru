@@ -1,0 +1,81 @@
+<div mat-dialog-title class="row">
+    <div class="col-md-12"><img src="../../../assets/img/viajaperulogo.png" alt="" width="200px"></div>
+    <div class="col-md-12"><h5 class="m-3">Formulario buses</h5></div>
+
+    <mat-divider></mat-divider>
+    
+</div>
+
+<div mat-dialog-content>
+    <div class="row">
+            <mat-form-field appearance="outline" class="mt-2 p-1">
+                <mat-label>Placa</mat-label>
+                <input matInput placeholder="Placeholder">
+ 
+              </mat-form-field>   
+
+              <mat-form-field appearance="outline" class="mt-2 p-1">
+                <mat-label>Marca</mat-label>
+                <input matInput placeholder="Placeholder">
+           
+              </mat-form-field>  
+    </div>
+
+    <div class="row">
+        <mat-form-field appearance="outline" class="p-1">
+            <mat-label>Asientos</mat-label>
+            <input matInput placeholder="Placeholder">
+          
+          </mat-form-field>  
+          
+          <mat-form-field appearance="outline" class="p-1">
+            <mat-label>Pasajeros</mat-label>
+            <input matInput placeholder="Placeholder">
+            
+          </mat-form-field>     
+    </div>
+
+    <div class="row">
+        <mat-form-field appearance="outline" class="p-1">
+            <mat-label>Año fabricación</mat-label>
+            <input matInput placeholder="Placeholder">
+           
+          </mat-form-field>
+          
+          <mat-form-field appearance="outline" class="p-1">
+            <mat-label>Cantidad ruedas</mat-label>
+            <input matInput placeholder="Placeholder">
+            
+          </mat-form-field>  
+    </div>
+
+
+    <div class="row">
+        <mat-form-field appearance="outline" style="width: 100%;">
+            <mat-label>Combustible</mat-label>
+            <mat-select>
+                <mat-option value="-1"> [Seleccione] </mat-option>
+                <mat-option  *ngFor="let x of lstCombustible" [value]="x.cod_combustible">
+                    {{x.nombre}}
+                </mat-option>   
+            </mat-select> 
+        </mat-form-field> 
+
+        <mat-form-field appearance="outline" style="width: 100%;">
+            <mat-label>Servicio</mat-label>
+            <mat-select>
+                <mat-option value="-1"> [Seleccione] </mat-option>
+                <mat-option  *ngFor="let x of lstServicio" [value]="x.cod_servicio">
+                    {{x.nombre}}
+                </mat-option>   
+            </mat-select> 
+        </mat-form-field> 
+
+    </div>
+
+</div>
+
+<div mat-dialog-actions>
+    <button mat-raised-button mat-dialog-close>Cancel</button>
+    <button mat-raised-button color="warn">Guardar</button>
+</div>
