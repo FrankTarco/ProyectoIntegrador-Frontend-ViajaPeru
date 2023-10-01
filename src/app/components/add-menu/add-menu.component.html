@@ -31,7 +31,7 @@
       <button mat-button class="menu-button" (click)="cambiarElemento('destino')">
         <span>Destinos</span>
       </button>
-      <button mat-button class="menu-button" routerLink="/about">
+      <button mat-button class="menu-button" (click)="cambiarElemento('conductor')">
         <span>Conductores</span>
       </button>
       <button mat-button class="menu-button" routerLink="/about">
@@ -61,6 +61,7 @@
           <app-add-bus *ngIf="elementoActual == 'bus'"></app-add-bus>
           <app-add-destino *ngIf="elementoActual == 'destino'"></app-add-destino>
           <app-add-venta *ngIf="elementoActual == 'venta'"></app-add-venta>
+        <app-add-conductor *ngIf="elementoActual == 'conductor'"></app-add-conductor>
 
         </div>
     

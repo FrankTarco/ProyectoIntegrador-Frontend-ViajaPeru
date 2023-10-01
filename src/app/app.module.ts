@@ -13,6 +13,8 @@ import { AddMenuComponent } from './components/add-menu/add-menu.component';
 import { AddBusComponent } from './components/add-bus/add-bus.component';
 import { AddDestinoComponent } from './components/add-destino/add-destino.component';
 import { AddEditBusComponent } from './dialogs/add-edit-bus/add-edit-bus.component';
+import { AddConductorComponent } from './components/add-conductor/add-conductor.component';
+import { AddEditConductorComponent } from './dialogs/add-edit-conductor/add-edit-conductor.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +23,9 @@ import { AddEditBusComponent } from './dialogs/add-edit-bus/add-edit-bus.compone
     AddMenuComponent,
     AddBusComponent,
     AddDestinoComponent,
-    AddEditBusComponent
+    AddEditBusComponent,
+    AddConductorComponent,
+    AddEditConductorComponent
   ],
   imports: [
     BrowserModule,
