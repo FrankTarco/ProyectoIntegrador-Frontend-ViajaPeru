@@ -17,4 +17,8 @@ export class BusService {
     return this.http.get<Bus[]>(url)
   }
 
+  registrarBus(objBus:Bus):Observable<any>{
+    return this.http.post(url,objBus);
+  }
+
 }

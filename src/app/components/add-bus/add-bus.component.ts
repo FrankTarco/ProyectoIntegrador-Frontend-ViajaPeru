@@ -28,8 +28,21 @@ export class AddBusComponent implements OnInit{
   }
 
   openDialog() {
-    this.dialog.open(AddEditBusComponent);
+    const dialogRef = this.dialog.open(AddEditBusComponent);
+    dialogRef.afterClosed().subscribe({
+      next: (val) => {
+        if(val) {
+          this.listadoEmpleados();
+        }
+      },
+    });
   }
+
+  openEditDialog(data:any) {
+    this.dialog.open(AddEditBusComponent, {data,});
+    
+  }
+
 
   ngOnInit(): void {
     this.listadoEmpleados();

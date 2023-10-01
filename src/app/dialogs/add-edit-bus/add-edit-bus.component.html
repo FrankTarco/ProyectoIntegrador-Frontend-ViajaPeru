@@ -10,13 +10,13 @@
     <div class="row">
             <mat-form-field appearance="outline" class="mt-2 p-1">
                 <mat-label>Placa</mat-label>
-                <input matInput placeholder="Placeholder">
+                <input matInput placeholder="Placeholder" [(ngModel)]="objBus.placa">
  
               </mat-form-field>   
 
               <mat-form-field appearance="outline" class="mt-2 p-1">
                 <mat-label>Marca</mat-label>
-                <input matInput placeholder="Placeholder">
+                <input matInput placeholder="Placeholder" [(ngModel)]="objBus.marca">
            
               </mat-form-field>  
     </div>
@@ -24,13 +24,13 @@
     <div class="row">
         <mat-form-field appearance="outline" class="p-1">
             <mat-label>Asientos</mat-label>
-            <input matInput placeholder="Placeholder">
+            <input matInput placeholder="Placeholder" [(ngModel)]="objBus.total_asientos">
           
           </mat-form-field>  
           
           <mat-form-field appearance="outline" class="p-1">
             <mat-label>Pasajeros</mat-label>
-            <input matInput placeholder="Placeholder">
+            <input matInput placeholder="Placeholder" [(ngModel)]="objBus.total_pasajeros">
             
           </mat-form-field>     
     </div>
@@ -38,13 +38,13 @@
     <div class="row">
         <mat-form-field appearance="outline" class="p-1">
             <mat-label>Año fabricación</mat-label>
-            <input matInput placeholder="Placeholder">
+            <input matInput placeholder="Placeholder" [(ngModel)]="objBus.fabricacion">
            
           </mat-form-field>
           
           <mat-form-field appearance="outline" class="p-1">
             <mat-label>Cantidad ruedas</mat-label>
-            <input matInput placeholder="Placeholder">
+            <input matInput placeholder="Placeholder" [(ngModel)]="objBus.cantidad_ruedas">
             
           </mat-form-field>  
     </div>
@@ -53,7 +53,7 @@
     <div class="row">
         <mat-form-field appearance="outline" style="width: 100%;">
             <mat-label>Combustible</mat-label>
-            <mat-select>
+            <mat-select [(ngModel)]="objBus.cod_combustible">
                 <mat-option value="-1"> [Seleccione] </mat-option>
                 <mat-option  *ngFor="let x of lstCombustible" [value]="x.cod_combustible">
                     {{x.nombre}}
@@ -63,7 +63,7 @@
 
         <mat-form-field appearance="outline" style="width: 100%;">
             <mat-label>Servicio</mat-label>
-            <mat-select>
+            <mat-select [(ngModel)]="objBus.cod_servicio">
                 <mat-option value="-1"> [Seleccione] </mat-option>
                 <mat-option  *ngFor="let x of lstServicio" [value]="x.cod_servicio">
                     {{x.nombre}}
@@ -76,6 +76,6 @@
 </div>
 
 <div mat-dialog-actions>
-    <button mat-raised-button mat-dialog-close>Cancel</button>
-    <button mat-raised-button color="warn">Guardar</button>
+    <button mat-raised-button type="button" [mat-dialog-close]="false" >Cancel</button>
+    <button mat-raised-button color="warn" (click)="registrar()">Registrar</button>
 </div>
