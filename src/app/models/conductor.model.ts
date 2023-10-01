@@ -1,5 +1,6 @@
 import { Licencia } from "./licencia.model";
-import { TipoDocumento } from "./tipo-documento.model";
+import { TipoDocumento } from "./tipodocumento.model";
+
 
 export class Conductor {
 

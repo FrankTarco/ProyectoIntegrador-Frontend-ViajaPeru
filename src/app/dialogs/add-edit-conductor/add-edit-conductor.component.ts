@@ -1,7 +1,11 @@
 import { Component } from '@angular/core';
+import { Conductor } from 'src/app/models/conductor.model';
 import { Licencia } from 'src/app/models/licencia.model';
-import { TipoDocumento } from 'src/app/models/tipo-documento.model';
+import { TipoDocumento } from 'src/app/models/tipodocumento.model';
+
+import { ConductorService } from 'src/app/services/conductor.service';
 import { UtilService } from 'src/app/services/util.service';
+import Swal from 'sweetalert2'
 
 @Component({
   selector: 'app-add-edit-conductor',
@@ -12,8 +16,26 @@ export class AddEditConductorComponent {
 
   lstTipo:TipoDocumento[] = []
   lstLicencia:Licencia[]=[]
+
+objConductor: Conductor={
+
+
+	nrodocumento:"",
+	ape_chofer:"",
+	nom_chofer:"",
+  nrolicencia:"",
+	telefono:"",
+  objLicencia:{
+    cod_licencia:-1,
+  },
+  objTipoDocumento:{
+    cod_tipodocumento:-1,
+  },
+
+};
+
   
-  constructor(private util:UtilService){
+  constructor(private util:UtilService , private conductorsev:ConductorService){
 
 util.listarTiopoDocumento().subscribe(
 
@@ -26,5 +48,18 @@ util.listarLicencia().subscribe(
 )
 
   }
+
+
+  insertaConductor(){
+
+    this.conductorsev.registraConductor(this.objConductor).subscribe(
+      c => Swal.fire({icon:'info',title:'Resultado del Registro', text: c.errores})
+
+     
+    );
+
+  }
+
+
 
 }

@@ -11,7 +11,7 @@
     <div class="row">
         <mat-form-field appearance="outline" class="p-1">
             <mat-label>Tipo de Documento</mat-label>
-            <mat-select>
+            <mat-select [(ngModel)]="objConductor.objTipoDocumento!.cod_tipodocumento">
                 <mat-option value="-1"> [Seleccione] </mat-option>
                 <mat-option  *ngFor="let x of lstTipo" [value]="x.cod_tipodocumento">
                     {{x.descripcion}}
@@ -21,7 +21,7 @@
 
         <mat-form-field appearance="outline" class="p-1">
             <mat-label>Número de Documento</mat-label>
-            <input matInput placeholder="Número de Documento">
+            <input matInput [(ngModel)]="objConductor.nrodocumento" placeholder="Número de Documento">
             
           </mat-form-field>  
 
@@ -30,13 +30,13 @@
     <div class="row">
         <mat-form-field appearance="outline" style="width: 100%;">
             <mat-label>Apellidos</mat-label>
-            <input matInput placeholder="Apellidos">
+            <input matInput [(ngModel)]="objConductor.ape_chofer" placeholder="Apellidos">
            
           </mat-form-field>
           
           <mat-form-field appearance="outline" style="width: 100%;">
             <mat-label>Nombres</mat-label>
-            <input matInput placeholder="Nombres">
+            <input matInput [(ngModel)]="objConductor.nom_chofer" placeholder="Nombres">
             
           </mat-form-field>  
     </div>
@@ -44,7 +44,7 @@
     <div class="row">
         <mat-form-field appearance="outline" class="p-1">
             <mat-label>Tipo de Licencia</mat-label>
-            <mat-select>
+            <mat-select [(ngModel)]="objConductor.objLicencia!.cod_licencia">
                 <mat-option value="-1"> [Seleccione] </mat-option>
                 <mat-option  *ngFor="let x of lstLicencia" [value]="x.cod_licencia">
                     {{x.descripcion}}
@@ -54,7 +54,7 @@
 
         <mat-form-field appearance="outline" class="p-1">
             <mat-label>Número de Licencia</mat-label>
-            <input matInput placeholder="Número de Licencia">
+            <input matInput [(ngModel)]="objConductor.nrolicencia" placeholder="Número de Licencia">
             
           </mat-form-field>  
 
@@ -63,7 +63,7 @@
     <div class="row">
         <mat-form-field appearance="outline" style="width: 100%;">
             <mat-label>Teléfono</mat-label>
-            <input matInput placeholder="Teléfono">
+            <input matInput [(ngModel)]="objConductor.telefono" placeholder="Teléfono">
            
           </mat-form-field>
         
@@ -74,5 +74,5 @@
 
 <div mat-dialog-actions>
     <button mat-raised-button mat-dialog-close>Cancel</button>
-    <button mat-raised-button color="warn">Guardar</button>
+    <button mat-raised-button color="warn" (click)="insertaConductor()">Guardar</button>
 </div>

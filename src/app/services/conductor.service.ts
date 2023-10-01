@@ -19,6 +19,12 @@ export class ConductorService {
 
   }
 
+registraConductor (obj:Conductor):Observable<any>{
+
+  return this.http.post(url,obj);
+}
+
+
 
 
 }

@@ -4,8 +4,9 @@ import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Combustible } from '../models/combustible.model';
 import { Servicio } from '../models/servicio.model';
-import { TipoDocumento } from '../models/tipo-documento.model';
+
 import { Licencia } from '../models/licencia.model';
+import { TipoDocumento } from '../models/tipodocumento.model';
 
 const url = AppSettings.API_ENDPOINT+'/util';
 
