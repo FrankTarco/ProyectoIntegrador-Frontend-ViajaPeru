@@ -11,7 +11,7 @@
     <div class="row">
         <mat-form-field appearance="outline" class="p-1">
             <mat-label>Tipo de Documento</mat-label>
-            <mat-select [(ngModel)]="objConductor.objTipoDocumento!.cod_tipodocumento">
+            <mat-select [(ngModel)]="objConductor.cod_tipodocumento">
                 <mat-option value="-1"> [Seleccione] </mat-option>
                 <mat-option  *ngFor="let x of lstTipo" [value]="x.cod_tipodocumento">
                     {{x.descripcion}}
@@ -44,7 +44,7 @@
     <div class="row">
         <mat-form-field appearance="outline" class="p-1">
             <mat-label>Tipo de Licencia</mat-label>
-            <mat-select [(ngModel)]="objConductor.objLicencia!.cod_licencia">
+            <mat-select [(ngModel)]="objConductor.cod_licencia">
                 <mat-option value="-1"> [Seleccione] </mat-option>
                 <mat-option  *ngFor="let x of lstLicencia" [value]="x.cod_licencia">
                     {{x.descripcion}}

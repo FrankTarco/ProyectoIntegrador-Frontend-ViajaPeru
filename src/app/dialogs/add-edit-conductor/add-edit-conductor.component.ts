@@ -19,19 +19,13 @@ export class AddEditConductorComponent {
 
 objConductor: Conductor={
 
-
+  cod_tipodocumento:-1,
 	nrodocumento:"",
 	ape_chofer:"",
 	nom_chofer:"",
-  nrolicencia:"",
-	telefono:"",
-  objLicencia:{
-    cod_licencia:-1,
-  },
-  objTipoDocumento:{
-    cod_tipodocumento:-1,
-  },
-
+	cod_licencia:-1,
+	nrolicencia:"",
+	telefono:""
 };
 
   
@@ -53,7 +47,7 @@ util.listarLicencia().subscribe(
   insertaConductor(){
 
     this.conductorsev.registraConductor(this.objConductor).subscribe(
-      c => Swal.fire({icon:'info',title:'Resultado del Registro', text: c.errores})
+      c => Swal.fire({icon:'info',title:'Resultado del Registro', text: c.mensaje})
 
      
     );
