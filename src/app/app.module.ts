@@ -15,6 +15,8 @@ import { AddDestinoComponent } from './components/add-destino/add-destino.compon
 import { AddEditBusComponent } from './dialogs/add-edit-bus/add-edit-bus.component';
 import { AddConductorComponent } from './components/add-conductor/add-conductor.component';
 import { AddEditConductorComponent } from './dialogs/add-edit-conductor/add-edit-conductor.component';
+import { AddTerramozaComponent } from './components/add-terramoza/add-terramoza.component';
+import { AddEditTerramozaComponent } from './dialogs/add-edit-terramoza/add-edit-terramoza.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +27,9 @@ import { AddEditConductorComponent } from './dialogs/add-edit-conductor/add-edit
     AddDestinoComponent,
     AddEditBusComponent,
     AddConductorComponent,
-    AddEditConductorComponent
+    AddEditConductorComponent,
+    AddTerramozaComponent,
+    AddEditTerramozaComponent
   ],
   imports: [
     BrowserModule,

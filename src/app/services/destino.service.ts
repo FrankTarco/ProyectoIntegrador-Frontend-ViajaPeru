@@ -15,7 +15,19 @@ export class DestinoService {
   constructor(private http:HttpClient) { }
 
   listadoDestinos():Observable<any>{
-    return this.http.get<Destino[]>(urlBase);
+    return this.http.get<Destino[]>(urlBase)
+  }
+  
+  registrarDestino(objDestino:Destino):Observable<any>{
+    return this.http.post(urlBase,objDestino)
   }
 
+  
+  actualizarDestino(objDestino:Destino):Observable<any>{
+    return this.http.put(urlBase,objDestino)
+  }
+
+  eliminarDestino(codigo:string):Observable<any>{
+    return this.http.delete(urlBase+'/'+codigo)
+  }
 }
