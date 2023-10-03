@@ -6,6 +6,7 @@ import { BusService } from 'src/app/services/bus.service';
 import { Bus } from 'src/app/models/bus.model';
 import { MatDialog } from '@angular/material/dialog';
 import { AddEditBusComponent } from 'src/app/dialogs/add-edit-bus/add-edit-bus.component';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -39,8 +40,14 @@ export class AddBusComponent implements OnInit{
   }
 
   openEditDialog(data:any) {
-    this.dialog.open(AddEditBusComponent, {data,});
-    
+    const dialogRef = this.dialog.open(AddEditBusComponent, {data,});
+    dialogRef.afterClosed().subscribe({
+      next: (val) => {
+        if(val) {
+          this.listadoEmpleados();
+        }
+      },
+    });
   }
 
 
@@ -68,6 +75,16 @@ export class AddBusComponent implements OnInit{
     }
   }
 
-  
+  eliminarBus(codigo:number){  
+    this.busService.eliminarBus(codigo).subscribe({
+
+      next: (rest) =>{
+        Swal.fire({icon:'info',title:'Resultado de la eliminacion', text: rest.mensaje});
+        this.listadoEmpleados();
+      },
+      error: console.log,
+    });
+  }
+
 }
 

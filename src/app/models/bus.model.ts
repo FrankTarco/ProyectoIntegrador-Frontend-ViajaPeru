@@ -8,10 +8,11 @@ export class Bus {
 	marca?:string;
 	total_asientos?:number;
 	total_pasajeros?:number;
-	fabricacion?:string;
+	fabricacion?:number;
 	cantidad_ruedas?:number;
 	cod_combustible?:number;
 	cod_servicio?:number;
+	estado?:number;
 
     objCombustible?:Combustible;
     objServicio?:Servicio;

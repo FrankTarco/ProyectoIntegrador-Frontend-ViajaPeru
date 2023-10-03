@@ -21,4 +21,11 @@ export class BusService {
     return this.http.post(url,objBus);
   }
 
+  actualizarBus(objBus:Bus):Observable<any>{
+    return this.http.put(url,objBus);
+  }
+
+  eliminarBus(codigo:number):Observable<any>{
+    return this.http.delete(url+'/'+codigo)
+  }
 }

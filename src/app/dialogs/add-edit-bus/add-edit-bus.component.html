@@ -54,7 +54,7 @@
         <mat-form-field appearance="outline" style="width: 100%;">
             <mat-label>Combustible</mat-label>
             <mat-select [(ngModel)]="objBus.cod_combustible">
-                <mat-option value="-1"> [Seleccione] </mat-option>
+                <mat-option [value]=-1> [Seleccione] </mat-option>
                 <mat-option  *ngFor="let x of lstCombustible" [value]="x.cod_combustible">
                     {{x.nombre}}
                 </mat-option>   
@@ -64,18 +64,31 @@
         <mat-form-field appearance="outline" style="width: 100%;">
             <mat-label>Servicio</mat-label>
             <mat-select [(ngModel)]="objBus.cod_servicio">
-                <mat-option value="-1"> [Seleccione] </mat-option>
+                <mat-option [value]=-1> [Seleccione] </mat-option>
                 <mat-option  *ngFor="let x of lstServicio" [value]="x.cod_servicio">
                     {{x.nombre}}
                 </mat-option>   
             </mat-select> 
         </mat-form-field> 
 
+        
+
+    </div>
+
+    <div class="row">
+        <mat-form-field *ngIf="data" appearance="outline" style="width: 100%;">
+            <mat-label>Estado</mat-label>
+            <mat-select [(ngModel)]="objBus.estado">
+                <mat-option [value]=-1> [Seleccione] </mat-option>
+                <mat-option [value]=1>Activo</mat-option>
+                <mat-option [value]=0>Inactivo</mat-option>    
+            </mat-select> 
+        </mat-form-field> 
     </div>
 
 </div>
 
 <div mat-dialog-actions>
     <button mat-raised-button type="button" [mat-dialog-close]="false" >Cancel</button>
-    <button mat-raised-button color="warn" (click)="registrar()">Registrar</button>
+    <button mat-raised-button color="warn" (click)="registrar()">{{data ? 'Actualizar' : 'Registrar'}}</button>
 </div>

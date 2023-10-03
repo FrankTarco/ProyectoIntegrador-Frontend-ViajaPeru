@@ -5,6 +5,7 @@ import { Combustible } from 'src/app/models/combustible.model';
 import { Servicio } from 'src/app/models/servicio.model';
 import { BusService } from 'src/app/services/bus.service';
 import { UtilService } from 'src/app/services/util.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-add-edit-bus',
@@ -22,15 +23,16 @@ objBus:Bus={
   marca:"",
   total_asientos:0,
   total_pasajeros:0,
-  fabricacion:"",
+  fabricacion:0,
   cantidad_ruedas:0,
   cod_combustible:-1,
-  cod_servicio:-1
+  cod_servicio:-1,
+  estado:1
 }
 
 constructor(private utilService:UtilService,private busService:BusService, 
   private _dialog: MatDialogRef<AddEditBusComponent>,
-  @Inject(MAT_DIALOG_DATA) private data:any){
+  @Inject(MAT_DIALOG_DATA) public data:any){
 
   utilService.listarCombustibles().subscribe(
     c => this.lstCombustible = c
@@ -43,27 +45,42 @@ constructor(private utilService:UtilService,private busService:BusService,
 }
 
 ngOnInit(): void {
-  this.objBus= {
-    cod_bus:this.data.cod_bus,
-    placa:this.data.placa,
-    marca:this.data.marca,
-    total_asientos:this.data.total_asientos,
-    total_pasajeros:this.data.total_pasajeros,
-    fabricacion:this.data.fabricacion,
-    cantidad_ruedas:this.data.cantidad_ruedas,
-    cod_combustible:this.data.cod_combustible,
-    cod_servicio:this.data.cod_servicio
-  }
+
+  if(this.data){
+    this.objBus= {
+      cod_bus:this.data.cod_bus,
+      placa:this.data.placa,
+      marca:this.data.marca,
+      total_asientos:this.data.total_asientos,
+      total_pasajeros:this.data.total_pasajeros,
+      fabricacion:this.data.fabricacion,
+      cantidad_ruedas:this.data.cantidad_ruedas,
+      cod_combustible:this.data.cod_combustible,
+      cod_servicio:this.data.cod_servicio,
+      estado:this.data.estado
+    }
+  }  
 }
 
 registrar(){
-  this.busService.registrarBus(this.objBus).subscribe(
-    x =>{
-      alert(x.mensaje);
-      this._dialog.close(true)
 
-    }
-  )
+  if(this.data){
+    this.busService.actualizarBus(this.objBus).subscribe(
+      x =>{
+        Swal.fire({icon:'info',title:'Resultado de la actualizacion', text: x.mensaje})
+        this._dialog.close(true)
+      }
+    )
+        
+  }else{
+    this.busService.registrarBus(this.objBus).subscribe(
+      x =>{
+        Swal.fire({icon:'info',title:'Resultado del registro', text: x.mensaje})
+        this._dialog.close(true)
+  
+      }
+    )
+  }
 }
 
 }
