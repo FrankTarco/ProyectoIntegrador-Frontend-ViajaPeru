@@ -6,6 +6,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { AddEditConductorComponent } from 'src/app/dialogs/add-edit-conductor/add-edit-conductor.component';
 import { ConductorService } from 'src/app/services/conductor.service';
 import { Conductor } from 'src/app/models/conductor.model';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-add-conductor',
@@ -25,9 +26,28 @@ constructor(private conductorService:ConductorService, public dialog:MatDialog){
 
 
 openDialog(){
-this.dialog.open(AddEditConductorComponent);
+const dialog = this.dialog.open(AddEditConductorComponent);
+dialog.afterClosed().subscribe({  
+  next: (val) => {
+    if(val){
+      this.listadoConductor();
+    }
+  },
+});
 
 }
+
+openEditDialog(data:any){
+  const dialog = this.dialog.open(AddEditConductorComponent, {data,});
+  dialog.afterClosed().subscribe({  
+    next: (val) => {
+      if(val){
+        this.listadoConductor();
+      }
+    },
+  });
+}
+
 
   ngOnInit(): void {
    this.listadoConductor();
@@ -43,6 +63,16 @@ this.conductorService.listarconductor().subscribe({
 error: console.log
 });
 }
+
+eliminarConductor(codigo:string){
+  this.conductorService.eliminarConductor(codigo).subscribe(
+    c =>{
+      Swal.fire({icon:'info',title:'Resultado del registro', text: c.mensaje})
+      this.listadoConductor();
+    }
+  );
+}
+
 
 applyFilter(event: Event) {
   const filterValue = (event.target as HTMLInputElement).value;

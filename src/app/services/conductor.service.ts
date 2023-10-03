@@ -25,6 +25,12 @@ registraConductor (obj:Conductor):Observable<any>{
 }
 
 
+actualizarConductor(obj:Conductor):Observable<any>{
+  return this.http.put(url,obj)
+}
 
+eliminarConductor(codigo:string):Observable<any>{
+  return this.http.delete(url+'/'+codigo)
+}
 
 }
