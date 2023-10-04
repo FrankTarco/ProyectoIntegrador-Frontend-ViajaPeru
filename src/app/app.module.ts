@@ -17,6 +17,7 @@ import { AddConductorComponent } from './components/add-conductor/add-conductor.
 import { AddEditConductorComponent } from './dialogs/add-edit-conductor/add-edit-conductor.component';
 import { AddTerramozaComponent } from './components/add-terramoza/add-terramoza.component';
 import { AddEditTerramozaComponent } from './dialogs/add-edit-terramoza/add-edit-terramoza.component';
+import { AddEditDestinoComponent } from './dialogs/add-edit-destino/add-edit-destino.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { AddEditTerramozaComponent } from './dialogs/add-edit-terramoza/add-edit
     AddConductorComponent,
     AddEditConductorComponent,
     AddTerramozaComponent,
-    AddEditTerramozaComponent
+    AddEditTerramozaComponent,
+    AddEditDestinoComponent
   ],
   imports: [
     BrowserModule,

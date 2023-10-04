@@ -74,5 +74,5 @@
 
 <div mat-dialog-actions>
     <button mat-raised-button [mat-dialog-close]="false">Cancel</button>
-    <button mat-raised-button color="warn" (click)="insertaConductor()">Guardar</button>
+    <button mat-raised-button color="warn" (click)="insertaConductor()">{{data ? 'Actualizar' : 'Registrar'}}</button>
 </div>

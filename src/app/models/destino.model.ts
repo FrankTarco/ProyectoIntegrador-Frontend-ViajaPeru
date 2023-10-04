@@ -1,8 +1,9 @@
 export class Destino {
 
-    cod_destino?:number
-	nombre?:string
-	sucursal?:string
-	ubicacion?:string
+    cod_destino?:string;
+	nombre?:string;
+	sucursal?:string;
+	ubicacion?:string;
+	estado?:number;
 
 }

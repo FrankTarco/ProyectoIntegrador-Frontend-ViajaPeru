@@ -1,1 +1,79 @@
-Bienvenidos a destinos
+<button mat-raised-button color="warn" class="rounded-circle floating" (click)="openDialog()">
+    <i class="fas fa-solid fa-plus"></i>
+  </button>
+  
+  
+  <div class="row d-flex justify-content-between mb-4">
+      <h5 class="m-4">REGISTRO DE DESTINOS</h5>
+      <img src="../../../assets/img/viajaperulogo.png" alt="" width="300px">
+    </div>
+  
+    <div class="row">
+      <div class="col-md-12">
+        <mat-form-field style="width: 100%;">
+            <mat-label>Filtro</mat-label>
+            <input matInput (keyup)="applyFilter($event)" placeholder="Buscar" #input>
+          </mat-form-field>
+      </div>
+    </div>
+  
+    <div class="mat-elevation-z8">
+      <table mat-table [dataSource]="dataSource" matSort>
+    
+
+        <ng-container matColumnDef="codigo">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Codigo </th>
+          <td mat-cell *matCellDef="let de"> {{de.cod_destino}} </td>
+        </ng-container>
+  
+
+         <ng-container matColumnDef="nombre">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre </th>
+          <td mat-cell *matCellDef="let de"> {{de.nombre}} </td>
+        </ng-container>
+  
+
+           <ng-container matColumnDef="sucursal">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Sucursal </th>
+            <td mat-cell *matCellDef="let de"> {{de.sucursal}} </td>
+          </ng-container>
+  
+
+           <ng-container matColumnDef="ubicacion">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Ubicación </th>
+            <td mat-cell *matCellDef="let de"> {{de.ubicacion}} </td>
+          </ng-container>
+  
+
+          <ng-container matColumnDef="estado">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Estado </th>
+            <ng-container *matCellDef="let de">
+              <td *ngIf="de.estado === 1"> <h5><span class="badge badge-danger">Activo</span></h5> </td>
+              <td *ngIf="de.estado === 0"> <h5><span class="badge badge-danger">Inactivo</span></h5></td>
+            </ng-container>
+          </ng-container>
+  
+        <ng-container matColumnDef="acciones">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Acciones </th>
+          <td mat-cell *matCellDef="let row">
+                    
+            <button mat-mini-fab color="warn" class="m-1" (click)="eliminarDestino(row.cod_destino)">
+              <i class="fas fa-solid fa-trash"></i></button>
+              <button mat-mini-fab color="primary" class="m-1" (click)="openEditDialog(row)">
+                <i class="fas fa-solid fa-pen"></i></button>
+          </td>
+          <td>    
+          </td>
+        </ng-container>
+  
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  
+          <!-- Row shown when there is no matching data. -->
+          <tr class="mat-row" *matNoDataRow>
+            <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+          </tr>
+        </table>
+  
+        <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+      </div>

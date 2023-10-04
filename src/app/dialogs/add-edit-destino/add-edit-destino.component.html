@@ -1,1 +1,56 @@
-<p>add-edit-destino works! a trabajar</p>
+<div mat-dialog-title class="row">
+    <div class="col-md-12"><img src="../../../assets/img/viajaperulogo.png" alt="" width="200px"></div>
+    <div class="col-md-12"><h5 class="m-3">Formulario de destinos</h5></div>
+
+    <mat-divider></mat-divider>
+    
+</div>
+
+<div mat-dialog-content>
+   
+    <div class="row">
+        <mat-form-field appearance="outline" class="p-1" style="width: 100%;">
+            <mat-label>Nombre del destino</mat-label>
+            <input matInput [(ngModel)]="objDestino.nombre" placeholder="Nombre del destino">
+            
+          </mat-form-field>  
+
+    </div>
+
+    <div class="row">
+        <mat-form-field appearance="outline" style="width: 100%;">
+            <mat-label>Sucursal</mat-label>
+            <input matInput [(ngModel)]="objDestino.sucursal" placeholder="Sucursal">
+           
+          </mat-form-field>
+          
+    </div>
+
+    <div class="row">
+          <mat-form-field appearance="outline" class="p-1"style="width: 100%;">
+            <mat-label>Ubicacion</mat-label>
+            <input matInput [(ngModel)]="objDestino.ubicacion" placeholder="Ubicación">
+            
+          </mat-form-field>  
+
+    </div>
+
+    <div class="row">
+        <mat-form-field *ngIf="data" appearance="outline" style="width: 100%;">
+            <mat-label>Estado</mat-label>
+            <mat-select [(ngModel)]="objDestino.estado">
+                <mat-option [value]=-1> [Seleccione] </mat-option>
+                <mat-option [value]=1>Activo</mat-option>
+                <mat-option [value]=0>Inactivo</mat-option>    
+            </mat-select> 
+        </mat-form-field> 
+    </div>
+
+
+</div>
+
+<div mat-dialog-actions>
+    <button mat-raised-button [mat-dialog-close]="false">Cancel</button>
+    <button mat-raised-button color="warn" (click)="registrarDestino()">Guardar</button>
+</div>
+
