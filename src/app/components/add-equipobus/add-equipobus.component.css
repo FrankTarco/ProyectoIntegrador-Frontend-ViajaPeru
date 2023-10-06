@@ -1,0 +1,11 @@
+.floating{
+    position: fixed;
+    z-index: 100;
+    right: 30px;
+    bottom: 50px;
+    transition: 0.5s ease;
+}
+
+.floating:hover{
+    background: rgb(255, 0, 0);
+}

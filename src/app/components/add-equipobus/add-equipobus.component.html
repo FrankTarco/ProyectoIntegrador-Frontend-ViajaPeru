@@ -1,1 +1,74 @@
-<p>add-equipobus works!</p>
+<button mat-raised-button color="warn" class="floating" (click)="registrar()">
+  <i class="fas fa-solid fa-plus"></i> Registrar
+</button>
+
+<div class="row">
+    <div class="col-md-12"><img src="../../../assets/img/viajaperulogo.png" alt="" width="200px"></div>
+    <mat-divider></mat-divider>
+
+
+    <div class="card col-md-3 m-4">
+        <img src="https://www.seguridadvialenlaempresa.com/media/blog/requisitos-conductor-autobus-768x520-1.jpg" style="border-radius: 20px; margin-top: -20px;" alt="...">
+        <div class="card-body">
+          <h5 class="card-title">Chofer</h5>
+          <mat-form-field appearance="outline" style="width: 100%;">
+            <mat-label>Nombre</mat-label>
+            <input matInput placeholder="Placeholder" [disabled]="true" [(ngModel)]="objChofer.nom_chofer">
+          </mat-form-field>   
+
+          <mat-form-field appearance="outline" style="width: 100%; margin-top: -10px;">
+            <mat-label>Documento</mat-label>
+            <input matInput placeholder="Placeholder" [disabled]="true" [(ngModel)]="objChofer.nrodocumento">    
+          </mat-form-field>  
+
+          <mat-form-field appearance="outline" style="width: 100%; margin-top: -10px;">
+            <mat-label>Licencia</mat-label>
+            <input matInput placeholder="Placeholder" [disabled]="true" [(ngModel)]="objChofer.objLicencia!.descripcion">    
+          </mat-form-field>  
+
+          <button mat-raised-button color="warn" (click)="openDialog()">Ver lista</button>
+        </div>
+      </div>
+
+      <div class="card col-md-3 m-4">
+        <img src="https://www.seguridadvialenlaempresa.com/media/blog/requisitos-conductor-autobus-768x520-1.jpg" style="border-radius: 20px;margin-top: -20px;" alt="...">
+        <div class="card-body">
+          <h5 class="card-title">Co-piloto</h5>
+          <mat-form-field appearance="outline" style="width: 100%;">
+            <mat-label>Nombre</mat-label>
+            <input matInput placeholder="Placeholder" [disabled]="true" [(ngModel)]="objCopiloto.nom_chofer">
+          </mat-form-field>   
+
+          <mat-form-field appearance="outline" style="width: 100%; margin-top: -10px;">
+            <mat-label>Documento</mat-label>
+            <input matInput placeholder="Placeholder" [disabled]="true" [(ngModel)]="objCopiloto.nrodocumento">    
+          </mat-form-field>  
+
+          <mat-form-field appearance="outline" style="width: 100%; margin-top: -10px;">
+            <mat-label>Licencia</mat-label>
+            <input matInput placeholder="Placeholder" [disabled]="true" [(ngModel)]="objCopiloto.objLicencia!.descripcion">    
+          </mat-form-field>  
+
+          <button mat-raised-button color="warn" (click)="openCopilotos(objEquipo.codchofer!)">Ver lista</button>
+        </div>
+      </div>
+
+      <div class="card col-md-3 m-4">
+        <img src="https://blog.transporteschiclayo.pe/wp-content/uploads/2023/01/La-rutina-de-un-tripulante-de-servicio-a-bordo.jpg" style="border-radius: 20px;margin-top: -20px;" alt="...">
+        <div class="card-body">
+          <h5 class="card-title">Terramoza</h5>
+          <mat-form-field appearance="outline" style="width: 100%;">
+            <mat-label>Nombre</mat-label>
+            <input matInput placeholder="Placeholder" [disabled]="true" [(ngModel)]="objTerramoza.nombre">
+          </mat-form-field>   
+
+          <mat-form-field appearance="outline" style="width: 100%; margin-top: -10px;">
+            <mat-label>Documento</mat-label>
+            <input matInput placeholder="Placeholder" [disabled]="true" [(ngModel)]="objTerramoza.numerodocumento">    
+          </mat-form-field>  
+
+          <button mat-raised-button color="warn" (click)="openTerramozas()">Ver lista</button>
+        </div>
+      </div>
+
+</div>

@@ -18,6 +18,10 @@ import { AddEditConductorComponent } from './dialogs/add-edit-conductor/add-edit
 import { AddTerramozaComponent } from './components/add-terramoza/add-terramoza.component';
 import { AddEditTerramozaComponent } from './dialogs/add-edit-terramoza/add-edit-terramoza.component';
 import { AddEditDestinoComponent } from './dialogs/add-edit-destino/add-edit-destino.component';
+import { AddEquipobusComponent } from './components/add-equipobus/add-equipobus.component';
+import { ListChoferComponent } from './dialogs/list-chofer/list-chofer.component';
+import { ListCopilotoComponent } from './dialogs/list-copiloto/list-copiloto.component';
+import { ListTerramozaComponent } from './dialogs/list-terramoza/list-terramoza.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +35,11 @@ import { AddEditDestinoComponent } from './dialogs/add-edit-destino/add-edit-des
     AddEditConductorComponent,
     AddTerramozaComponent,
     AddEditTerramozaComponent,
-    AddEditDestinoComponent
+    AddEditDestinoComponent,
+    AddEquipobusComponent,
+    ListChoferComponent,
+    ListCopilotoComponent,
+    ListTerramozaComponent
   ],
   imports: [
     BrowserModule,
