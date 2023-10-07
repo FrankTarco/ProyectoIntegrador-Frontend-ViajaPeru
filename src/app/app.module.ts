@@ -22,6 +22,8 @@ import { AddEquipobusComponent } from './components/add-equipobus/add-equipobus.
 import { ListChoferComponent } from './dialogs/list-chofer/list-chofer.component';
 import { ListCopilotoComponent } from './dialogs/list-copiloto/list-copiloto.component';
 import { ListTerramozaComponent } from './dialogs/list-terramoza/list-terramoza.component';
+import { AddItinerarioComponent } from './components/add-itinerario/add-itinerario.component';
+import { AddEditItinerarioComponent } from './dialogs/add-edit-itinerario/add-edit-itinerario.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +41,9 @@ import { ListTerramozaComponent } from './dialogs/list-terramoza/list-terramoza.
     AddEquipobusComponent,
     ListChoferComponent,
     ListCopilotoComponent,
-    ListTerramozaComponent
+    ListTerramozaComponent,
+    AddItinerarioComponent,
+    AddEditItinerarioComponent
   ],
   imports: [
     BrowserModule,

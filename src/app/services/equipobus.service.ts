@@ -34,4 +34,8 @@ export class EquipobusService {
     return this.http.post(url,obj)
   }
 
+  listarEquipos():Observable<Equipobus[]>{
+    return this.http.get<Equipobus[]>(url)
+  }
+
 }

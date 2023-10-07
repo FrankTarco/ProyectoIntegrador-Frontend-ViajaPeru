@@ -1,0 +1,35 @@
+.floating{
+  position: fixed;
+  z-index: 100;
+  right: 30px;
+  bottom: 50px;
+  height: 65px;
+  transition: 0.5s ease;
+}
+
+.floating:hover{
+  background: rgb(255, 0, 0);
+}
+
+.example-action-buttons {
+    padding-bottom: 20px;
+  }
+  
+  .example-headers-align .mat-expansion-panel-header-description {
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .example-headers-align .mat-mdc-form-field + .mat-mdc-form-field {
+    margin-left: 8px;
+  }
+
+  .title-label{
+    font-size: 18px;
+    font-weight: bold;
+    margin: 10px 10px;
+  }
+
+  .contenido-tabla{
+    margin: 0 10px;
+  }

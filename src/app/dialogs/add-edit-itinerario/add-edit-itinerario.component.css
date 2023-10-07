@@ -1,0 +1,39 @@
+.title-label{
+    font-size: 18px;
+    font-weight: bold;
+    margin: 10px 10px;
+  }
+
+  .contenido-tabla{
+    margin: 0 10px;
+  }
+
+  .input-fecha{
+    position: relative;
+    width: 106%;
+    height: 55px;
+    margin-left: -10px;
+    box-sizing: border-box;
+    border-radius: 6px;
+    font-size: 18px;
+    border: 2px solid gray;
+    background: transparent;
+    color: rgb(49, 49, 49);
+    padding: 10px;
+    outline: none;
+  }
+
+  .input-fecha:focus{
+    border: 2px solid rgb(58, 58, 58);
+  }
+
+  .label-datetime{
+    position: absolute;
+    z-index: 1;
+    top: -10px;
+    left: 15px;
+    font-size: 13px;
+    padding: 0 2px;
+    color: rgb(106, 106, 247);
+    background-color: white;
+  }
