@@ -17,6 +17,10 @@ export class DestinoService {
   listadoDestinos():Observable<any>{
     return this.http.get<Destino[]>(urlBase)
   }
+
+  listadoDestinosDiferente(destino:string):Observable<Destino[]>{
+    return this.http.get<Destino[]>(urlBase+"/buscarDiferente/"+destino)
+  }
   
   registrarDestino(objDestino:Destino):Observable<any>{
     return this.http.post(urlBase,objDestino)

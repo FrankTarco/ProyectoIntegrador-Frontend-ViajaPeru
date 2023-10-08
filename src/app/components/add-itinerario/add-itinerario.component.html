@@ -1,4 +1,95 @@
-<p>add-itinerario works!</p>
 <button mat-raised-button color="warn" class="rounded-circle floating" (click)="openDialog()">
   <i class="fas fa-solid fa-plus"></i>
 </button>
+
+<div class="row d-flex justify-content-between mb-4">
+  <h5 class="m-4">REGISTRO DE ITINERARIOS</h5>
+  <img src="../../../assets/img/viajaperulogo.png" alt="" width="300px">
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <mat-form-field style="width: 100%;">
+        <mat-label>Filtro</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="Buscar" #input>
+      </mat-form-field>
+  </div>
+</div>
+
+<div class="mat-elevation-z8">
+  <table mat-table [dataSource]="dataSource" matSort>
+
+    <!-- ID Column -->
+    <ng-container matColumnDef="codigo">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Codigo </th>
+      <td mat-cell *matCellDef="let b"> {{b.cod_itinerario}} </td>
+    </ng-container>
+
+    <!-- Progress Column -->
+    <ng-container matColumnDef="Salida">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Salida </th>
+      <td mat-cell *matCellDef="let b"> {{b.fecha_salida}} </td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="Llegada">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Llegada </th>
+      <td mat-cell *matCellDef="let b"> {{b.fecha_llegada}} </td>
+    </ng-container>
+
+    <!-- Fruit Column -->
+    <ng-container matColumnDef="Origen">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Origen </th>
+      <td mat-cell *matCellDef="let b"> {{b.objOrigen.nombre}} </td>
+    </ng-container>
+
+    <!-- Fruit Column -->
+    <ng-container matColumnDef="Destino">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Destino </th>
+      <td mat-cell *matCellDef="let b"> {{b.objLlegada.nombre}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="Bus">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Bus </th>
+      <td mat-cell *matCellDef="let b"> {{b.objBus.placa}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="Precio">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Precio </th>
+      <td mat-cell *matCellDef="let b"> {{b.precio}} </td>
+    </ng-container>
+
+    <!-- Fruit Column -->
+    <ng-container matColumnDef="estado">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Estado </th>
+      <ng-container *matCellDef="let b">
+        <td *ngIf="b.estado === 1"> <h5><span class="badge badge-danger">Activo</span></h5> </td>
+        <td *ngIf="b.estado === 0"> <h5><span class="badge badge-danger">Inactivo</span></h5></td>
+      </ng-container>
+    </ng-container>
+
+    <ng-container matColumnDef="acciones">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Acciones </th>
+      <td mat-cell *matCellDef="let b">
+        <button mat-mini-fab color="primary" class="m-1" (click)="openEditDialog(b)">
+          <i class="fas fa-solid fa-pen"></i></button>
+        <button mat-mini-fab color="warn" class="m-1" (click)="eliminarBus(b.cod_itinerario)">
+          <i class="fas fa-solid fa-trash"></i></button>
+      </td>
+     
+      
+      
+    </ng-container>
+
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+    <!-- Row shown when there is no matching data. -->
+    <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+    </tr>
+  </table>
+
+  <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+</div>

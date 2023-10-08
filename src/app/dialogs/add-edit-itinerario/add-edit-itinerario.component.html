@@ -10,17 +10,22 @@
     <div class="row">
         <mat-form-field appearance="outline" class="col-md-6 mt-2 p-1" style="width: 100%;">
             <mat-label>Origen</mat-label>
-            <mat-select>
-                <mat-option [value]=-1> [Seleccione] </mat-option>
-                <mat-option *ngFor="let d of lstDestinos" [value]="d.cod_destino"> {{d.nombre}} - {{d.sucursal}}</mat-option>  
+            <mat-select (selectionChange)="llenarDestinos()" [(ngModel)]="objItinerario.codorigen">
+                <ng-container *ngFor="let d of lstOrigen">
+                    <mat-option  *ngIf="d.nombre === 'Lima'" [value]="d.cod_destino"> {{d.nombre}} - {{d.sucursal}} </mat-option>
+                    <mat-option  *ngIf="d.nombre !='Lima'" [value]="d.cod_destino"> {{d.nombre}} </mat-option>
+                </ng-container>    
             </mat-select> 
         </mat-form-field> 
 
         <mat-form-field appearance="outline" class="col-md-6 mt-2 p-1" style="width: 100%;">
             <mat-label>Destino</mat-label>
-            <mat-select>
-                <mat-option [value]=-1> [Seleccione] </mat-option>
-
+            <mat-select [(ngModel)]="objItinerario.codllegada">
+                <mat-option value="-1"> [Seleccione] </mat-option>
+                <ng-container *ngFor="let de of lstDestinos">
+                    <mat-option  *ngIf="de.nombre === 'Lima'" [value]="de.cod_destino"> {{de.nombre}} - {{de.sucursal}} </mat-option>
+                    <mat-option  *ngIf="de.nombre !='Lima'" [value]="de.cod_destino"> {{de.nombre}} </mat-option>
+                </ng-container>         
             </mat-select> 
         </mat-form-field> 
     </div>
@@ -28,12 +33,12 @@
     <div class="row" style="margin-top: -15px;">
         <div class="col-md-6">
             <label for="" class="label-datetime">Fecha y hora de salida</label>
-            <input type="datetime-local" class="input-fecha mb-1" placeholder="Seleccione fecha"> 
+            <input type="datetime-local" class="input-fecha mb-1" placeholder="Seleccione fecha" [(ngModel)]="objItinerario.fecha_salida"> 
         </div>
         
         <div class="col-md-6">
             <label for="" class="label-datetime">Fecha y hora de llegada</label>
-            <input type="datetime-local" class="input-fecha mb-1" placeholder="Seleccione fecha"> 
+            <input type="datetime-local" class="input-fecha mb-1" placeholder="Seleccione fecha" [(ngModel)]="objItinerario.fecha_llegada"> 
         </div>
 
     </div>
@@ -42,7 +47,7 @@
     <div class="row">
         <mat-form-field appearance="outline" class="col-md-6 p-1" style="width: 100%;">
             <mat-label>Bus</mat-label>
-            <mat-select>
+            <mat-select [(ngModel)]="objItinerario.codbus">
                 <mat-option [value]=-1> [Seleccione] </mat-option>
                 <mat-option *ngFor="let b of lstBuses" [value]="b.cod_bus"> {{b.placa}} | Asientos: {{b.total_pasajeros}}</mat-option> 
             </mat-select> 
@@ -50,7 +55,7 @@
         
         <mat-form-field appearance="outline" class="col-md-6 p-1" style="width: 100%;">
             <mat-label>Precio S/.</mat-label>
-            <input matInput placeholder="Placeholder">
+            <input matInput placeholder="Placeholder" [(ngModel)]="objItinerario.precio">
            
           </mat-form-field>
 
@@ -119,6 +124,6 @@
 
 <div mat-dialog-actions>
     <button mat-raised-button type="button" [mat-dialog-close]="false" >Cancel</button>
-    <button mat-raised-button color="warn">Registrar</button>
+    <button mat-raised-button color="warn" (click)="registrar()">Registrar</button>
 </div>
 
