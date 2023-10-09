@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { Destino } from 'src/app/models/destino.model';
+import { Itinerario } from 'src/app/models/itinerario.model';
 import { DestinoService } from 'src/app/services/destino.service';
+import { ItinerarioService } from 'src/app/services/itinerario.service';
 
 @Component({
   selector: 'app-add-venta',
@@ -9,7 +12,50 @@ import { DestinoService } from 'src/app/services/destino.service';
 })
 export class AddVentaComponent {
 
-  lstDestinos:Destino[] = []
+  lstOrigenes:string[] = []
+  lstLlegadas:string[] = []
+  lstItinerarios:Itinerario[] = []
+
+  origen:string="-1"
+  llegada:string="-1"
+  fecha:string=""
+
+
+  constructor(private itinerarioService:ItinerarioService,private router:Router){
+    itinerarioService.listarDestinos().subscribe(
+      x =>{
+        this.lstOrigenes = x
+      }
+    )
+  }
+
+  llenarLlegadas(){
+    this.itinerarioService.listarDestinosDiferentes(this.origen).subscribe(
+      l =>{
+        this.lstLlegadas = l
+      }
+    )
+  }
+
+  buscarItinerario(){
+    localStorage.setItem("origen",this.origen)
+    localStorage.setItem("llegada",this.llegada)
+    localStorage.setItem("fecha",this.formatearFecha(this.fecha))
+    this.router.navigate(["viajes"])
+  }
+
+
+
+  formatearFecha(fechaTrabajar:string):string{
+    let formaNueva = new Date(fechaTrabajar);
+    formaNueva.setDate(formaNueva.getDate()+1) 
+    let año = formaNueva.getFullYear();
+    let mes = ('0' + (formaNueva.getMonth() + 1)).slice(-2);  // +1 porque los meses son indexados desde 0
+    let dia = ('0' + formaNueva.getDate()).slice(-2);
+    // Construir la cadena en el formato deseado (yyyy-MM-dd)
+    let fechaFormateada = `${año}-${mes}-${dia}`;
+    return fechaFormateada
+  }
 
   cambioSelect(selectedValue: string): void {
     // Realiza acciones basadas en el valor seleccionado
@@ -22,11 +68,7 @@ export class AddVentaComponent {
     }
   }
 
-  constructor(private serviceDestino:DestinoService){
-    serviceDestino.listadoDestinos().subscribe(
-      d => this.lstDestinos = d
-    );
-  }
+  
 
 
 }

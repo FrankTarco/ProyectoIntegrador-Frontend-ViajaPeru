@@ -24,6 +24,7 @@ import { ListCopilotoComponent } from './dialogs/list-copiloto/list-copiloto.com
 import { ListTerramozaComponent } from './dialogs/list-terramoza/list-terramoza.component';
 import { AddItinerarioComponent } from './components/add-itinerario/add-itinerario.component';
 import { AddEditItinerarioComponent } from './dialogs/add-edit-itinerario/add-edit-itinerario.component';
+import { AddViajesDisponiblesComponent } from './components/add-viajes-disponibles/add-viajes-disponibles.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { AddEditItinerarioComponent } from './dialogs/add-edit-itinerario/add-ed
     ListCopilotoComponent,
     ListTerramozaComponent,
     AddItinerarioComponent,
-    AddEditItinerarioComponent
+    AddEditItinerarioComponent,
+    AddViajesDisponiblesComponent
   ],
   imports: [
     BrowserModule,

@@ -29,5 +29,17 @@ export class ItinerarioService {
     return this.http.delete(url+'/'+codigo)
   }
 
+  listarDestinos():Observable<any>{
+    return this.http.get(url+'/destinos')
+  }
+
+  listarDestinosDiferentes(origen:string):Observable<any>{
+    return this.http.get(url+'/destinos/'+origen)
+  }
+
+  listarItinerariosCliente(origen:string,llegada:string,fecha:string):Observable<Itinerario[]>{
+    return this.http.get<Itinerario[]>(url+'/disponible?origen='+origen+'&llegada='+llegada+'&fecha='+fecha)
+  }
+
 
 }
