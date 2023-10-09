@@ -28,6 +28,8 @@ import { ProdInterceptorService } from './interceptors/prod-interceptor.service'
 import { AddLoginComponent } from './components/add-login/add-login.component';
 import { AddViajesDisponiblesComponent } from './components/add-viajes-disponibles/add-viajes-disponibles.component';
 import { AddSeleccionAsientosComponent } from './components/add-seleccion-asientos/add-seleccion-asientos.component';
+import { AddVentaClienteComponent } from './components/add-venta-cliente/add-venta-cliente.component';
+import { AddPagoClienteComponent } from './dialogs/add-pago-cliente/add-pago-cliente.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +52,9 @@ import { AddSeleccionAsientosComponent } from './components/add-seleccion-asient
     AddEditItinerarioComponent,
     AddLoginComponent,
     AddViajesDisponiblesComponent,
-    AddSeleccionAsientosComponent
+    AddSeleccionAsientosComponent,
+    AddVentaClienteComponent,
+    AddPagoClienteComponent
   ],
   imports: [
     BrowserModule,

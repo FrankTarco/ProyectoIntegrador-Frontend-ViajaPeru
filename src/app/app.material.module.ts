@@ -21,6 +21,7 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatDividerModule} from '@angular/material/divider';
+import {MatButtonToggleModule} from '@angular/material/button-toggle';
 
 
 
@@ -47,7 +48,8 @@ import {MatDividerModule} from '@angular/material/divider';
         MatSlideToggleModule,
         MatAutocompleteModule,
         MatSidenavModule,
-        MatDividerModule
+        MatDividerModule,
+        MatButtonToggleModule
     ]
 })
 export class AppMaterialModule{

@@ -1,0 +1,184 @@
+<body>
+
+    <header class="bg_animate" style="height: 400px;">
+      <div class="header_nav">
+          <div class="contenedor">
+              <img src="../../../assets/img/viajaperulogo.png" alt="" class="bg-bus">                
+          </div>
+      </div>
+
+      <section class="banner contenedor">
+          <section class="banner_title">
+              <h2>Selecciona tus asientos</h2>
+              <p><strong>Smartbus</strong> el negocio que necesitas para viajar sin hacer largas colas y gastar mucho</p>
+          </section>
+          <div class="banner_img">    
+              <img src="../../../assets/img/select-asiento.svg" alt="" style="width: 500px;">
+          </div>
+      </section>
+
+      <div class="burbujas">
+          <div class="burbuja"></div>
+          <div class="burbuja"></div>
+          <div class="burbuja"></div>
+          <div class="burbuja"></div>
+          <div class="burbuja"></div>
+          <div class="burbuja"></div>
+          <div class="burbuja"></div>
+          <div class="burbuja"></div>
+          <div class="burbuja"></div>
+          <div class="burbuja"></div>
+      </div>
+  </header>
+      <div class="p-1 bg-white">
+              
+        <div class="container">
+
+          <div class="row mt-4">
+            <div class="col-xl-8 col-lg-7">
+                <div class="card border mat-elevation-z4 b-4" style="border-radius: 10px;">
+                    <!-- Card Header - Dropdown -->
+                    <div class="card-header py-3 bg-white border-bottom">
+                        <h6 class="m-0 font-weight-bold text-dark">Contacto</h6>
+                    </div>
+                    <!-- Card Body -->
+                    <div class="card-body mt-2">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p style="background: rgba(255, 0, 0, 0.493);padding: 10px;border-radius: 10px;border: 1px solid red; text-align: center;">Sus boletos y recibos seran enviados a la direccion de correcto electronico que indique en este formumario</p>
+                            </div>
+
+                            <div class="col-md-6">
+                                <mat-form-field appearance="outline" style="width: 100%;">
+                                    <mat-label>Correo electronico</mat-label>
+                                    <input matInput placeholder="Placeholder">                    
+                                  </mat-form-field>
+                            </div>
+
+                            <div class="col-md-6">
+                                <mat-form-field appearance="outline" style="width: 100%;">
+                                    <mat-label>Numero de telefono</mat-label>
+                                    <input matInput placeholder="Placeholder">                    
+                                  </mat-form-field>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card border mat-elevation-z4 mt-4" style="border-radius: 10px;">
+                    <!-- Card Header - Dropdown -->
+                    <div class="card-header py-3 bg-white border-bottom">
+                        <h6 class="m-0 font-weight-bold text-dark">Facturación</h6>
+                    </div>
+                    <!-- Card Body -->
+                    <div class="card-body mt-2">
+                        <div class="row">
+                            <div class="col-md-12">
+                        
+                                <section>
+                                    <p>Eliga el tipo de comprobante que desee</p>
+                                    <mat-button-toggle-group [formControl]="fontStyleControl" aria-label="Font Style">
+                                      <mat-button-toggle value="Boleta" style="background: red;width: 150px;border-radius: 20px; color: white;font-weight: bold;">Boleta</mat-button-toggle>
+                                      <mat-button-toggle value="Factura" style="background: white;width: 150px;border-radius: 20px;border:2px solid red;margin-left: -25px;z-index:-1;">Factura</mat-button-toggle>
+                                    </mat-button-toggle-group>
+                                    <p>Usted eleigio {{fontStyleControl.value}}</p>
+                                  </section>  
+                            
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card border mat-elevation-z4 mt-4" style="border-radius: 10px;">
+                    <!-- Card Header - Dropdown -->
+                    <div class="card-header py-3 bg-white border-bottom">
+                        <h6 class="m-0 font-weight-bold text-dark">Medio de pago</h6>
+                    </div>
+                    <!-- Card Body -->
+                    <div class="card-body mt-2">
+                        <div class="row">
+                            <div class="col-md-12">             
+                                <section>
+                                    <p><mat-checkbox>* Al hacer clic acepta y confirma haber leido los terminos y condiciones de <i class="text-danger">Viaja Perú</i> </mat-checkbox></p>
+                                  </section>             
+                            </div>
+
+                            <div class="d-flex justify-content-center">
+
+                           <div class="card mat-elevation-z4 col-md-5" style="margin: 0 10px;">
+                                <div class="d-flex justify-content-center">
+                                    <img src="https://png.pngtree.com/png-vector/20230407/ourlarge/pngtree-credit-card-flat-icon-vector-png-image_6680107.png" width="50%" alt="">
+                                </div>
+                                <p class="text-center">Tarjeta de credito, debito o Yape</p>
+                            
+                            </div>
+
+                            <div class="card mat-elevation-z4 col-md-5 p-1" style="margin: 0 10px;">
+                                <div class="d-flex justify-content-center">
+                                    <img src="https://www.bbva.pe/content/dam/public-web/peru/images/icons/BBVA_960X350.im1620419503568im.png" width="100%" class="mt-3" alt="">
+                                </div>
+                                <p class="text-center">Efectivo, transferencia</p>
+                            
+                            </div>
+
+                            </div>
+
+                            <div class="col-md-12 mt-4 d-flex justify-content-center">
+                                <button mat-raised-button color="warn" (click)="openDialog()">PAGUE AQUI</button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+    
+            <div class="col-xl-4 col-lg-5">
+                <div class="row">
+
+                  <div class="col-xl-12 col-lg-12">
+                    <div class="card mat-elevation-z4 mb-4" style="border-radius: 10px;">
+                    <!-- Card Header - Dropdown -->
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold">Detalle del viaje</h6>
+                    </div>
+                    <!-- Card Body -->
+                    <div class="card-body">
+                        <div class="d-flex justify-content-end mt-2">
+                          <p style="background: rgba(223, 0, 0, 0.836); padding: 4px; border-radius: 10px; color: white;"><strong>Saliente .</strong><i>Miercoles 30 de agosto</i></p>
+                        </div>
+
+                        <div class="d-flex justify-content-start">
+                            <p><strong>20.40 PM</strong></p> <i class="fa fa-street-view" style="font-size: 30px;"></i> <p style="margin-left: 4px;"><strong>Lima</strong><br> Plaza norte</p>
+                        </div>
+                        <div class="d-flex justify-content-start">
+                          <p><strong>10.00 PM</strong></p> <i class="fa fa-compass" style="color: rgb(209, 0, 0); font-size: 30px;"></i> <p style="margin-left: 4px;"><strong>Huarmey</strong><br> Parque industrial</p>
+                      </div>
+
+                        <div id="" class='d-flex justify-content-between border-bottom mt-2'><p>Pasajero 01 - Asiento 10</p> <p class='text-secondary'><strong>S/.50</strong></p></div>
+                        <div id="" class='d-flex justify-content-between border-bottom mt-2'><p>Pasajero 02 - Asiento 10</p> <p class='text-secondary'><strong>S/.50</strong></p></div>
+                        <div id="" class='d-flex justify-content-between border-bottom mt-2'><p>Pasajero 03 - Asiento 10</p> <p class='text-secondary'><strong>S/.50</strong></p></div>
+
+                        <div id="prefinal" class="d-flex justify-content-between mt-2">
+                            <p><strong>Total.</strong></p> <p><strong>S/. 150.00</strong></p>
+                        </div>
+                        
+                    </div>
+                </div>
+              </div>
+                              
+             </div>
+
+                
+            </div>
+    
+        </div>
+    
+        </div>
+
+      </div>
+
+  </body>
+
