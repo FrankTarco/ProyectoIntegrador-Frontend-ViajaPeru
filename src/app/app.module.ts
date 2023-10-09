@@ -25,6 +25,9 @@ import { ListTerramozaComponent } from './dialogs/list-terramoza/list-terramoza.
 import { AddItinerarioComponent } from './components/add-itinerario/add-itinerario.component';
 import { AddEditItinerarioComponent } from './dialogs/add-edit-itinerario/add-edit-itinerario.component';
 import { ProdInterceptorService } from './interceptors/prod-interceptor.service';
+import { AddLoginComponent } from './components/add-login/add-login.component';
+import { AddViajesDisponiblesComponent } from './components/add-viajes-disponibles/add-viajes-disponibles.component';
+import { AddSeleccionAsientosComponent } from './components/add-seleccion-asientos/add-seleccion-asientos.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +47,10 @@ import { ProdInterceptorService } from './interceptors/prod-interceptor.service'
     ListCopilotoComponent,
     ListTerramozaComponent,
     AddItinerarioComponent,
-    AddEditItinerarioComponent
+    AddEditItinerarioComponent,
+    AddLoginComponent,
+    AddViajesDisponiblesComponent,
+    AddSeleccionAsientosComponent
   ],
   imports: [
     BrowserModule,
