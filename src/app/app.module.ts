@@ -24,6 +24,8 @@ import { ListCopilotoComponent } from './dialogs/list-copiloto/list-copiloto.com
 import { ListTerramozaComponent } from './dialogs/list-terramoza/list-terramoza.component';
 import { AddItinerarioComponent } from './components/add-itinerario/add-itinerario.component';
 import { AddEditItinerarioComponent } from './dialogs/add-edit-itinerario/add-edit-itinerario.component';
+import { AddLoginComponent } from './components/add-login/add-login.component';
+import { ProdInterceptorService } from './interceptors/prod-interceptor.service';
 
 @NgModule({
   declarations: [
@@ -43,7 +45,8 @@ import { AddEditItinerarioComponent } from './dialogs/add-edit-itinerario/add-ed
     ListCopilotoComponent,
     ListTerramozaComponent,
     AddItinerarioComponent,
-    AddEditItinerarioComponent
+    AddEditItinerarioComponent,
+    AddLoginComponent
   ],
   imports: [
     BrowserModule,
@@ -56,7 +59,9 @@ import { AddEditItinerarioComponent } from './dialogs/add-edit-itinerario/add-ed
     CommonModule,
     MatIconModule
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: ProdInterceptorService, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -6,14 +6,16 @@ import { AddDestinoComponent } from './components/add-destino/add-destino.compon
 import { AddIndexComponent } from './components/add-index/add-index.component';
 import { AddMenuComponent } from './components/add-menu/add-menu.component';
 import { AddBusComponent } from './components/add-bus/add-bus.component';
+import { authGuard } from './helpers/auth.guard';
+import { loginGuard } from './helpers/login.guard';
 
 const routes: Routes = [
 {path:"index",component:AddVentaComponent},
 {path:"",component:AddIndexComponent},
 {path:"destino",component:AddDestinoComponent},
-{path:"login",component:AddLoginComponent},
+{path:"login",component:AddLoginComponent, canActivate:[loginGuard]},
 {path:"verBus",component:AddBusComponent},
-{path:"app", component:AddMenuComponent}
+{path:"app", component:AddMenuComponent , canActivate:[authGuard]}
 
 ];
 
