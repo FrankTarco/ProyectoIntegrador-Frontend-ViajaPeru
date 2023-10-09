@@ -20,7 +20,7 @@
         src="https://source.unsplash.com/c_GmwfHBDzk/200x200"
       />
   
-      <h4 class="name">John Smith</h4>
+      <h6 class="name">{{nombreUsuario}}</h6>
       <p class="designation">Software Engineer</p>
   
       <mat-divider></mat-divider>
@@ -51,6 +51,8 @@
       <button mat-button class="menu-button" (click)="cambiarElemento('venta')">
         <span>Ventas</span>
       </button>
+      <mat-divider></mat-divider>
+      <button class="boton-apagar" (click)="onLogOut()"> <i class="fa fa-power-off"></i> Salir</button>
 
     </mat-sidenav>
     <mat-sidenav-content>
