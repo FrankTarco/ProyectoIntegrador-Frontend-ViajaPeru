@@ -21,7 +21,7 @@ export class AddViajesDisponiblesComponent implements OnInit{
   fechaSalida:string=localStorage.getItem("fecha")!
 
   constructor(private router:Router,private itinerarioService:ItinerarioService){
-
+    
     itinerarioService.listarDestinos().subscribe(
       x=>{
         this.lstOrigenes = x
@@ -39,6 +39,7 @@ export class AddViajesDisponiblesComponent implements OnInit{
 
 
   ngOnInit(): void {
+    console.log(this.origen,this.llegada,this.fechaSalida)
     this.listarItinerarios();
   }
 
