@@ -6,6 +6,8 @@ import { MatTableDataSource } from '@angular/material/table';
 import { AddEditDestinoComponent } from 'src/app/dialogs/add-edit-destino/add-edit-destino.component';
 import { DestinoService } from 'src/app/services/destino.service';
 import Swal from 'sweetalert2';
+import jspdf from 'jspdf';
+import { ImpresionService } from 'src/app/services/impresion.service';
 
 @Component({
   selector: 'app-add-destino',
@@ -20,7 +22,7 @@ export class AddDestinoComponent {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private destinoService:DestinoService,private dialog:MatDialog){}
+  constructor(private destinoService:DestinoService,private dialog:MatDialog,private impresionService:ImpresionService){}
 
 
   openDialog(){
@@ -80,5 +82,16 @@ export class AddDestinoComponent {
         this.dataSource.paginator.firstPage();
       }
     }
+
+    imprimirPdf(){
+      const encabezado = ['Nombre', 'Sucursal','Ubicacion']
+      const cuerpo = this.dataSource.data.map(destino => [
+        destino.nombre,
+        destino.sucursal,
+        destino.ubicacion
+      ]);
+      const doc = new jspdf();
+          this.impresionService.imprimir(encabezado, cuerpo, 'Reporte de Destinos', true)
+      }
 
 }
