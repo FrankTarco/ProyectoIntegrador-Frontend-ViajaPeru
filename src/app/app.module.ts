@@ -32,6 +32,7 @@ import { AddViajesDisponiblesComponent } from './components/add-viajes-disponibl
 import { AddSeleccionAsientosComponent } from './components/add-seleccion-asientos/add-seleccion-asientos.component';
 import { AddVentaClienteComponent } from './components/add-venta-cliente/add-venta-cliente.component';
 import { AddPagoClienteComponent } from './dialogs/add-pago-cliente/add-pago-cliente.component';
+import { AddVentaPasajeroComponent } from './components/add-venta-pasajero/add-venta-pasajero.component';
 
 registerLocaleData(localeES);
 
@@ -58,7 +59,8 @@ registerLocaleData(localeES);
     AddViajesDisponiblesComponent,
     AddSeleccionAsientosComponent,
     AddVentaClienteComponent,
-    AddPagoClienteComponent
+    AddPagoClienteComponent,
+    AddVentaPasajeroComponent
   ],
   imports: [
     BrowserModule,

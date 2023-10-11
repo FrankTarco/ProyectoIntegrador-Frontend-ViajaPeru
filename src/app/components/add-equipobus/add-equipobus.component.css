@@ -1,7 +1,7 @@
 .floating{
     position: fixed;
     z-index: 100;
-    right: 30px;
+    right: 100px;
     bottom: 50px;
     transition: 0.5s ease;
 }

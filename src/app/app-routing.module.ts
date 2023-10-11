@@ -11,6 +11,7 @@ import { loginGuard } from './helpers/login.guard';
 import { AddViajesDisponiblesComponent } from './components/add-viajes-disponibles/add-viajes-disponibles.component';
 import { AddSeleccionAsientosComponent } from './components/add-seleccion-asientos/add-seleccion-asientos.component';
 import { AddVentaClienteComponent } from './components/add-venta-cliente/add-venta-cliente.component';
+import { AddVentaPasajeroComponent } from './components/add-venta-pasajero/add-venta-pasajero.component';
 
 const routes: Routes = [
 {path:"index",component:AddVentaComponent},
@@ -21,7 +22,8 @@ const routes: Routes = [
 {path:"login",component:AddLoginComponent, canActivate:[loginGuard]},
 {path:"verBus",component:AddBusComponent},
 {path:"app", component:AddMenuComponent , canActivate:[authGuard]},
-{path:"ventacliente",component:AddVentaClienteComponent}
+{path:"ventacliente",component:AddVentaClienteComponent},
+{path:"pasajeros",component:AddVentaPasajeroComponent}
 ];
 
 @NgModule({
