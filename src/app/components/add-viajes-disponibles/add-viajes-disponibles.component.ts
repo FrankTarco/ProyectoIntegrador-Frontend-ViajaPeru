@@ -1,6 +1,7 @@
-import { Component,OnInit } from '@angular/core';
+import { Component,OnInit,Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { Itinerario } from 'src/app/models/itinerario.model';
+import { EnvioDatosItinerarioService } from 'src/app/services/envio-datos-itinerario.service';
 import { ItinerarioService } from 'src/app/services/itinerario.service';
 
 @Component({
@@ -9,6 +10,8 @@ import { ItinerarioService } from 'src/app/services/itinerario.service';
   styleUrls: ['./add-viajes-disponibles.component.css']
 })
 export class AddViajesDisponiblesComponent implements OnInit{
+
+  dataEntrante:any = {}
 
 
   lstOrigenes:string[]=[]
@@ -20,7 +23,7 @@ export class AddViajesDisponiblesComponent implements OnInit{
   llegada:string=localStorage.getItem("llegada")!
   fechaSalida:string=localStorage.getItem("fecha")!
 
-  constructor(private router:Router,private itinerarioService:ItinerarioService){
+  constructor(private router:Router,private itinerarioService:ItinerarioService, private servicioDatos:EnvioDatosItinerarioService){
     
     itinerarioService.listarDestinos().subscribe(
       x=>{
@@ -41,6 +44,11 @@ export class AddViajesDisponiblesComponent implements OnInit{
   ngOnInit(): void {
     console.log(this.origen,this.llegada,this.fechaSalida)
     this.listarItinerarios();
+  }
+
+  enviarData(codigo:string){
+    localStorage.setItem("itinerario",codigo)
+    this.router.navigate(["asientoselect"])
   }
 
   listarItinerarios(){

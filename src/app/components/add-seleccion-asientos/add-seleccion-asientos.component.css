@@ -241,3 +241,22 @@ body{
     transform: scale(1.1,1.1);
     box-shadow: 0.5px 0.5px 10px 2px rgba(0, 0, 0,0.5);
 }
+
+.btn-bus:disabled{
+    position: relative;
+}
+
+.btn-bus:disabled::before{
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(255, 255, 255, 0.7); /* Color de superposición para simular desactivado */
+  z-index: 1;
+}
+
+.btn-bus:disabled:hover{
+    box-shadow: none;
+}

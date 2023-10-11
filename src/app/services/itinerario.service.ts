@@ -41,5 +41,9 @@ export class ItinerarioService {
     return this.http.get<Itinerario[]>(url+'/disponible?origen='+origen+'&llegada='+llegada+'&fecha='+fecha)
   }
 
+  itinerarioPorCodigo(codigo:string):Observable<Itinerario>{
+    return this.http.get(url+'/'+codigo)
+  }
+
 
 }

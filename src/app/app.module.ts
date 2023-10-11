@@ -1,4 +1,6 @@
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
+import { registerLocaleData } from '@angular/common';
+import localeES from '@angular/common/locales/es'
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule} from '@angular/forms';
@@ -30,6 +32,8 @@ import { AddViajesDisponiblesComponent } from './components/add-viajes-disponibl
 import { AddSeleccionAsientosComponent } from './components/add-seleccion-asientos/add-seleccion-asientos.component';
 import { AddVentaClienteComponent } from './components/add-venta-cliente/add-venta-cliente.component';
 import { AddPagoClienteComponent } from './dialogs/add-pago-cliente/add-pago-cliente.component';
+
+registerLocaleData(localeES);
 
 @NgModule({
   declarations: [
@@ -68,6 +72,7 @@ import { AddPagoClienteComponent } from './dialogs/add-pago-cliente/add-pago-cli
     MatIconModule
   ],
   providers: [
+    { provide: LOCALE_ID, useValue: 'es'},
     { provide: HTTP_INTERCEPTORS, useClass: ProdInterceptorService, multi: true }
   ],
   bootstrap: [AppComponent]
