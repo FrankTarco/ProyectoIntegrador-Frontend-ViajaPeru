@@ -254,9 +254,12 @@ body{
   left: 0;
   right: 0;
   background-color: rgba(255, 255, 255, 0.7); /* Color de superposición para simular desactivado */
+  content: 'X';
+  font-size: 35px;
   z-index: 1;
 }
 
 .btn-bus:disabled:hover{
     box-shadow: none;
+    transform: none;
 }

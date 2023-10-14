@@ -9,7 +9,7 @@
     <div class="row">
            <mat-form-field appearance="outline" style="width: 100%;">
                 <mat-label>Numero de tarjeta</mat-label>
-                <input matInput placeholder="Placeholder">
+                <input matInput placeholder="Placeholder" [(ngModel)]="objPago.numero_tarjeta">
               </mat-form-field>
     </div>
 
@@ -27,23 +27,35 @@
     </div>
 
     <div class="row">
-        <mat-form-field appearance="outline"  style="width: 100%;">
-             <mat-label>Tipo de documento</mat-label>
-             <input matInput placeholder="Placeholder">
-           </mat-form-field>
+           <mat-form-field appearance="outline" class="p-1">
+            <mat-label>Tipo de Documento</mat-label>
+            <mat-select [(ngModel)]="objCliente.cod_tipodocumento">
+                <mat-option [value]="-1"> [Seleccione] </mat-option>
+                <mat-option  *ngFor="let x of lstDocumentos" [value]="x.cod_tipodocumento">
+                    {{x.descripcion}}
+                </mat-option>   
+            </mat-select> 
+        </mat-form-field> 
+
+        <mat-form-field appearance="outline" class="p-1">
+            <mat-label>Número de Documento</mat-label>
+            <input matInput placeholder="Número de Documento" [(ngModel)]="objCliente.numeroDocumento">
+            
+          </mat-form-field>  
+
     </div>
 
     <div class="row">
         <mat-form-field appearance="outline" style="width: 100%;">
              <mat-label>Nombre o Razon social</mat-label>
-             <input matInput placeholder="Placeholder">
+             <input matInput placeholder="Placeholder" [(ngModel)]="objCliente.nombre">
            </mat-form-field>
     </div>
 
 </div>
 
 <div mat-dialog-actions>
-    <button mat-raised-button color="warn" class="mb-3" style="width: 100%;height: 45px;"> Pagar S/.150</button>
+    <button mat-raised-button color="warn" class="mb-3" style="width: 100%;height: 45px;" (click)="concretarRegistro()"> Pagar S/.{{total}}</button>
 </div>
 
 </div>

@@ -13,6 +13,8 @@ export class AddViajesDisponiblesComponent implements OnInit{
 
   dataEntrante:any = {}
 
+  fechaActual:Date = new Date();
+
 
   lstOrigenes:string[]=[]
   lstLlegadas:string[]=[]
@@ -46,9 +48,24 @@ export class AddViajesDisponiblesComponent implements OnInit{
     this.listarItinerarios();
   }
 
-  enviarData(codigo:string){
-    localStorage.setItem("itinerario",codigo)
+  enviarData(data:any){
+    let itidata = JSON.parse(localStorage.getItem("itinerario")!)
+    if (data.cod_itinerario == itidata.cod_itinerario){
+      this.router.navigate(["asientoselect"])
+    }
+    else{
+    //PRIMERO LIMPIAR LA MEMORIA Y SOLO DEJAR LOS DATOS PARA EL FILTRO DEL ITINERARIO
+    localStorage.removeItem("lstPasajeros");
+    localStorage.removeItem("asientos");
+    localStorage.removeItem("lstBoletos");
+    localStorage.removeItem("itinerario");
+    
+    //luego procede a esto
+    localStorage.setItem("itinerario",JSON.stringify(data));
     this.router.navigate(["asientoselect"])
+
+    }
+
   }
 
   listarItinerarios(){
@@ -67,6 +84,12 @@ export class AddViajesDisponiblesComponent implements OnInit{
     // Construir la cadena en el formato deseado (yyyy-MM-dd)
     let fechaFormateada = `${año}-${mes}-${dia}`;
     return fechaFormateada
+  }
+
+
+  consultarItinerarios(){
+    this.listarItinerarios();
+    console.log(this.fechaActual)
   }
 
 

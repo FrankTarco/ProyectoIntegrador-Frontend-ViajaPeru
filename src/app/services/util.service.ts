@@ -7,6 +7,7 @@ import { Servicio } from '../models/servicio.model';
 
 import { Licencia } from '../models/licencia.model';
 import { TipoDocumento } from '../models/tipodocumento.model';
+import { Boleto } from '../models/boleto.model';
 
 const url = AppSettings.API_ENDPOINT+'/util';
 
@@ -32,6 +33,10 @@ export class UtilService {
 
   listarLicencia():Observable<Licencia[]>{
     return this.http.get<Licencia[]>(url+'/lista/licencia')
+  }
+
+  listarBoletosVendidos(codigo:string):Observable<number[]>{
+    return this.http.get<any>(url+'/lista/boletos/'+codigo)
   }
 
 }

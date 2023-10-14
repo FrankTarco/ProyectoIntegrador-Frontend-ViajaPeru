@@ -51,7 +51,7 @@
                             <div class="col-md-6">
                                 <mat-form-field appearance="outline" style="width: 100%;">
                                     <mat-label>Correo electronico</mat-label>
-                                    <input matInput placeholder="Placeholder">                    
+                                    <input matInput placeholder="Placeholder" [(ngModel)]="correoCliente">                    
                                   </mat-form-field>
                             </div>
 
@@ -106,7 +106,7 @@
 
                             <div class="d-flex justify-content-center">
 
-                           <div class="card mat-elevation-z4 col-md-5" style="margin: 0 10px;">
+                           <div class="card mat-elevation-z4 col-md-5" style="margin: 0 10px;" (click)="verDataElegida()">
                                 <div class="d-flex justify-content-center">
                                     <img src="https://png.pngtree.com/png-vector/20230407/ourlarge/pngtree-credit-card-flat-icon-vector-png-image_6680107.png" width="50%" alt="">
                                 </div>
@@ -147,23 +147,33 @@
                     <!-- Card Body -->
                     <div class="card-body">
                         <div class="d-flex justify-content-end mt-2">
-                          <p style="background: rgba(223, 0, 0, 0.836); padding: 4px; border-radius: 10px; color: white;"><strong>Saliente .</strong><i>Miercoles 30 de agosto</i></p>
+                          <p style="background: rgba(223, 0, 0, 0.836); padding: 4px; border-radius: 10px; color: white;"><strong>Saliente .</strong><i>{{objItinerario.fecha_salida | date:'EEEE d \'de\' MMMM'}}</i></p>
                         </div>
 
                         <div class="d-flex justify-content-start">
-                            <p><strong>20.40 PM</strong></p> <i class="fa fa-street-view" style="font-size: 30px;"></i> <p style="margin-left: 4px;"><strong>Lima</strong><br> Plaza norte</p>
+                            <p><strong>{{objItinerario.fecha_salida | date:'hh:mm a'}}</strong></p> <i class="fa fa-street-view" style="font-size: 30px;"></i> <p style="margin-left: 4px;"><strong>{{objItinerario.objOrigen!.nombre}}</strong><br> {{objItinerario.objOrigen!.sucursal}}</p>
                         </div>
                         <div class="d-flex justify-content-start">
-                          <p><strong>10.00 PM</strong></p> <i class="fa fa-compass" style="color: rgb(209, 0, 0); font-size: 30px;"></i> <p style="margin-left: 4px;"><strong>Huarmey</strong><br> Parque industrial</p>
+                          <p><strong>{{objItinerario.fecha_llegada | date:'hh:mm a'}}</strong></p> <i class="fa fa-compass" style="color: rgb(209, 0, 0); font-size: 30px;"></i> <p style="margin-left: 4px;"><strong>{{objItinerario.objLlegada!.nombre}}</strong><br> {{objItinerario.objLlegada!.sucursal}}</p>
                       </div>
 
-                        <div id="" class='d-flex justify-content-between border-bottom mt-2'><p>Pasajero 01 - Asiento 10</p> <p class='text-secondary'><strong>S/.50</strong></p></div>
-                        <div id="" class='d-flex justify-content-between border-bottom mt-2'><p>Pasajero 02 - Asiento 10</p> <p class='text-secondary'><strong>S/.50</strong></p></div>
-                        <div id="" class='d-flex justify-content-between border-bottom mt-2'><p>Pasajero 03 - Asiento 10</p> <p class='text-secondary'><strong>S/.50</strong></p></div>
+                      <div>
 
-                        <div id="prefinal" class="d-flex justify-content-between mt-2">
-                            <p><strong>Total.</strong></p> <p><strong>S/. 150.00</strong></p>
+                        <div class="d-flex justify-content-between" *ngFor="let asiento of asientosSeleccionados; let i = index">
+                            <p><b>Pasajero {{(i+1)}}</b> N° de Asiento:{{asiento}}</p>
+                            <p class="text-danger"><b>S/.{{objItinerario.precio | number:'1.2-2'}}</b></p>
                         </div>
+
+                        <div class="d-flex justify-content-between border-top" *ngIf="total!==0.00">
+                            <p class="mt-2">Total:</p>
+                            <p class="mt-2"><b>S/.{{total | number:'1.2-2'}}</b></p>
+                        </div>
+
+                        <div class="border-top" *ngIf="total===0.00">
+                            <p class="mt-2">No hay asientos seleccionados</p>
+                        </div>
+                    </div>
+
                         
                     </div>
                 </div>

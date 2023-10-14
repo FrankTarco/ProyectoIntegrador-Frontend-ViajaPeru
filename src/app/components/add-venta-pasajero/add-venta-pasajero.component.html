@@ -1,3 +1,5 @@
+<body>
+
 <header class="bg_animate" style="height: 400px;">
     <div class="header_nav">
         <div class="contenedor">
@@ -29,7 +31,7 @@
     </div>
 </header>
 
-<body>
+
     <div class="p-1 bg-white">
               
         <div class="container">
@@ -37,62 +39,61 @@
           <div class="row mt-4">
             <div class="col-xl-8 col-lg-7">
 
-                <div class="card border mat-elevation-z4 b-4" style="border-radius: 10px;">
+                <div class="card border b-4" *ngFor="let p of asientos;let i = index" style="border-radius: 10px;">
                     <!-- Card Header - Dropdown -->
                    
                     <div class="card-header py-3 bg-white border-bottom">
-                        <h6 class="m-0 font-weight-bold text-dark">Registro Pasajero</h6>
+                        <h6 class="m-0 font-weight-bold text-dark">Registro Pasajero {{(i+1)}}</h6>
                     </div>
                     <!-- Card Body -->
-                    <form (ngSubmit)="submitForm()" #pasajerosForm="ngForm">
-                    <div class="card-body mt-2" *ngFor="let pasajero of pasajeros; let i = index">
+                    <div class="card-body mt-2">
                         <div class="row">
                             <div class="col-md-6">
-                                <mat-form-field appearance="outline" style="width: 100%;">
-                                    <mat-label>Tipo Documento</mat-label>
-                                    <mat-select>
-                                    </mat-select>
-                                  </mat-form-field>
+                                <mat-form-field appearance="outline" class="p-1" style="width: 100%;">
+                                    <mat-label>Tipo de Documento</mat-label>
+                                    <mat-select [(ngModel)]="asientos[i].cod_tipodocumento">
+                                        <mat-option value="-1"> [Seleccione] </mat-option>
+                                        <mat-option  *ngFor="let x of lstDocumentos" [value]="x.cod_tipodocumento">
+                                            {{x.descripcion}}
+                                        </mat-option>   
+                                    </mat-select> 
+                                </mat-form-field> 
+                        
                             </div>
                             <div class="col-md-6">
                                 <mat-form-field appearance="outline" style="width: 100%;">
                                     <mat-label>Número de documento</mat-label>
-                                    <input matInput placeholder="Placeholder">                    
+                                    <input matInput placeholder="Placeholder" [(ngModel)]="asientos[i].numeroDocumento">                    
                                   </mat-form-field>
                             </div>
 
                             <div class="col-md-6">
                                 <mat-form-field appearance="outline" style="width: 100%;">
                                     <mat-label>Nombres</mat-label>
-                                    <input matInput name="Nombre{{ i + 1 }}" placeholder="Nombre del Pasajero {{ i + 1 }}">                    
+                                    <input matInput placeholder="Nombre del Pasajero" [(ngModel)]="asientos[i].nombre">                    
                                   </mat-form-field>
                             </div>
                             
                             <div class="col-md-6">
                                 <mat-form-field appearance="outline" style="width: 100%;">
                                     <mat-label>Apellidos</mat-label>
-                                    <input matInput placeholder="Placeholder">                    
+                                    <input matInput placeholder="Placeholder" [(ngModel)]="asientos[i].apellidos">                    
                                   </mat-form-field>
                             </div>
 
                             <div class="col-md-6">
                                 <mat-form-field appearance="outline" style="width: 100%;">
-                                    <mat-label>Fecha Nacimiento</mat-label>
-                                    <input matInput placeholder="Placeholder">                    
-                                  </mat-form-field>
-                            </div>
-
-                            <div class="col-md-6">
-                                <mat-form-field appearance="outline" style="width: 100%;">
-                                    <mat-label>Nacionalidad</mat-label>
-                                    <input matInput placeholder="Placeholder">                    
+                                    <mat-label>Edad</mat-label>
+                                    <input matInput placeholder="Placeholder" [(ngModel)]="asientos[i].edad">                    
                                   </mat-form-field>
                             </div>
 
                             </div>
                         </div>
-                    </form>
+
+
                 </div>
+
             </div>
     
             <div class="col-xl-4 col-lg-5">
@@ -108,24 +109,33 @@
                              <!-- Card Body -->
                             <div class="card-body">
                                 <div class="d-flex justify-content-end mt-2">
-                                <p style="background: rgba(223, 0, 0, 0.836); padding: 4px; border-radius: 10px; color: white;"><strong>Saliente .</strong><i>Miercoles 30 de agosto</i></p>
+                                <p style="background: rgba(223, 0, 0, 0.836); padding: 4px; border-radius: 10px; color: white;"><strong>Saliente .</strong><i>{{obj.fecha_salida | date:'EEEE d \'de\' MMMM'}}</i></p>
                                 </div>
 
                                 <div class="d-flex justify-content-start">
-                                    <p><strong>20.40 PM</strong></p> <i class="fa fa-street-view" style="font-size: 30px;"></i> <p style="margin-left: 4px;"><strong>Lima</strong><br> Plaza norte</p>
+                                    <p><strong>{{obj.fecha_salida | date:'hh:mm a'}}</strong></p> <i class="fa fa-street-view" style="font-size: 30px;"></i> <p style="margin-left: 4px;"><strong>{{obj.objOrigen?.nombre}}</strong><br> {{obj.objOrigen?.sucursal}}</p>
                                 </div>
                                 <div class="d-flex justify-content-start">
-                                <p><strong>10.00 PM</strong></p> <i class="fa fa-compass" style="color: rgb(209, 0, 0); font-size: 30px;"></i> <p style="margin-left: 4px;"><strong>Huarmey</strong><br> Parque industrial</p>
+                                <p><strong>{{obj.fecha_llegada | date:'hh:mm a'}}</strong></p> <i class="fa fa-compass" style="color: rgb(209, 0, 0); font-size: 30px;"></i> <p style="margin-left: 4px;"><strong>{{obj.objLlegada?.nombre}}</strong><br> {{obj.objLlegada?.sucursal}}</p>
                                 </div>
 
-                                <div id="" class='d-flex justify-content-between border-bottom mt-2'><p>Pasajero 01 - Asiento 10</p> <p class='text-secondary'><strong>S/.50</strong></p></div>
-                                <div id="" class='d-flex justify-content-between border-bottom mt-2'><p>Pasajero 02 - Asiento 10</p> <p class='text-secondary'><strong>S/.50</strong></p></div>
-                                <div id="" class='d-flex justify-content-between border-bottom mt-2'><p>Pasajero 03 - Asiento 10</p> <p class='text-secondary'><strong>S/.50</strong></p></div>
+                                <div>
 
-                                <div id="prefinal" class="d-flex justify-content-between mt-2">
-                                    <p><strong>Total.</strong></p> <p><strong>S/. 150.00</strong></p>
+                                    <div class="d-flex justify-content-between" *ngFor="let asiento of asientosSeleccionados; let i = index">
+                                        <p><b>Pasajero {{(i+1)}}</b> Asiento:{{asiento}}</p>
+                                        <p class="text-danger"><b>S/.{{obj.precio | number:'1.2-2'}}</b></p>
+                                    </div>
+    
+                                    <div class="d-flex justify-content-between border-top" *ngIf="total!==0.00">
+                                        <p class="mt-2">Total:</p>
+                                        <p class="mt-2">S/.{{total | number:'1.2-2'}}</p>
+                                    </div>
+    
+                                    <div class="border-top" *ngIf="total===0.00">
+                                        <p class="mt-2">No hay asientos seleccionados</p>
+                                    </div>
                                 </div>
-                                
+                               
                             </div>
                         </div>
                       </div>
@@ -138,6 +148,8 @@
                               
              </div>
 
+             <button class="btn btn-danger" (click)="verificar()">Avanzar</button>
+
                 
             </div>
     
@@ -145,24 +157,4 @@
     
     </div>
 
-    <!-- registro-pasajeros.component.html -->
-    <div class="card border mat-elevation-z4 mt-4" style="border-radius: 10px;">
-        <!-- /*Card Header - Dropdown*/--> 
-     <div class="card-header py-3 bg-white border-bottom">
-         <h6 class="m-0 font-weight-bold text-dark">Registro Pasajeros</h6>
-     </div>
-     <!--/* Card Body */-->
-     <div class="card-body mt-2">
-         <div class="row">
-             <div class="col-md-12">
-     <section>        
-         <!-- Botón para agregar más pasajeros -->
-         <button mat-raised-button type="button" (click)="agregarPasajero()">Agregar Pasajero</button>
-         <!-- Botón para enviar el formulario -->
-         <button mat-raised-button type="submit" [disabled]="!pasajerosForm.valid">Enviar</button>
-     </section>
-     </div>
-     </div>
-     </div>
-     </div> 
 </body>

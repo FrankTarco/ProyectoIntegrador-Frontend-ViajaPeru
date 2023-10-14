@@ -1,17 +1,20 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
-
+import { BehaviorSubject } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
+
 export class EnvioDatosItinerarioService {
 
-  private envioDatosSubject = new Subject<any>();
+  private dataSubject = new BehaviorSubject<any>(null);
+  data$ = this.dataSubject.asObservable();
 
-  envioDatos$ = this.envioDatosSubject.asObservable();
+  setData(newData: any) {
+    this.dataSubject.next(newData);
+  }
 
-  enviarDatos(data:any){
-    this.envioDatosSubject.next(data);
+  getData() {
+    return this.dataSubject.getValue();
   }
 
   constructor() { }
