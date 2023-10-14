@@ -77,8 +77,14 @@ util.listarLicencia().subscribe(
     else{
       this.conductorsev.registraConductor(this.objConductor).subscribe(
         c => {
-          Swal.fire({icon:'info',title:'Resultado del Registro', text: c.mensaje})
-          this._dialog.close(true)
+          if(c.mensaje.indexOf('Error') !== -1){
+            Swal.fire({icon:'error',title:'Algo salio mal', text: c.mensaje})
+            this._dialog.close(true)
+          }
+          else{
+            Swal.fire({icon:'success',title:'Registro de conductor exitoso', text: c.mensaje})
+            this._dialog.close(true)
+          }       
         } );
     }
 

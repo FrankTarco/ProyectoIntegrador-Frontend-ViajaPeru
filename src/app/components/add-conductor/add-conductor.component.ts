@@ -65,12 +65,31 @@ error: console.log
 }
 
 eliminarConductor(codigo:string){
-  this.conductorService.eliminarConductor(codigo).subscribe(
-    c =>{
-      Swal.fire({icon:'info',title:'Resultado del registro', text: c.mensaje})
-      this.listadoConductor();
-    }
-  );
+  
+      Swal.fire({
+      icon:'warning',
+      title:'¿Estas seguro?', 
+      text: 'Eliminar al conductor '+codigo,
+      showCancelButton:true,
+      confirmButtonColor:'#d33',
+      cancelButtonColor:'#3085d6',
+      confirmButtonText:'Si eliminar'
+      }).then((result) => {
+        if (result.isConfirmed){
+          this.conductorService.eliminarConductor(codigo).subscribe(
+            x => {
+              if(x.mensaje.includes("Error")){
+                Swal.fire({icon:'error',title:'Resultado', text: x.mensaje});
+              }
+              else{
+                Swal.fire({icon:'success',title:'Resultado', text: x.mensaje});
+                this.listadoConductor();
+              }             
+            }
+          )
+          
+        }
+      })  
 }
 
 
