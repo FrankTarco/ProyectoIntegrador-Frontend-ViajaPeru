@@ -12,6 +12,8 @@ import { ItinerarioService } from 'src/app/services/itinerario.service';
 })
 export class AddVentaComponent {
 
+  fechaActual:string = this.formatearFecha2(new Date());
+
   lstOrigenes:string[] = []
   lstLlegadas:string[] = []
   lstItinerarios:Itinerario[] = []
@@ -56,6 +58,17 @@ export class AddVentaComponent {
     let fechaFormateada = `${año}-${mes}-${dia}`;
     return fechaFormateada
   }
+
+  formatearFecha2(fechaTrabajar:Date):string{
+    fechaTrabajar.setDate(fechaTrabajar.getDate()+1) 
+    let año = fechaTrabajar.getFullYear();
+    let mes = ('0' + (fechaTrabajar.getMonth() + 1)).slice(-2);  // +1 porque los meses son indexados desde 0
+    let dia = ('0' + fechaTrabajar.getDate()).slice(-2);
+    // Construir la cadena en el formato deseado (yyyy-MM-dd)
+    let fechaFormateada = `${año}-${mes}-${dia}`;
+    return fechaFormateada
+  }
+
 
   cambioSelect(selectedValue: string): void {
     // Realiza acciones basadas en el valor seleccionado

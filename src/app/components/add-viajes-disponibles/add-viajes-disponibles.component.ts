@@ -13,7 +13,7 @@ export class AddViajesDisponiblesComponent implements OnInit{
 
   dataEntrante:any = {}
 
-  fechaActual:Date = new Date();
+  fechaActual:string =  this.formatearFecha(new Date());
 
 
   lstOrigenes:string[]=[]
@@ -49,11 +49,6 @@ export class AddViajesDisponiblesComponent implements OnInit{
   }
 
   enviarData(data:any){
-    let itidata = JSON.parse(localStorage.getItem("itinerario")!)
-    if (data.cod_itinerario == itidata.cod_itinerario){
-      this.router.navigate(["asientoselect"])
-    }
-    else{
     //PRIMERO LIMPIAR LA MEMORIA Y SOLO DEJAR LOS DATOS PARA EL FILTRO DEL ITINERARIO
     localStorage.removeItem("lstPasajeros");
     localStorage.removeItem("asientos");
@@ -63,8 +58,6 @@ export class AddViajesDisponiblesComponent implements OnInit{
     //luego procede a esto
     localStorage.setItem("itinerario",JSON.stringify(data));
     this.router.navigate(["asientoselect"])
-
-    }
 
   }
 
@@ -81,6 +74,17 @@ export class AddViajesDisponiblesComponent implements OnInit{
     let año = formaNueva.getFullYear();
     let mes = ('0' + (formaNueva.getMonth() + 1)).slice(-2);  // +1 porque los meses son indexados desde 0
     let dia = ('0' + formaNueva.getDate()).slice(-2);
+    // Construir la cadena en el formato deseado (yyyy-MM-dd)
+    let fechaFormateada = `${año}-${mes}-${dia}`;
+    return fechaFormateada
+  }
+
+  formatearFecha(fechaTrabajar:Date):string{
+    
+    fechaTrabajar.setDate(fechaTrabajar.getDate()+1) 
+    let año = fechaTrabajar.getFullYear();
+    let mes = ('0' + (fechaTrabajar.getMonth() + 1)).slice(-2);  // +1 porque los meses son indexados desde 0
+    let dia = ('0' + fechaTrabajar.getDate()).slice(-2);
     // Construir la cadena en el formato deseado (yyyy-MM-dd)
     let fechaFormateada = `${año}-${mes}-${dia}`;
     return fechaFormateada

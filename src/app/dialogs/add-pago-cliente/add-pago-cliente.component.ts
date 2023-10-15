@@ -1,5 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { Boleto } from 'src/app/models/boleto.model';
 import { Cliente } from 'src/app/models/cliente.model';
 import { Itinerario } from 'src/app/models/itinerario.model';
@@ -52,7 +53,7 @@ export class AddPagoClienteComponent implements OnInit{
   ventaRequest:Ventarequest= {};
 
   constructor(private utilService:UtilService, private _dialog:MatDialogRef<AddPagoClienteComponent>, 
-    @Inject(MAT_DIALOG_DATA)public data:any,private transaccionService:TransaccionService){
+    @Inject(MAT_DIALOG_DATA)public data:any,private transaccionService:TransaccionService,private router:Router){
 
     utilService.listarTiopoDocumento().subscribe(
       x => this.lstDocumentos = x
@@ -76,8 +77,17 @@ export class AddPagoClienteComponent implements OnInit{
 
     this.transaccionService.registrarTransaccion(this.ventaRequest).subscribe(
       x => {
-        Swal.fire({icon:'info',title:'Resultado', text: x.mensaje})
-        this._dialog.close();
+        if (x.mensaje.includes("Error")){
+          Swal.fire({icon:'error',title:'Algo salio mal', text: x.mensaje})
+        }
+        else{
+          Swal.fire({icon:'success',title:'Resultado', text: x.mensaje})
+          this._dialog.close();
+          //ELIMINO TODA LA DATA
+          localStorage.clear();
+          //PASO AL INICIO DE NUESTRO SISTEMA
+          this.router.navigate(["index"]);
+        }     
       }
     )
     
