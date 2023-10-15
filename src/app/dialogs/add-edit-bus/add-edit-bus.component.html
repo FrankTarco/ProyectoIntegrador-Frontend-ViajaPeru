@@ -10,7 +10,7 @@
     <div class="row">
             <mat-form-field appearance="outline" class="mt-2 p-1">
                 <mat-label>Placa</mat-label>
-                <input matInput placeholder="Placeholder" [(ngModel)]="objBus.placa">
+                <input matInput placeholder="Placeholder" [(ngModel)]="objBus.placa" (ngModelChange)="agregarGuion()">
  
               </mat-form-field>   
 

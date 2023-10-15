@@ -62,6 +62,14 @@ ngOnInit(): void {
   }  
 }
 
+agregarGuion(){
+  this.objBus.placa = this.objBus.placa?.replace(/-/g, '');
+
+  if(this.objBus.placa?.length! >= 3){
+    this.objBus.placa = this.objBus.placa?.slice(0,3) + '-' + this.objBus.placa?.slice(3)
+  }
+}
+
 registrar(){
 
   if(this.data){
