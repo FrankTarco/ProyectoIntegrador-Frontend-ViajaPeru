@@ -15,7 +15,7 @@
             <mat-label>Placa</mat-label>
             <input matInput placeholder="Placeholder" [(ngModel)]="objBus.placa"  (ngModelChange)="agregarGuion()" #codigoInput="ngModel"
             [pattern]="codigoPattern" name="placa" >
-            <mat-hint style="color: red;" *ngIf="objBus.placa === '' && (codigoInput.dirty || codigoInput.touched)">
+            <mat-hint style="color: red;" *ngIf="objBus.placa === '' && (!codigoInput.dirty || codigoInput.touched)">
                 *Campo Olbigatorio
               </mat-hint>
               <mat-hint style="color: red;" *ngIf="codigoInput.invalid && (codigoInput.dirty || codigoInput.touched)">

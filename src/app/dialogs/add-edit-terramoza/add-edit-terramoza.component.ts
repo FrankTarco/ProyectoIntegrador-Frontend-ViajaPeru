@@ -16,6 +16,13 @@ export class AddEditTerramozaComponent implements OnInit{
 
   lstTipoDocumento:TipoDocumento[] = []
 
+  estado='form';
+  dniPatt=/^[0-9]{8}$/;
+  cePatt=/^[0-9]{12}$/;
+  ptpPatt=/^[A-Za-z0-9]{6,12}$/;
+
+
+  nombrePatt = /^[a-zA-ZáéíóúñüÁÉÍÓÚÑÜ\s]{3,30}$/;
   objTerramoza:Terramoza={
     cod_terramoza:"",
     nombre:"",
@@ -51,7 +58,7 @@ export class AddEditTerramozaComponent implements OnInit{
 
     registrar(){
 
-      if (this.validarCampos() == false) {
+      if (this.validarCampos() == false && this.estado=='form') {
         Swal.fire({
           icon: 'error',
           title: 'Ingrese Datos',
@@ -59,7 +66,41 @@ export class AddEditTerramozaComponent implements OnInit{
         })
   
   
-      }else{
+      }else if (this.objTerramoza.cod_tipodocumento! == -1) {
+        Swal.fire({ icon: 'info', title: 'Seleccione el tipo de documento' })
+        
+      }else if (this.objTerramoza.cod_tipodocumento! == 1 && !this.dniPatt.test(this.objTerramoza.numerodocumento!)) {
+        Swal.fire({ icon: 'info', title: 'Error en el número de DNI' })
+        
+        
+      }else if (this.objTerramoza.cod_tipodocumento! == 2 && !this.dniPatt.test(this.objTerramoza.numerodocumento!)) {
+        Swal.fire({ icon: 'info', title: 'Error en el número de Carnet de Extranejria' })
+        
+      }else if (this.objTerramoza.cod_tipodocumento! == 3 && !this.dniPatt.test(this.objTerramoza.numerodocumento!)) {
+        Swal.fire({ icon: 'info', title: 'Error en el número de Pasaporte' })
+        
+      }else if (this.validarCampos() == false && this.estado == 'nombre') {
+        Swal.fire({
+          icon: 'error',
+          title: 'Verificar El nombre Ingresado',
+          text: "Solo Caracteres Alfabeticos",
+        })
+  
+      }else if (this.validarCampos() == false && this.estado == 'paterno') {
+        Swal.fire({
+          icon: 'error',
+          title: 'Verificar El apellido Paterno Ingresado',
+          text: "Solo Caracteres Alfabeticos",
+        })
+  
+      }else if (this.validarCampos() == false && this.estado == 'materno') {
+        Swal.fire({
+          icon: 'error',
+          title: 'Verificar El apellido Materno Ingresado',
+          text: "Solo Caracteres Alfabeticos",
+        })
+  
+      }else if  (this.validarCampos() == true){
 
       if(this.data){
         this.terramozaService.actualizarTerramoza(this.objTerramoza).subscribe(
@@ -84,8 +125,8 @@ export class AddEditTerramozaComponent implements OnInit{
 
     validarCampos(): boolean {
       if (
-     this.objTerramoza.cod_tipodocumento === -1||
-     !this.objTerramoza.numerodocumento ||
+     
+     
      !this.objTerramoza.ape_pater  ||
      !this.objTerramoza.ape_mater ||
      !this.objTerramoza.nombre
@@ -95,6 +136,18 @@ export class AddEditTerramozaComponent implements OnInit{
 
      return false;
    }
+   
+   if (!this.nombrePatt.test(this.objTerramoza.nombre)) {
+    this.estado = 'nombre';
+    return false;
+  } else if (!this.nombrePatt.test(this.objTerramoza.ape_pater)) {
+    this.estado = 'paterno';
+    return false;
+  }else if (!this.nombrePatt.test(this.objTerramoza.ape_mater)) {
+    this.estado = 'materno';
+    return false;
+  }
+
    return true;
  }
 

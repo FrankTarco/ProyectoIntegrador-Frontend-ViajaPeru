@@ -1,30 +1,52 @@
 <div mat-dialog-title class="row">
     <div class="col-md-12"><img src="../../../assets/img/viajaperulogo.png" alt="" width="200px"></div>
-    <div class="col-md-12"><h5 class="m-3">Formulario de terramozas</h5></div>
+    <div class="col-md-12">
+        <h5 class="m-3">Formulario de terramozas</h5>
+    </div>
 
     <mat-divider></mat-divider>
-    
+
 </div>
 
 <div mat-dialog-content>
     <div class="row">
-            <mat-form-field appearance="outline" class="mt-2 p-1" style="width: 100%;">
-                <mat-label>Nombre</mat-label>
-                <input matInput placeholder="Placeholder" [(ngModel)]="objTerramoza.nombre">
- 
-              </mat-form-field>   
+        <mat-form-field appearance="outline" class="mt-2 p-1" style="width: 100%;">
+            <mat-label>Nombre</mat-label>
+            <input matInput placeholder="Placeholder" [(ngModel)]="objTerramoza.nombre" #ngnombre="ngModel"
+                [pattern]="nombrePatt" name="nombre">
+            <mat-hint style="color: red;" *ngIf="objTerramoza.nombre===''&& (!ngnombre.dirty || ngnombre.touched)">
+                *Campo Olbigatorio
+            </mat-hint>
+            <mat-hint style="color: red;" *ngIf="ngnombre.invalid && (ngnombre.dirty || ngnombre.touched)">
+                *Nombre Invalido
+            </mat-hint>
+        </mat-form-field>
     </div>
 
     <div class="row">
         <mat-form-field appearance="outline" class="p-1">
             <mat-label>Apellido paterno</mat-label>
-            <input matInput placeholder="Placeholder" [(ngModel)]="objTerramoza.ape_pater">
-          </mat-form-field>  
+            <input matInput placeholder="Placeholder" [(ngModel)]="objTerramoza.ape_pater" #ngpaterno="ngModel"
+                [pattern]="nombrePatt" name="paterno">
+            <mat-hint style="color: red;" *ngIf="objTerramoza.ape_pater===''&& (!ngpaterno.dirty || ngpaterno.touched)">
+                *Campo Olbigatorio
+            </mat-hint>
+            <mat-hint style="color: red;" *ngIf="ngpaterno.invalid && (ngpaterno.dirty || ngpaterno.touched)">
+                *Nombre Invalido
+            </mat-hint>
+        </mat-form-field>
 
-          <mat-form-field appearance="outline" class="p-1">
+        <mat-form-field appearance="outline" class="p-1">
             <mat-label>Apellido materno</mat-label>
-            <input matInput placeholder="Placeholder" [(ngModel)]="objTerramoza.ape_mater">          
-         </mat-form-field>
+            <input matInput placeholder="Placeholder" [(ngModel)]="objTerramoza.ape_mater" #ngmaterno="ngModel"
+                [pattern]="nombrePatt" name="materno">
+            <mat-hint style="color: red;" *ngIf="objTerramoza.ape_mater===''&& (!ngmaterno.dirty || ngmaterno.touched)">
+                *Campo Olbigatorio
+            </mat-hint>
+            <mat-hint style="color: red;" *ngIf="ngmaterno.invalid && (ngmaterno.dirty || ngmaterno.touched)">
+                *Nombre Invalido
+            </mat-hint>
+        </mat-form-field>
 
     </div>
 
@@ -33,25 +55,60 @@
             <mat-label>Documento</mat-label>
             <mat-select [(ngModel)]="objTerramoza.cod_tipodocumento">
                 <mat-option [value]=-1> [Seleccione] </mat-option>
-                <mat-option  *ngFor="let td of lstTipoDocumento" [value]="td.cod_tipodocumento">
+                <mat-option *ngFor="let td of lstTipoDocumento" [value]="td.cod_tipodocumento">
                     {{td.descripcion}}
-                </mat-option>   
-            </mat-select> 
-        </mat-form-field> 
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
 
-        
+
     </div>
 
     <div class="row">
-        <mat-form-field appearance="outline" class="p-1" style="width: 100%;">
+        <mat-form-field *ngIf="objTerramoza.cod_tipodocumento===1" appearance="outline" class="p-1"
+            style="width: 100%;">
             <mat-label>Num documento</mat-label>
-            <input matInput placeholder="Placeholder" [(ngModel)]="objTerramoza.numerodocumento">
-      </mat-form-field>
+            <input matInput placeholder="DNI" [(ngModel)]="objTerramoza.numerodocumento" #ngDNI="ngModel"
+            [pattern]="dniPatt" name="dni">
+            <mat-hint style="color: red;" *ngIf="objTerramoza.numerodocumento===''&& (!ngDNI.dirty || ngDNI.touched)">
+                *Campo Olbigatorio
+            </mat-hint>
+            <mat-hint style="color: red;" *ngIf="ngDNI.invalid && (ngDNI.dirty || ngDNI.touched)">
+                *DNI Incorrecto (8 digitos)
+            </mat-hint>
+        </mat-form-field>
+
+
+        <mat-form-field *ngIf="objTerramoza.cod_tipodocumento===2" appearance="outline" class="p-1"
+            style="width: 100%;">
+            <mat-label>Num documento</mat-label>
+            <input matInput placeholder="CEX" [(ngModel)]="objTerramoza.numerodocumento" #ngCEX="ngModel"
+            [pattern]="cePatt" name="cex">
+            <mat-hint style="color: red;" *ngIf="objTerramoza.numerodocumento===''&& (!ngCEX.dirty || ngCEX.touched)">
+                *Campo Olbigatorio
+            </mat-hint>
+            <mat-hint style="color: red;" *ngIf="ngCEX.invalid && (ngCEX.dirty || ngCEX.touched)">
+                *CEX Incorrecto (12 digitos)
+            </mat-hint>
+        </mat-form-field>
+
+        <mat-form-field *ngIf="objTerramoza.cod_tipodocumento===3" appearance="outline" class="p-1"
+            style="width: 100%;">
+            <mat-label>Num documento</mat-label>
+            <input matInput placeholder="PTP" [(ngModel)]="objTerramoza.numerodocumento" #ngPTP="ngModel"
+            [pattern]="ptpPatt" name="ptp">
+            <mat-hint style="color: red;" *ngIf="objTerramoza.numerodocumento===''&& (!ngPTP.dirty || ngPTP.touched)">
+                *Campo Olbigatorio
+            </mat-hint>
+            <mat-hint style="color: red;" *ngIf="ngPTP.invalid && (ngPTP.dirty || ngPTP.touched)">
+                *Pasaporte Incorrecto (6 a 12 caracateres alfanumericos)
+            </mat-hint>
+        </mat-form-field>
     </div>
 
 </div>
 
 <div mat-dialog-actions>
-    <button mat-raised-button type="button" [mat-dialog-close]="false" >Cancel</button>
+    <button mat-raised-button type="button" [mat-dialog-close]="false">Cancel</button>
     <button mat-raised-button color="warn" (click)="registrar()">{{data ? 'Actualizar' : 'Registrar'}}</button>
 </div>

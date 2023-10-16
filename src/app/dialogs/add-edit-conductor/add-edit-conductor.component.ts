@@ -14,7 +14,7 @@ import Swal from 'sweetalert2'
   styleUrls: ['./add-edit-conductor.component.css']
 })
 export class AddEditConductorComponent implements OnInit{
-
+  nombrePatt = /^[a-zA-ZáéíóúñüÁÉÍÓÚÑÜ\s]{3,30}$/;
   lstTipo:TipoDocumento[] = []
   lstLicencia:Licencia[]=[]
 
