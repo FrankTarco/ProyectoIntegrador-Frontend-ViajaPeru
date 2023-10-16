@@ -51,6 +51,16 @@ export class AddEditTerramozaComponent implements OnInit{
 
     registrar(){
 
+      if (this.validarCampos() == false) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Ingrese Datos',
+          text: "Todos los campos son obligatorios para el Registro",
+        })
+  
+  
+      }else{
+
       if(this.data){
         this.terramozaService.actualizarTerramoza(this.objTerramoza).subscribe(
           x =>{
@@ -69,5 +79,23 @@ export class AddEditTerramozaComponent implements OnInit{
           });
       } 
     }
+    }
+
+
+    validarCampos(): boolean {
+      if (
+     this.objTerramoza.cod_tipodocumento === -1||
+     !this.objTerramoza.numerodocumento ||
+     !this.objTerramoza.ape_pater  ||
+     !this.objTerramoza.ape_mater ||
+     !this.objTerramoza.nombre
+     
+   ) {
+
+
+     return false;
+   }
+   return true;
+ }
 
 }
