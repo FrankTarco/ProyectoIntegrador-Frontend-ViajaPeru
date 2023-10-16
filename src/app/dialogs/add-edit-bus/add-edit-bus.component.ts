@@ -136,7 +136,7 @@ export class AddEditBusComponent implements OnInit {
 
 
   registrar() {
-    console.log(this.estado);
+    
 
     if (this.validarCampos() == false && this.estado == 'form') {
       Swal.fire({

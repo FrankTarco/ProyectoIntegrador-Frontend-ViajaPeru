@@ -65,12 +65,31 @@ export class AddDestinoComponent {
     }
     
     eliminarDestino(codigo:string){
-      this.destinoService.eliminarDestino(codigo).subscribe(
-        c =>{
-          Swal.fire({icon:'info',title:'Resultado del registro', text: c.mensaje})
-          this.listadoDestinos();
-        }
-      );
+
+     Swal.fire({
+        icon:'warning',
+        title:'¿Estas seguro?', 
+        text: 'Eliminar el Destino '+codigo,
+        showCancelButton:true,
+        confirmButtonColor:'#d33',
+        cancelButtonColor:'#3085d6',
+        confirmButtonText:'Si eliminar'
+        }).then((result) => {
+          if (result.isConfirmed){
+            this.destinoService.eliminarDestino(codigo).subscribe(
+              x => {
+                if(x.mensaje.includes("Error")){
+                  Swal.fire({icon:'error',title:'Resultado', text: x.mensaje});
+                }
+                else{
+                  Swal.fire({icon:'success',title:'Resultado', text: x.mensaje});
+                  this.listadoDestinos();
+                }             
+              }
+            )
+            
+          }
+        })  ;
     }
     
     

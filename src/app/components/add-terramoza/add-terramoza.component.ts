@@ -78,14 +78,32 @@ export class AddTerramozaComponent implements OnInit {
   }
 
   eliminar(codigo:string){
-    this.terramozaService.eliminarTerramoza(codigo).subscribe({
 
-      next: (rest) =>{
-        Swal.fire({icon:'info',title:'Resultado de la eliminacion', text: rest.mensaje});
-        this.listaTerramozas();
-      },
-      error: console.log,
-    });
+    Swal.fire({
+      icon:'warning',
+      title:'¿Estas seguro?', 
+      text: 'Eliminar Terramoza '+codigo,
+      showCancelButton:true,
+      confirmButtonColor:'#d33',
+      cancelButtonColor:'#3085d6',
+      confirmButtonText:'Si eliminar'
+      }).then((result) => {
+        if (result.isConfirmed){
+          this.terramozaService.eliminarTerramoza(codigo).subscribe(
+            x => {
+              if(x.mensaje.includes("Error")){
+                Swal.fire({icon:'error',title:'Resultado', text: x.mensaje});
+              }
+              else{
+                Swal.fire({icon:'success',title:'Resultado', text: x.mensaje});
+                this.listaTerramozas();
+              }             
+            }
+          )
+          
+        }
+      })  ;
+
   }
 
 }
