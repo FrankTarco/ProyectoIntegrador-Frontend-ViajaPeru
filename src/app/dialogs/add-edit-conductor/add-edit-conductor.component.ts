@@ -14,7 +14,7 @@ import Swal from 'sweetalert2'
   styleUrls: ['./add-edit-conductor.component.css']
 })
 export class AddEditConductorComponent implements OnInit{
-
+  nombrePatt = /^[a-zA-ZáéíóúñüÁÉÍÓÚÑÜ\s]{3,30}$/;
   lstTipo:TipoDocumento[] = []
   lstLicencia:Licencia[]=[]
 
@@ -65,6 +65,17 @@ util.listarLicencia().subscribe(
 
   insertaConductor(){
 
+    if (this.validarCampos() == false) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Ingrese Datos',
+        text: "Todos los campos son obligatorios para el Registro",
+      })
+
+
+    }else {
+    
+    
     if(this.data){
       this.conductorsev.actualizarConductor(this.objConductor).subscribe(
         c => {
@@ -87,7 +98,25 @@ util.listarLicencia().subscribe(
           }       
         } );
     }
+  }
+  }
 
+  validarCampos(): boolean {
+       if (
+      this.objConductor.cod_tipodocumento === -1||
+      !this.objConductor.nrodocumento ||
+      !this.objConductor.ape_chofer  ||
+      !this.objConductor.nom_chofer ||
+      this.objConductor.cod_licencia === -1 ||
+      !this.objConductor.nrolicencia ||
+      !this.objConductor.telefono
+      
+    ) {
+
+
+      return false;
+    }
+    return true;
   }
 
 }

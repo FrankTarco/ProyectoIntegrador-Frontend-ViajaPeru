@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { Form, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/security/auth.service';
 import { LoginUsuario } from 'src/app/security/login-usuario';
 import { TokenService } from 'src/app/security/token.service';
 import Swal from 'sweetalert2';
+
 
 @Component({
   selector: 'app-add-login',
@@ -11,6 +13,9 @@ import Swal from 'sweetalert2';
   styleUrls: ['./add-login.component.css']
 })
 export class AddLoginComponent implements OnInit{
+
+public myForm!:FormGroup;
+
 
   isLogged = false;
   isLoginFail = false;
@@ -21,12 +26,15 @@ export class AddLoginComponent implements OnInit{
   constructor(
     private tokenService: TokenService,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private fb:FormBuilder
   ) {
     console.log("constructor >> constructor >>> " + this.tokenService.getToken());
    }
 
   ngOnInit() {
+
+    this.myForm = this.createMyFrom();
 
 
     if (this.tokenService.getToken()) {
@@ -37,7 +45,29 @@ export class AddLoginComponent implements OnInit{
 
   }
 
+  private createMyFrom():FormGroup{
+
+    return this.fb.group({
+      usuario:['',[Validators.required]],
+      password:['',[Validators.required]]
+    });
+  }
+
+
+
+
   onLogin(): void {
+if (this.myForm.invalid){
+  Swal.fire({
+    icon: 'info',
+    title: 'Ingrese Datos',
+    text: "Usuario y Contraseña Obligatorios",
+  })
+}else{
+
+
+
+
     this.authService.login(this.loginUsuario).subscribe(
       (data:any) => {
           this.isLogged = true;
@@ -79,6 +109,6 @@ export class AddLoginComponent implements OnInit{
     );
   }
 
-
+  }
 
 }

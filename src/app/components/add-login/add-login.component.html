@@ -1,38 +1,39 @@
-    <body> 
+<body>
     <div class="box">
-     <span class="borderLine">
-     </span>   
-    <form #f="ngForm" (ngSubmit)="onLogin()" novalidate >
-        <img src="../../../assets/img/viajaperulogo.png" alt="" style="margin-top: -30px;">
-        <h2 style="margin-top: -3px;">Inicio de sesion</h2>
-        <div class="inputBox">        
-            <input type="text" name="login" id="login" class="form-control" [(ngModel)]="loginUsuario.login" required="required">
-            <span>Usuario</span>
-            <i></i>
-            
-        </div>
-    
-        <div class="inputBox">
-            <input type="password" name="password" id="password" class="form-control" [(ngModel)]="loginUsuario.password" required="required">
-            <span>Contraseña</span>
-            <i></i>
-            
-        </div>
-    <div>
-        <hr><br>
-    </div>
-    
-        <div class="links">
-            
-            <a href="#">Olvidaste tu contraseña</a>
-            <a href="index">Registrate</a>
-        </div>
+        <span class="borderLine">
+        </span>
+        <form [formGroup]="myForm" (ngSubmit)="onLogin()">
+            <img src="../../../assets/img/viajaperulogo.png" alt="" style="margin-top: -30px;">
+            <h2 style="margin-top: -3px;">Inicio de sesion</h2>
+            <div class="inputBox">
+                <input formControlName="usuario" type="text" name="login" id="login" class="form-control"
+                    [(ngModel)]="loginUsuario.login" required>
+                <span>Usuario</span>
+                <i></i>
 
-        <button class="btn-success text-center" [disabled]="!f.valid">Iniciar Sesison</button>
-        
-       
-    </form>
-<br><br>
+            </div>
+
+            <div class="inputBox">
+                <input formControlName="password" type="password" name="password" id="password" class="form-control"
+                    [(ngModel)]="loginUsuario.password" required>
+                <span>Contraseña</span>
+                <i></i>
+
+            </div>
+            <div>
+                <hr><br>
+            </div>
+
+            <div class="links">
+
+                <a href="#">Olvidaste tu contraseña</a>
+                <a href="index">Registrate</a>
+            </div>
+
+            <button class="btn-success text-center">Iniciar Sesison</button>
+
+
+        </form>
+        <br><br>
     </div>
-    </body>
-    
+</body>
