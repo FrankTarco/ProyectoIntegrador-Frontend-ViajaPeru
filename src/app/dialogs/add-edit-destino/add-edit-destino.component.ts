@@ -14,7 +14,7 @@ export class AddEditDestinoComponent implements OnInit {
   nombrePatt = /^[a-zA-ZáéíóúñüÁÉÍÓÚÑÜ\s]{3,30}$/;
   dirPatt = /^[a-zA-ZáéíóúñüÁÉÍÓÚÑÜ\s\d]{3,150}$/;
   ubicaPatt = /^[A-Za-z0-9\s,áéíóúüñÁÉÍÓÚÑÜ.#-]{3,150}$/;
-
+  estado='form';
 
   objDestino: Destino = {
     cod_destino: "",
@@ -43,14 +43,35 @@ export class AddEditDestinoComponent implements OnInit {
 
   registrarDestino() {
 
-    if (this.validarCampos() == false) {
+    if (this.validarCampos() == false && this.estado == 'form') {
       Swal.fire({
         icon: 'error',
         title: 'Ingrese Datos',
         text: "Todos los campos son obligatorios para el Registro",
       })
     
-    }else{
+    }else if (this.validarCampos() == false && this.estado == 'nombre') {
+      Swal.fire({
+        icon: 'info',
+        title: 'Ingrese Nombre de Destino Correcto',
+        text: "Solo caracteres alfabeticos",
+      })
+
+    } else if (this.validarCampos() == false && this.estado == 'sucursal') {
+      Swal.fire({
+        icon: 'info',
+        title: 'Ingrese una Surcursal Correcta',
+        text: "Para el campo sucrusal solo caracteres alfabeticos y numericos",
+      })
+
+    } else if (this.validarCampos() == false && this.estado == 'ubi') {
+      Swal.fire({
+        icon: 'info',
+        title: 'Ingrese Ubicacion correcta',
+        text: "La entrada debe cumplir con el patrón de entre 3 y 150 caracteres, comenzando y terminando con letras, números, espacios, comas, acentos o los símbolos .#-",
+      })
+
+    }else if (this.validarCampos() == true){
 
     if (this.data) {
 
@@ -83,6 +104,20 @@ export class AddEditDestinoComponent implements OnInit {
       !this.objDestino.ubicacion
 
     ) {
+
+      return false;
+    }
+
+    if (!this.nombrePatt.test(this.objDestino.nombre)) {
+
+      this.estado = 'nombre';
+      console.log(this.estado);
+      return false;
+    } else if (!this.dirPatt.test(this.objDestino.sucursal)) {
+      this.estado = 'sucursal';
+      return false;
+    } else if (!this.ubicaPatt.test(this.objDestino.ubicacion)) {
+      this.estado = 'ubi';
 
       return false;
     }
