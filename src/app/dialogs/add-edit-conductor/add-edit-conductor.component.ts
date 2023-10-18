@@ -15,6 +15,15 @@ import Swal from 'sweetalert2'
 })
 export class AddEditConductorComponent implements OnInit{
   nombrePatt = /^[a-zA-ZáéíóúñüÁÉÍÓÚÑÜ\s]{3,30}$/;
+
+  estado = 'form';
+  dniPatt = /^[0-9]{8}$/;
+  cePatt = /^[0-9]{12}$/;
+  ptpPatt = /^[A-Za-z0-9]{6,12}$/;
+  rucPatt = /^[0-9]{11}$/;
+  licPatt= /^[A-Z]-[0-9]{8,12}$/;
+  celPatt=/^9[0-9]{8}$/;
+  
   lstTipo:TipoDocumento[] = []
   lstLicencia:Licencia[]=[]
 
@@ -65,13 +74,17 @@ util.listarLicencia().subscribe(
 
   insertaConductor(){
 
-    if (this.validarCampos() == false) {
+    if (this.objConductor.cod_tipodocumento! == -1) {
+      Swal.fire({ icon: 'info', title: 'Seleccione el tipo de documento' })
+        
+    
+    }else if (this.validarCampos() == false) {
       Swal.fire({
         icon: 'error',
         title: 'Ingrese Datos',
         text: "Todos los campos son obligatorios para el Registro",
-      })
-
+      });
+      
 
     }else {
     
@@ -103,19 +116,21 @@ util.listarLicencia().subscribe(
 
   validarCampos(): boolean {
        if (
-      this.objConductor.cod_tipodocumento === -1||
       !this.objConductor.nrodocumento ||
       !this.objConductor.ape_chofer  ||
       !this.objConductor.nom_chofer ||
-      this.objConductor.cod_licencia === -1 ||
       !this.objConductor.nrolicencia ||
       !this.objConductor.telefono
       
     ) {
-
-
       return false;
     }
+
+
+
+
+
+
     return true;
   }
 
