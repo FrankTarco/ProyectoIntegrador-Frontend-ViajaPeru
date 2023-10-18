@@ -1,19 +1,19 @@
-<body>
+<body> 
     <div class="box">
      <span class="borderLine">
      </span>   
-    <form #f="ngForm" (ngSubmit)="onLogin()" novalidate >
+    <form  [formGroup]="myForm"  (ngSubmit)="onLogin()" >
         <img src="../../../assets/img/viajaperulogo.png" alt="" style="margin-top: -30px;">
         <h2 style="margin-top: -3px;">Inicio de sesion</h2>
         <div class="inputBox">        
-            <input type="text" name="login" id="login" [(ngModel)]="loginUsuario.login" required="required">
+            <input formControlName="usuario" type="text" name="login" id="login" [(ngModel)]="loginUsuario.login" required>
             <span>Usuario</span>
             <i></i>
             
         </div>
     
         <div class="inputBox">
-            <input type="password" name="password" id="password" [(ngModel)]="loginUsuario.password" required="required">
+            <input formControlName="password" type="password" name="password" id="password" [(ngModel)]="loginUsuario.password" required>
             <span>Contraseña</span>
             <i></i>
             
@@ -22,13 +22,13 @@
         <hr><br>
     </div>
     
-        <div class="links">
+        <div class="links" style="margin-top: -5px;">
             
             <a href="#">Olvidaste tu contraseña</a>
             <a href="index">Registrate</a>
         </div>
-
-        <button class="btn-success text-center" [disabled]="!f.valid">Iniciar Sesison</button>
+        
+        <button  class="btn-success text-center" style="margin-top: -2px;" >Iniciar Sesison</button>
         
        
     </form>

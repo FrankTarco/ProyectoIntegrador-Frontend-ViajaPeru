@@ -59,7 +59,7 @@ public myForm!:FormGroup;
   onLogin(): void {
 if (this.myForm.invalid){
   Swal.fire({
-    icon: 'info',
+    icon: 'error',
     title: 'Ingrese Datos',
     text: "Usuario y Contraseña Obligatorios",
   })
