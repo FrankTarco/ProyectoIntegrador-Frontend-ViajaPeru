@@ -109,7 +109,7 @@
 
         <mat-form-field appearance="outline" class="p-1">
             <mat-label>Número de Licencia</mat-label>
-            <input matInput [(ngModel)]="objConductor.nrolicencia" placeholder="Número de Licencia" #ngLicencia="ngModel"
+            <input matInput [(ngModel)]="objConductor.nrolicencia"  (ngModelChange)="agregarGuion()" placeholder="Número de Licencia" #ngLicencia="ngModel"
             [pattern]="licPatt" name="licencia">
             <mat-hint style="color: red;" *ngIf="objConductor.nrolicencia===''&& (!ngLicencia.dirty || ngLicencia.touched)">
                 *Campo Olbigatorio
