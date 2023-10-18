@@ -7,45 +7,71 @@
 </div>
 
 <div mat-dialog-content>
-    <div class="row">
-            <mat-form-field appearance="outline" class="mt-2 p-1">
-                <mat-label>Placa</mat-label>
-                <input matInput placeholder="Placeholder" [(ngModel)]="objBus.placa" (ngModelChange)="agregarGuion()">
- 
-              </mat-form-field>   
-
-              <mat-form-field appearance="outline" class="mt-2 p-1">
-                <mat-label>Marca</mat-label>
-                <input matInput placeholder="Placeholder" [(ngModel)]="objBus.marca">
+    
            
-              </mat-form-field>  
+    <div class="row">
+       
+        <mat-form-field appearance="outline" class="mt-2 p-1">
+            <mat-label>Placa</mat-label>
+            <input matInput placeholder="Placeholder" [(ngModel)]="objBus.placa"  (ngModelChange)="agregarGuion()" #codigoInput="ngModel"
+            [pattern]="codigoPattern" name="placa" >
+            <mat-hint style="color: red;" *ngIf="objBus.placa === '' && (!codigoInput.dirty || codigoInput.touched)">
+                *Campo Olbigatorio
+              </mat-hint>
+              <mat-hint style="color: red;" *ngIf="codigoInput.invalid && (codigoInput.dirty || codigoInput.touched)">
+                *Placa Invalida
+              </mat-hint>
+        </mat-form-field>
+        
+        <mat-form-field appearance="outline" class="mt-2 p-1">
+            <mat-label>Marca</mat-label>
+            <input matInput placeholder="Placeholder" [(ngModel)]="objBus.marca"  #marcaInput="ngModel"
+            [pattern]="letraspatt" name="marca">
+            <mat-hint style="color: red;" *ngIf="objBus.marca===''|| objBus.marca==='marca' && (!marcaInput.dirty || !marcaInput.touched)">
+                *Campo Olbigatorio
+              </mat-hint>
+              <mat-hint style="color: red;" *ngIf="marcaInput.invalid && (!marcaInput.dirty || !marcaInput.touched)">
+                *Marca Invalida
+              </mat-hint>
+             
+        </mat-form-field> 
     </div>
 
     <div class="row">
         <mat-form-field appearance="outline" class="p-1">
             <mat-label>Asientos</mat-label>
-            <input matInput placeholder="Placeholder" [(ngModel)]="objBus.total_asientos">
+            <input type="number" matInput placeholder="Placeholder" [(ngModel)]="objBus.total_asientos" #asientoInput="ngModel" name="asientos" max="100" min="50">
           
+            
+              <mat-hint style="color: red;" *ngIf="objBus.total_asientos! < 50 || objBus.total_asientos! > 100"  >
+                *Cantidad Incorrecta
+              </mat-hint>
           </mat-form-field>  
           
           <mat-form-field appearance="outline" class="p-1">
             <mat-label>Pasajeros</mat-label>
-            <input matInput placeholder="Placeholder" [(ngModel)]="objBus.total_pasajeros">
-            
+            <input type="number" matInput placeholder="Placeholder" [(ngModel)]="objBus.total_pasajeros" #pasajeroInput="ngModel" name="asientos" max="100" min="50">
+            <mat-hint style="color: red;" *ngIf="objBus.total_pasajeros! < 50 || objBus.total_pasajeros! > 100"  >
+                *Cantidad Incorrecta
+              </mat-hint>
           </mat-form-field>     
     </div>
 
     <div class="row">
         <mat-form-field appearance="outline" class="p-1">
             <mat-label>Año fabricación</mat-label>
-            <input matInput placeholder="Placeholder" [(ngModel)]="objBus.fabricacion">
-           
+            <input type="number" matInput placeholder="Placeholder" [(ngModel)]="objBus.fabricacion" #fabInput="ngModel" name="asientos" max="2023" min="2010">
+            <mat-hint style="color: red;" *ngIf="objBus.fabricacion! < 2010 || objBus.fabricacion! > 2023"  >
+                *Cantidad Incorrecta
+              </mat-hint>
           </mat-form-field>
           
           <mat-form-field appearance="outline" class="p-1">
             <mat-label>Cantidad ruedas</mat-label>
-            <input matInput placeholder="Placeholder" [(ngModel)]="objBus.cantidad_ruedas">
-            
+            <input type="number" matInput placeholder="Placeholder" [(ngModel)]="objBus.cantidad_ruedas" #ruedaInput="ngModel" name="asientos" max="16" min="4">
+            <mat-hint style="color: red;" *ngIf="objBus.cantidad_ruedas! < 4 || objBus.cantidad_ruedas! > 16"  >
+                *Cantidad Incorrecta
+              </mat-hint>
           </mat-form-field>  
     </div>
 
