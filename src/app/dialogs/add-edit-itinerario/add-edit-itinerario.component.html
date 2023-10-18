@@ -11,6 +11,7 @@
         <mat-form-field appearance="outline" class="col-md-6 mt-2 p-1" style="width: 100%;">
             <mat-label>Origen</mat-label>
             <mat-select (selectionChange)="llenarDestinos()" [(ngModel)]="objItinerario.codorigen">
+                <mat-option value="-1"> [Seleccione] </mat-option>
                 <ng-container *ngFor="let d of lstOrigen">
                     <mat-option  *ngIf="d.nombre === 'Lima'" [value]="d.cod_destino"> {{d.nombre}} - {{d.sucursal}} </mat-option>
                     <mat-option  *ngIf="d.nombre !='Lima'" [value]="d.cod_destino"> {{d.nombre}} </mat-option>
@@ -33,12 +34,12 @@
     <div class="row" style="margin-top: -15px;">
         <div class="col-md-6">
             <label for="" class="label-datetime">Fecha y hora de salida</label>
-            <input type="datetime-local" class="input-fecha mb-1" placeholder="Seleccione fecha" [(ngModel)]="objItinerario.fecha_salida"> 
+            <input type="datetime-local" min="{{fechaFormateada}}" class="input-fecha mb-1" placeholder="Seleccione fecha" [(ngModel)]="objItinerario.fecha_salida"> 
         </div>
         
         <div class="col-md-6">
             <label for="" class="label-datetime">Fecha y hora de llegada</label>
-            <input type="datetime-local" class="input-fecha mb-1" placeholder="Seleccione fecha" [(ngModel)]="objItinerario.fecha_llegada"> 
+            <input type="datetime-local" min="{{fechaFormateada}}" class="input-fecha mb-1" placeholder="Seleccione fecha" [(ngModel)]="objItinerario.fecha_llegada"> 
         </div>
 
     </div>
@@ -48,7 +49,7 @@
         <mat-form-field appearance="outline" class="col-md-6 p-1" style="width: 100%;">
             <mat-label>Bus</mat-label>
             <mat-select [(ngModel)]="objItinerario.codbus">
-                <mat-option [value]=-1> [Seleccione] </mat-option>
+                <mat-option value="-1"> [Seleccione] </mat-option>
                 <mat-option *ngFor="let b of lstBuses" [value]="b.cod_bus"> {{b.placa}} | Asientos: {{b.total_pasajeros}}</mat-option> 
             </mat-select> 
         </mat-form-field>

@@ -33,10 +33,21 @@ objItinerario:Itinerario={
   codorigen:"-1",
   codllegada:"-1",
   codequipo:"",
-  codbus:"",
+  codbus:"-1",
   precio:0.0,
   estado:1
 }
+
+estado = 'form';
+equipoPatter=/^E\d{7}$/
+
+// Obtener la fecha actual
+fechaActual = new Date();
+// Restar un día (86400000 milisegundos en un día)
+fechaMenosUnDia = new Date(this.fechaActual.getTime() - 86400000);
+// Formatear la fecha como una cadena ISO 8601
+fechaFormateada = this.fechaMenosUnDia.toISOString().slice(0, 16);
+
 
   constructor(private equipoBus:EquipobusService,private destinoService:DestinoService,
     private busService:BusService,private itinerarioService:ItinerarioService,
@@ -93,23 +104,80 @@ objItinerario:Itinerario={
 
   registrar(){
 
-    if(this.data){
-      this.itinerarioService.actualizarItinerario(this.objItinerario).subscribe(
-        x =>{
-          Swal.fire({icon:'info',title:'Resultado de la actualizacion', text: x.mensaje})
-          this._dialog.close(true)
-        }
-      )
-          
-    }else{
-      this.itinerarioService.registrarItinerario(this.objItinerario).subscribe(
-        x => {
-          Swal.fire({icon:'info',title:'Resultado del registro', text: x.mensaje})
-          this._dialog.close(true)
-        }
-      )
+    if(!this.validarCampos()){
+
+      if(this.estado.includes('no cumple el formato')){
+        Swal.fire({icon:'error',title:'Error', text: this.estado})
+      }
+      else{
+        Swal.fire({icon:'error',title:'Error', text: "El campo " + this.estado + " es obligatorio"})
+      }   
     }
-    
+    else{
+
+      if(this.data){
+        this.itinerarioService.actualizarItinerario(this.objItinerario).subscribe(
+          x =>{
+            Swal.fire({icon:'info',title:'Resultado de la actualizacion', text: x.mensaje})
+            this._dialog.close(true)
+          }
+        )
+            
+      }else{
+        this.itinerarioService.registrarItinerario(this.objItinerario).subscribe(
+          x => {
+            if(x.mensaje.includes("Error")){
+              Swal.fire({icon:'error',title:'Algo salio mal', text: x.mensaje})
+            }
+            else{
+              Swal.fire({icon:'success',title:'Resultado del registro', text: x.mensaje})
+              this._dialog.close(true)
+            }           
+          }
+        )
+      }
+
+    }
+   
+  }
+
+  validarCampos():Boolean{
+
+    if(this.objItinerario.codorigen === "-1"){
+      this.estado = "origen";
+      return false
+    }
+    else if(this.objItinerario.codllegada === "-1"){
+      this.estado = "llegada";
+      return false
+    }
+    else if(this.objItinerario.codbus === "-1"){
+      this.estado = "bus";
+      return false
+    }
+    else if(this.objItinerario.precio === 0){
+      this.estado = "precio";
+      return false
+    }
+    else if(this.objItinerario.codequipo === ""){
+      this.estado = "equipo";
+      return false
+    }
+    else if(this.objItinerario.fecha_salida === ""){
+      this.estado = "salida"
+      return false
+    }
+    else if(this.objItinerario.fecha_llegada === ""){
+      this.estado = "llegada"
+      return false
+    }
+    else if(!this.equipoPatter.test(this.objItinerario.codequipo!)){
+      this.estado = "El equipo no cumple el formato";
+      return false
+    }
+    else{
+      return true
+     }  
   }
 
 
