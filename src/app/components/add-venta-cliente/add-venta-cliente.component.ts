@@ -11,12 +11,15 @@ import { Itinerario } from 'src/app/models/itinerario.model';
 })
 export class AddVentaClienteComponent {
 
+  checkMarcado = false;
+
   fontStyleControl = new FormControl('');
   fontStyle?: string;
 
   correoCliente:string=""
+  telefono:String=""
 
-  objEnviar:any={correo:"",tipoPago:""}
+  objEnviar:any={correo:"",tipoPago:"",telefono:""}
   
 
   objItinerario:Itinerario = JSON.parse(localStorage.getItem("itinerario")!)
@@ -31,7 +34,8 @@ export class AddVentaClienteComponent {
   openDialog(){
     this.objEnviar={
       correo:this.correoCliente,
-      tipoPago:this.fontStyleControl.value
+      tipoPago:this.fontStyleControl.value,
+      telefono:this.telefono
     }
     let data:any = this.objEnviar
     const dialogRef = this.dialog.open(AddPagoClienteComponent, {data,})
@@ -44,6 +48,10 @@ export class AddVentaClienteComponent {
       tipoPago:this.fontStyleControl.value
     }
     console.log(this.objEnviar)
+  }
+
+  checkboxChange(){
+    this.checkMarcado = !this.checkMarcado;
   }
 
 }

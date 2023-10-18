@@ -79,8 +79,8 @@ mat-toolbar {
   }
   
   mat-divider {
-    margin-top: 16px;
-    margin-bottom: 16px;
+    margin-top: 10px;
+    margin-bottom: 10px;
     background-color: rgba(255, 255, 255, 0.5);
   }
 
@@ -88,10 +88,16 @@ mat-toolbar {
   .boton-apagar {
     display: inline-block;
     padding: 10px 20px;
-    background-color: black;
+    background-color: transparent;
     border-radius: 5px;
     text-decoration: none;
-    color: white;
+    color: rgb(204, 204, 204);
     border: none;
     cursor: pointer;
+    transition: ease .3s;
+  }
+
+  .boton-apagar:hover{
+    color: rgb(255, 255, 255);
+    transform: scale(1.2,1.2);
   }

@@ -1,6 +1,6 @@
 <body>
 
-<header class="bg_animate" style="height: 400px;">
+<header class="bg_animate" style="height: 500px;">
     <div class="header_nav">
         <div class="contenedor">
             <img src="../../../assets/img/viajaperulogo.png" alt="" class="bg-bus">                
@@ -10,10 +10,10 @@
     <section class="banner contenedor">
         <section class="banner_title">
             <h2>Selecciona tus asientos</h2>
-            <p><strong>Smartbus</strong> el negocio que necesitas para viajar sin hacer largas colas y gastar mucho</p>
+            <p><strong style="color: red;">VIAJA PERU</strong> el negocio que necesitas para viajar sin hacer largas colas y gastar mucho</p>
         </section>
         <div class="banner_img">    
-            <img src="../../../assets/img/select-asiento.svg" alt="" style="width: 500px;">
+            <img src="../../../assets/img/Bus-stick.png" alt="" style="width: 600px;">
         </div>
     </section>
 
@@ -53,9 +53,11 @@
                                     <mat-label>Tipo de Documento</mat-label>
                                     <mat-select [(ngModel)]="asientos[i].cod_tipodocumento">
                                         <mat-option value="-1"> [Seleccione] </mat-option>
-                                        <mat-option  *ngFor="let x of lstDocumentos" [value]="x.cod_tipodocumento">
-                                            {{x.descripcion}}
-                                        </mat-option>   
+                                        <ng-container *ngFor="let x of lstDocumentos">
+                                            <mat-option  *ngIf="x.descripcion !== 'RUC'" [value]="x.cod_tipodocumento">
+                                                {{x.descripcion}}
+                                            </mat-option> 
+                                        </ng-container>                                      
                                     </mat-select> 
                                 </mat-form-field> 
                         
@@ -144,11 +146,18 @@
                     </div>
                    
                 </div>
+
+                <div class="col-md-12">
+                    <button class="btn btn-danger" (click)="verificar()" style="width: 100%;">Avanzar</button>
+                </div>
+
               </div>
-                              
+              
+              
+              
              </div>
 
-             <button class="btn btn-danger" (click)="verificar()">Avanzar</button>
+             
 
                 
             </div>

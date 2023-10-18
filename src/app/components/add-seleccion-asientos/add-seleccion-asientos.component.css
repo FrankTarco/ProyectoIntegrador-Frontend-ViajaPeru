@@ -11,7 +11,8 @@ body{
 .bg_animate{
     width: 100%;
     height: 100vh;
-    background: url(../../../assets/img/fondo-ban.jpg);
+    background: url(../../../assets/img/bg.svg);
+    background-position: center bottom;
     background-repeat: no-repeat;
     background-size: cover;
     position: relative;
@@ -33,7 +34,7 @@ body{
 }
 
 .header_nav .bg-bus{
-    width: 350px;
+    width: 500px;
     animation: movimiento 3.5s linear infinite;
 }
 

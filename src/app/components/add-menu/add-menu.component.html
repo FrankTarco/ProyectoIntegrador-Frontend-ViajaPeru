@@ -4,8 +4,8 @@
       *ngIf="sidenav.mode === 'over'"
       (click)="sidenav.toggle()"
     >
-    <p *ngIf="!sidenav.opened">O</p>
-    <p *ngIf="sidenav.opened">X</p>
+    <i *ngIf="sidenav.opened" class="fas fa-times text-light"></i>
+    <i *ngIf="!sidenav.opened" class="fas fa-bars text-light"></i>
 
     </button>
     <img src="../../../assets/img/viajaperulogo.png" alt="" width="180px">

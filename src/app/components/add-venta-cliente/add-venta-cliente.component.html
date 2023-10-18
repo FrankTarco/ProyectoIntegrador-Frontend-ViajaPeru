@@ -1,6 +1,6 @@
 <body>
 
-    <header class="bg_animate" style="height: 400px;">
+    <header class="bg_animate" style="height: 500px;">
       <div class="header_nav">
           <div class="contenedor">
               <img src="../../../assets/img/viajaperulogo.png" alt="" class="bg-bus">                
@@ -10,10 +10,10 @@
       <section class="banner contenedor">
           <section class="banner_title">
               <h2>Selecciona tus asientos</h2>
-              <p><strong>Smartbus</strong> el negocio que necesitas para viajar sin hacer largas colas y gastar mucho</p>
+              <p><strong style="color: red;">VIAJA PERU</strong> el negocio que necesitas para viajar sin hacer largas colas y gastar mucho</p>
           </section>
           <div class="banner_img">    
-              <img src="../../../assets/img/select-asiento.svg" alt="" style="width: 500px;">
+              <img src="../../../assets/img/Bus-stick.png" alt="" style="width: 600px;">
           </div>
       </section>
 
@@ -58,7 +58,7 @@
                             <div class="col-md-6">
                                 <mat-form-field appearance="outline" style="width: 100%;">
                                     <mat-label>Numero de telefono</mat-label>
-                                    <input matInput placeholder="Placeholder">                    
+                                    <input matInput placeholder="Placeholder" [(ngModel)]="telefono">                    
                                   </mat-form-field>
                             </div>
 
@@ -100,7 +100,7 @@
                         <div class="row">
                             <div class="col-md-12">             
                                 <section>
-                                    <p><mat-checkbox>* Al hacer clic acepta y confirma haber leido los terminos y condiciones de <i class="text-danger">Viaja Perú</i> </mat-checkbox></p>
+                                    <p><mat-checkbox (change)="checkboxChange()">* Al hacer clic acepta y confirma haber leido los terminos y condiciones de <i class="text-danger font-weight-bold">Viaja Perú</i> </mat-checkbox></p>
                                   </section>             
                             </div>
 
@@ -125,7 +125,7 @@
                             </div>
 
                             <div class="col-md-12 mt-4 d-flex justify-content-center">
-                                <button mat-raised-button color="warn" (click)="openDialog()">PAGUE AQUI</button>
+                                <button mat-raised-button color="warn" (click)="openDialog()" [disabled]="!checkMarcado">PAGUE AQUI</button>
                             </div>
 
                         </div>

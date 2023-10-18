@@ -4,6 +4,7 @@ import { Destino } from 'src/app/models/destino.model';
 import { Itinerario } from 'src/app/models/itinerario.model';
 import { DestinoService } from 'src/app/services/destino.service';
 import { ItinerarioService } from 'src/app/services/itinerario.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-add-venta',
@@ -40,10 +41,15 @@ export class AddVentaComponent {
   }
 
   buscarItinerario(){
-    localStorage.setItem("origen",this.origen)
-    localStorage.setItem("llegada",this.llegada)
-    localStorage.setItem("fecha",this.formatearFecha(this.fecha))
-    this.router.navigate(["viajes"])
+    if(this.origen === "-1" || this.llegada === "-1" || this.fecha === ""){
+      Swal.fire({icon:'error',title:'Campos obligatorios', text:"Debe seleccionar los destinos y la fecha"})
+    }
+    else{
+      localStorage.setItem("origen",this.origen)
+      localStorage.setItem("llegada",this.llegada)
+      localStorage.setItem("fecha",this.formatearFecha(this.fecha))
+      this.router.navigate(["viajes"])
+    }  
   }
 
 

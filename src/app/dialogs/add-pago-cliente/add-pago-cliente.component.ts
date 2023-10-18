@@ -42,7 +42,8 @@ export class AddPagoClienteComponent implements OnInit{
     nombre:"",
     cod_tipodocumento:-1,
     numeroDocumento:"",
-    email:""
+    email:"",
+    telefono:""
   }
 
   //SIGUIENTE PAGO
@@ -61,7 +62,8 @@ export class AddPagoClienteComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    this.objCliente.email=this.data.correo
+    this.objCliente.email=this.data.correo;
+    this.objCliente.telefono=this.data.telefono;
   }
 
   concretarRegistro(){

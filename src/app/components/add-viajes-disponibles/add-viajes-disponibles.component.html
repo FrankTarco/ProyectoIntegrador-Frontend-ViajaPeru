@@ -8,8 +8,8 @@
 
       <section class="banner contenedor">
           <section class="banner_title">
-              <h2>Compra online tu boleto de viaje desde nuestra web</h2>
-              <p><strong>Smartbus</strong> el negocio que necesitas para viajar sin hacer largas colas y gastar mucho</p>
+              <h2>Compra online tu boleto de viaje<br> desde nuestra web</h2>
+              <p><strong style="color: rgb(214, 3, 3);">VIAJA PERU</strong> el negocio que necesitas para viajar sin hacer largas colas y gastar mucho</p>
           </section>
           <div class="banner_img">    
               <img src="../../../assets/img/distancia-buses.svg" alt="" style="width: 500px;">
@@ -37,7 +37,7 @@
             <div class="col-sm-12 col-xs-12 col-lg-3 mt-2">
             <mat-form-field style="width: 100%;">
                 <mat-label>Desde</mat-label>
-                <mat-select [(ngModel)]="origen">
+                <mat-select (selectionChange)="llenarLlegadas()" [(ngModel)]="origen">
                     <mat-option value="-1"> [Seleccione] </mat-option> 
                     <mat-option *ngFor="let f of lstOrigenes" [value]="f"> {{f}} </mat-option> 
                 </mat-select> 
@@ -77,7 +77,8 @@
 
 
 
-        <div class="col-md-12" *ngFor="let x of lstItinerarios">
+        <div class="col-md-12" *ngIf="lstItinerarios.length > 0; else noResults">
+          <ng-container *ngFor="let x of lstItinerarios">
             <div class="card mat-elevation-z4 mb-3" style="border-radius: 10px;">
               <div class="row g-0">
                 <div class="col-md-3 col-sm-5">
@@ -118,7 +119,20 @@
 
               </div>
             </div>
+
+          </ng-container>
           </div>
+
+          <ng-template #noResults>
+      
+            <div class="col-md-12 text-center">
+              <h3>Lo sentimos</h3>
+              <img src="../../../assets/img/Bus-stick.png" alt="" style="width: 350px;">
+
+              <p><b>No se encontraron resultados - <i class="text-danger">Intente buscando con otra fecha</i></b> </p>
+              
+            </div>
+          </ng-template>   
 
     </div>
 

@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Itinerario } from 'src/app/models/itinerario.model';
 import { EnvioDatosItinerarioService } from 'src/app/services/envio-datos-itinerario.service';
 import { ItinerarioService } from 'src/app/services/itinerario.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-add-viajes-disponibles',
@@ -46,6 +47,14 @@ export class AddViajesDisponiblesComponent implements OnInit{
   ngOnInit(): void {
     console.log(this.origen,this.llegada,this.fechaSalida)
     this.listarItinerarios();
+  }
+
+  llenarLlegadas(){
+    this.itinerarioService.listarDestinosDiferentes(this.origen).subscribe(
+      l =>{
+        this.lstLlegadas = l
+      }
+    )
   }
 
   enviarData(data:any){
@@ -92,8 +101,15 @@ export class AddViajesDisponiblesComponent implements OnInit{
 
 
   consultarItinerarios(){
-    this.listarItinerarios();
-    console.log(this.fechaActual)
+
+    if(this.origen === "-1" || this.llegada === "-1" || this.fechaSalida === ""){
+      Swal.fire({icon:'error',title:'Campos obligatorios', text:"Debe seleccionar los destinos y la fecha"})
+    }
+    else{
+      this.listarItinerarios();
+    }
+
+    
   }
 
 
