@@ -11,5 +11,6 @@ export class Pago {
 
     venta?:Ventaboleto;
     cliente?:Cliente;
+    tipo?:string;
 
 }

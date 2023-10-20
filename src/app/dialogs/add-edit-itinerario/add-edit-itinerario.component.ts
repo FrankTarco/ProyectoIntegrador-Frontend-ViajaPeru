@@ -41,6 +41,7 @@ objItinerario:Itinerario={
 estado = 'form';
 equipoPatter=/^E\d{7}$/
 
+
 // Obtener la fecha actual
 fechaActual = new Date();
 // Restar un día (86400000 milisegundos en un día)

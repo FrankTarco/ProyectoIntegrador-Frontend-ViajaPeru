@@ -1,4 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Destino } from 'src/app/models/destino.model';
 import { DestinoService } from 'src/app/services/destino.service';
@@ -11,10 +12,6 @@ import Swal from 'sweetalert2';
 })
 export class AddEditDestinoComponent implements OnInit {
 
-  nombrePatt = /^[a-zA-ZáéíóúñüÁÉÍÓÚÑÜ\s]{3,30}$/;
-  dirPatt = /^[a-zA-ZáéíóúñüÁÉÍÓÚÑÜ\s\d]{3,150}$/;
-  ubicaPatt = /^[A-Za-z0-9\s,áéíóúüñÁÉÍÓÚÑÜ.#-]{3,150}$/;
-  estado='form';
 
   objDestino: Destino = {
     cod_destino: "",
@@ -24,9 +21,16 @@ export class AddEditDestinoComponent implements OnInit {
     estado: 1
   }
 
+  formRegistra = this.formBuilder.group({
+    validaNombre:['', [Validators.required,Validators.pattern('[a-zA-ZáéíóúüÁÉÍÓÚñÑÜ ]{3,30}')]],
+    validaSucursal:['', [Validators.required,Validators.pattern('[a-zA-ZáéíóúüÁÉÍÓÚñÑÜ0-9 ]{3,150}')]],
+    validaUbicacion:['', [Validators.required,Validators.pattern('[A-Za-z0-9 ,áéíóúüñÁÉÍÓÚÑÜ.#-]{3,150}')]],
+    validaEstado:['',[Validators.min(0)]]
+  })
+
 
   constructor(private destinoService: DestinoService, public _dialog: MatDialogRef<AddEditDestinoComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any) { }
+    @Inject(MAT_DIALOG_DATA) public data: any, private formBuilder:FormBuilder) { }
 
 
   ngOnInit(): void {
@@ -43,7 +47,9 @@ export class AddEditDestinoComponent implements OnInit {
 
   registrarDestino() {
 
-    if (this.validarCampos() == false && this.estado == 'form') {
+
+    if (!this.formRegistra.valid) {
+
       Swal.fire({
         icon: 'error',
         title: 'Ingrese Datos',
@@ -77,52 +83,32 @@ export class AddEditDestinoComponent implements OnInit {
 
       this.destinoService.actualizarDestino(this.objDestino).subscribe(
         d => {
-          Swal.fire({ icon: 'info', title: 'Resultado de la actualizacion', text: d.mensaje })
-          this._dialog.close(true)
+          if(d.mensaje.includes("Error")){
+            Swal.fire({ icon: 'error', title: 'Algo salio mal', text: d.mensaje })
+          }
+          else{
+            Swal.fire({ icon: 'success', title: 'Resultado de la actualizacion', text: d.mensaje })
+            this._dialog.close(true)
+          }    
         }
       )
 
     } else {
       this.destinoService.registrarDestino(this.objDestino).subscribe(
         d => {
-          Swal.fire({ icon: 'info', title: 'Resultado del Registro', text: d.mensaje })
-          this._dialog.close(true)
+
+          if(d.mensaje.includes("Error")){
+            Swal.fire({ icon: 'error', title: 'Algo salio mal', text: d.mensaje })
+          }
+          else{
+            Swal.fire({ icon: 'success', title: 'Resultado', text: d.mensaje })
+            this._dialog.close(true)
+          }   
         }
       )
     }
 
   }
-  }
-
-  validarCampos(): boolean {
-    const añoActual = new Date().getFullYear();
-    //console.log(añoActual);
-
-    if (
-      !this.objDestino.nombre ||
-      !this.objDestino.sucursal ||
-      !this.objDestino.ubicacion
-
-    ) {
-
-      return false;
-    }
-
-    if (!this.nombrePatt.test(this.objDestino.nombre)) {
-
-      this.estado = 'nombre';
-      console.log(this.estado);
-      return false;
-    } else if (!this.dirPatt.test(this.objDestino.sucursal)) {
-      this.estado = 'sucursal';
-      return false;
-    } else if (!this.ubicaPatt.test(this.objDestino.ubicacion)) {
-      this.estado = 'ubi';
-
-      return false;
-    }
-
-    return true;
   }
 
 

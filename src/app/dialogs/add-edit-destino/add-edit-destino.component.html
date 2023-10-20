@@ -5,35 +5,37 @@
     <mat-divider></mat-divider>
     
 </div>
-
+<form id="formDestino" [formGroup]="formRegistra">
 <div mat-dialog-content>
    
     <div class="row">
         <mat-form-field appearance="outline" class="p-1" style="width: 100%;">
             <mat-label>Nombre del destino</mat-label>
-            <input matInput [(ngModel)]="objDestino.nombre" placeholder="Nombre del destino" #ngdestino="ngModel"
-            [pattern]="nombrePatt" name="destino">
-            <mat-hint style="color: red;" *ngIf="objDestino.nombre===''&& (!ngdestino.dirty || ngdestino.touched)">
-                *Campo Olbigatorio
-              </mat-hint>
-              <mat-hint style="color: red;" *ngIf="ngdestino.invalid && (ngdestino.dirty || ngdestino.touched)">
-                *Destino Invalido
-              </mat-hint>
-          </mat-form-field>  
+            <input matInput [(ngModel)]="objDestino.nombre" placeholder="Nombre del destino" formControlName="validaNombre" name="destino">
+            <mat-hint style="color:red" *ngIf="formRegistra.controls.validaNombre.touched">
+                <span *ngIf="formRegistra.controls.validaNombre.hasError('required')">
+                El Nombre es requerido
+                </span>
+                <span *ngIf="formRegistra.controls.validaNombre.hasError('pattern')">
+                El nombre debe tener de 3 a 30 digitos
+                </span>
+            </mat-hint>
+        </mat-form-field>  
 
     </div>
 
     <div class="row">
         <mat-form-field appearance="outline" style="width: 100%;">
             <mat-label>Sucursal</mat-label>
-            <input matInput [(ngModel)]="objDestino.sucursal" placeholder="Sucursal" #ngsucursal="ngModel"
-            [pattern]="dirPatt" name="sucursal">
-            <mat-hint style="color: red;" *ngIf="objDestino.sucursal===''&& (!ngsucursal.dirty || ngsucursal.touched)">
-                *Campo Olbigatorio
-              </mat-hint>
-              <mat-hint style="color: red;" *ngIf="ngsucursal.invalid && (ngsucursal.dirty || ngsucursal.touched)">
-                *Destino Invalido
-              </mat-hint>
+            <input matInput [(ngModel)]="objDestino.sucursal" placeholder="Sucursal" formControlName="validaSucursal" name="sucursal">
+            <mat-hint style="color:red" *ngIf="formRegistra.controls.validaSucursal.touched">
+                <span *ngIf="formRegistra.controls.validaSucursal.hasError('required')">
+                La sucursal es requerida
+                </span>
+                <span *ngIf="formRegistra.controls.validaSucursal.hasError('pattern')">
+                    La sucursal debe tener de 3 a 150 digitos
+                    </span>
+            </mat-hint>
           </mat-form-field>
           
     </div>
@@ -41,14 +43,15 @@
     <div class="row">
           <mat-form-field appearance="outline" class="p-1"style="width: 100%;">
             <mat-label>Ubicacion</mat-label>
-            <input matInput [(ngModel)]="objDestino.ubicacion" placeholder="Ubicación" #ngubicacion="ngModel"
-            [pattern]="ubicaPatt" name="ubicacion">
-            <mat-hint style="color: red;" *ngIf="objDestino.ubicacion===''&& (!ngubicacion.dirty || ngubicacion.touched)">
-                *Campo Olbigatorio
-              </mat-hint>
-              <mat-hint style="color: red;" *ngIf="ngubicacion.invalid && (ngubicacion.dirty || ngubicacion.touched)">
-                *Destino Invalido
-              </mat-hint>
+            <input matInput [(ngModel)]="objDestino.ubicacion" placeholder="Ubicación" formControlName="validaUbicacion" name="ubicacion">
+            <mat-hint style="color:red" *ngIf="formRegistra.controls.validaUbicacion.touched">
+                <span *ngIf="formRegistra.controls.validaUbicacion.hasError('required')">
+                La ubicacion es requerida
+                </span>
+                <span *ngIf="formRegistra.controls.validaUbicacion.hasError('pattern')">
+                    La ubicacion debe tener de 3 a 150 digitos
+                    </span>
+            </mat-hint>
           </mat-form-field>  
 
     </div>
@@ -56,11 +59,16 @@
     <div class="row">
         <mat-form-field *ngIf="data" appearance="outline" style="width: 100%;">
             <mat-label>Estado</mat-label>
-            <mat-select [(ngModel)]="objDestino.estado">
+            <mat-select [(ngModel)]="objDestino.estado" formControlName="validaEstado">
                 <mat-option [value]=-1> [Seleccione] </mat-option>
                 <mat-option [value]=1>Activo</mat-option>
                 <mat-option [value]=0>Inactivo</mat-option>    
-            </mat-select> 
+            </mat-select>
+            <mat-hint style="color:red" *ngIf="formRegistra.controls.validaEstado.touched">
+                <span *ngIf="formRegistra.controls.validaEstado.hasError('min')">
+                El estado debe ser seleccionado
+                </span>
+            </mat-hint>
         </mat-form-field> 
     </div>
 
@@ -69,6 +77,8 @@
 
 <div mat-dialog-actions>
     <button mat-raised-button [mat-dialog-close]="false">Cancel</button>
-    <button mat-raised-button color="warn" (click)="registrarDestino()">Guardar</button>
+    <button mat-raised-button color="warn" (click)="registrarDestino()" [disabled]="formRegistra.invalid">Guardar</button>
 </div>
+
+</form>
 

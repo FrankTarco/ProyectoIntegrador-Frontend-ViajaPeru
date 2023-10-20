@@ -6,6 +6,7 @@
     
 </div>
 
+<form id="formBus" [formGroup]="formRegistra">
 <div mat-dialog-content>
     
            
@@ -13,88 +14,140 @@
        
         <mat-form-field appearance="outline" class="mt-2 p-1">
             <mat-label>Placa</mat-label>
-            <input matInput placeholder="Placeholder" [(ngModel)]="objBus.placa"  (ngModelChange)="agregarGuion()" #codigoInput="ngModel"
-            [pattern]="codigoPattern" name="placa" >
-            <mat-hint style="color: red;" *ngIf="objBus.placa === '' && (!codigoInput.dirty || codigoInput.touched)">
-                *Campo Olbigatorio
-              </mat-hint>
-              <mat-hint style="color: red;" *ngIf="codigoInput.invalid && (codigoInput.dirty || codigoInput.touched)">
-                *Placa Invalida
-              </mat-hint>
+            <input matInput placeholder="Placeholder" [(ngModel)]="objBus.placa"  (ngModelChange)="agregarGuion()" formControlName="validaPlaca" name="placa" >
+            <mat-hint style="color:red" *ngIf="formRegistra.controls.validaPlaca.touched">
+                <span *ngIf="formRegistra.controls.validaPlaca.hasError('required')">
+                La placa es requerida
+                </span>
+                <span *ngIf="formRegistra.controls.validaPlaca.hasError('pattern')">
+                La placa debe ser A00-0AA
+                </span>
+            </mat-hint>
         </mat-form-field>
         
         <mat-form-field appearance="outline" class="mt-2 p-1">
             <mat-label>Marca</mat-label>
-            <input matInput placeholder="Placeholder" [(ngModel)]="objBus.marca"  #marcaInput="ngModel"
-            [pattern]="letraspatt" name="marca">
-            <mat-hint style="color: red;" *ngIf="objBus.marca===''|| objBus.marca==='marca' && (!marcaInput.dirty || !marcaInput.touched)">
-                *Campo Olbigatorio
-              </mat-hint>
-              <mat-hint style="color: red;" *ngIf="marcaInput.invalid && (!marcaInput.dirty || !marcaInput.touched)">
-                *Marca Invalida
-              </mat-hint>
-             
+            <input matInput placeholder="Placeholder" [(ngModel)]="objBus.marca" formControlName="validaMarca" name="marca">
+            <mat-hint style="color:red" *ngIf="formRegistra.controls.validaMarca.touched">
+                <span *ngIf="formRegistra.controls.validaMarca.hasError('required')">
+                La marca es requerida
+                </span>
+                <span *ngIf="formRegistra.controls.validaMarca.hasError('pattern')">
+                Valida de 2 a 20 letras
+                </span>
+            </mat-hint>
         </mat-form-field> 
     </div>
 
     <div class="row">
         <mat-form-field appearance="outline" class="p-1">
             <mat-label>Asientos</mat-label>
-            <input type="number" matInput placeholder="Placeholder" [(ngModel)]="objBus.total_asientos" #asientoInput="ngModel" name="asientos" max="100" min="50">
+            <input type="number" matInput placeholder="Placeholder" [(ngModel)]="objBus.total_asientos" formControlName="validaTotalAsientos" name="asientos">
           
-            
-              <mat-hint style="color: red;" *ngIf="objBus.total_asientos! < 50 || objBus.total_asientos! > 100"  >
-                *Cantidad Incorrecta
-              </mat-hint>
+            <mat-hint style="color:red" *ngIf="formRegistra.controls.validaTotalAsientos.touched">
+                <span *ngIf="formRegistra.controls.validaTotalAsientos.hasError('required')">
+                asientos es requerido
+                </span>
+                <span *ngIf="formRegistra.controls.validaTotalAsientos.hasError('min')">
+                Valido de 40 a 80
+                </span>
+                <span *ngIf="formRegistra.controls.validaTotalAsientos.hasError('max')">
+                Valido de 40 a 80
+                </span>
+            </mat-hint>
+
           </mat-form-field>  
           
           <mat-form-field appearance="outline" class="p-1">
             <mat-label>Pasajeros</mat-label>
-            <input type="number" matInput placeholder="Placeholder" [(ngModel)]="objBus.total_pasajeros" #pasajeroInput="ngModel" name="asientos" max="100" min="50">
-            <mat-hint style="color: red;" *ngIf="objBus.total_pasajeros! < 50 || objBus.total_pasajeros! > 100"  >
-                *Cantidad Incorrecta
-              </mat-hint>
+            <input type="number" matInput placeholder="Placeholder" [(ngModel)]="objBus.total_pasajeros" formControlName="validaTotalPasajeros" name="asientos">
+
+            <mat-hint style="color:red" *ngIf="formRegistra.controls.validaTotalPasajeros.touched">
+                <span *ngIf="formRegistra.controls.validaTotalPasajeros.hasError('required')">
+                pasajeros es requerido
+                </span>
+                <span *ngIf="formRegistra.controls.validaTotalPasajeros.hasError('min')">
+                Valido 37 a 77
+                </span>
+                <span *ngIf="formRegistra.controls.validaTotalPasajeros.hasError('max')">
+                Valido 37 a 77
+                </span>
+            </mat-hint>
+
           </mat-form-field>     
     </div>
 
     <div class="row">
         <mat-form-field appearance="outline" class="p-1">
             <mat-label>Año fabricación</mat-label>
-            <input type="number" matInput placeholder="Placeholder" [(ngModel)]="objBus.fabricacion" #fabInput="ngModel" name="asientos" max="2023" min="2010">
-            <mat-hint style="color: red;" *ngIf="objBus.fabricacion! < 2010 || objBus.fabricacion! > 2023"  >
-                *Cantidad Incorrecta
-              </mat-hint>
+            <input type="number" matInput placeholder="Placeholder" [(ngModel)]="objBus.fabricacion" formControlName="validaAnioFabricacion" name="asientos">
+
+            <mat-hint style="color:red" *ngIf="formRegistra.controls.validaAnioFabricacion.touched">
+                <span *ngIf="formRegistra.controls.validaAnioFabricacion.hasError('required')">
+                El año es requerido
+                </span>
+                <span *ngIf="formRegistra.controls.validaAnioFabricacion.hasError('min')">
+                Solo entre 2010 y {{currentYear}}
+                </span>
+                <span *ngIf="formRegistra.controls.validaAnioFabricacion.hasError('max')">
+                Solo entre 2010 y {{currentYear}}
+                </span>
+            </mat-hint>
+
           </mat-form-field>
           
           <mat-form-field appearance="outline" class="p-1">
             <mat-label>Cantidad ruedas</mat-label>
-            <input type="number" matInput placeholder="Placeholder" [(ngModel)]="objBus.cantidad_ruedas" #ruedaInput="ngModel" name="asientos" max="16" min="4">
-            <mat-hint style="color: red;" *ngIf="objBus.cantidad_ruedas! < 4 || objBus.cantidad_ruedas! > 16"  >
-                *Cantidad Incorrecta
-              </mat-hint>
-          </mat-form-field>  
+            <input type="number" matInput placeholder="Placeholder" [(ngModel)]="objBus.cantidad_ruedas" formControlName="validaCantidadRuedas" name="asientos">
+        
+            <mat-hint style="color:red" *ngIf="formRegistra.controls.validaCantidadRuedas.touched">
+                <span *ngIf="formRegistra.controls.validaCantidadRuedas.hasError('required')">
+                Las ruedas es requerida
+                </span>
+                <span *ngIf="formRegistra.controls.validaCantidadRuedas.hasError('pattern')">
+                Solo pares
+                </span>
+                <span *ngIf="formRegistra.controls.validaCantidadRuedas.hasError('min')">
+                Entre 4 a 16
+                </span>
+                <span *ngIf="formRegistra.controls.validaCantidadRuedas.hasError('max')">
+                Entre 4 a 16
+                </span>
+            </mat-hint>
+
+        </mat-form-field>  
     </div>
 
 
     <div class="row">
         <mat-form-field appearance="outline" style="width: 100%;">
             <mat-label>Combustible</mat-label>
-            <mat-select [(ngModel)]="objBus.cod_combustible">
+            <mat-select [(ngModel)]="objBus.cod_combustible" formControlName="validaCombustible">
                 <mat-option [value]=-1> [Seleccione] </mat-option>
                 <mat-option  *ngFor="let x of lstCombustible" [value]="x.cod_combustible">
                     {{x.nombre}}
                 </mat-option>   
             </mat-select> 
+            <mat-hint style="color:red" *ngIf="formRegistra.controls.validaCombustible.touched">
+                <span *ngIf="formRegistra.controls.validaCombustible.hasError('min')">
+                Debe seleccionar el combustible
+                </span>
+            </mat-hint>
         </mat-form-field> 
 
         <mat-form-field appearance="outline" style="width: 100%;">
             <mat-label>Servicio</mat-label>
-            <mat-select [(ngModel)]="objBus.cod_servicio">
+            <mat-select [(ngModel)]="objBus.cod_servicio" formControlName="validaServicio">
                 <mat-option [value]=-1> [Seleccione] </mat-option>
                 <mat-option  *ngFor="let x of lstServicio" [value]="x.cod_servicio">
                     {{x.nombre}}
                 </mat-option>   
-            </mat-select> 
+            </mat-select>
+            <mat-hint style="color:red" *ngIf="formRegistra.controls.validaServicio.touched">
+                <span *ngIf="formRegistra.controls.validaServicio.hasError('min')">
+                Debe seleccionar el servicio
+                </span>
+            </mat-hint> 
         </mat-form-field> 
 
         
@@ -104,11 +157,16 @@
     <div class="row">
         <mat-form-field *ngIf="data" appearance="outline" style="width: 100%;">
             <mat-label>Estado</mat-label>
-            <mat-select [(ngModel)]="objBus.estado">
+            <mat-select [(ngModel)]="objBus.estado" formControlName="validaEstado">
                 <mat-option [value]=-1> [Seleccione] </mat-option>
                 <mat-option [value]=1>Activo</mat-option>
                 <mat-option [value]=0>Inactivo</mat-option>    
             </mat-select> 
+            <mat-hint style="color:red" *ngIf="formRegistra.controls.validaEstado.touched">
+                <span *ngIf="formRegistra.controls.validaEstado.hasError('min')">
+                Debe seleccionar el estado
+                </span>
+            </mat-hint>
         </mat-form-field> 
     </div>
 
@@ -116,5 +174,7 @@
 
 <div mat-dialog-actions>
     <button mat-raised-button type="button" [mat-dialog-close]="false" >Cancel</button>
-    <button mat-raised-button color="warn" (click)="registrar()">{{data ? 'Actualizar' : 'Registrar'}}</button>
+    <button mat-raised-button color="warn" (click)="registrar()" [disabled]="formRegistra.invalid">{{data ? 'Actualizar' : 'Registrar'}}</button>
 </div>
+
+</form>
