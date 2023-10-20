@@ -56,28 +56,7 @@ export class AddEditDestinoComponent implements OnInit {
         text: "Todos los campos son obligatorios para el Registro",
       })
     
-    }else if (this.validarCampos() == false && this.estado == 'nombre') {
-      Swal.fire({
-        icon: 'info',
-        title: 'Ingrese Nombre de Destino Correcto',
-        text: "Solo caracteres alfabeticos",
-      })
-
-    } else if (this.validarCampos() == false && this.estado == 'sucursal') {
-      Swal.fire({
-        icon: 'info',
-        title: 'Ingrese una Surcursal Correcta',
-        text: "Para el campo sucrusal solo caracteres alfabeticos y numericos",
-      })
-
-    } else if (this.validarCampos() == false && this.estado == 'ubi') {
-      Swal.fire({
-        icon: 'info',
-        title: 'Ingrese Ubicacion correcta',
-        text: "La entrada debe cumplir con el patrón de entre 3 y 150 caracteres, comenzando y terminando con letras, números, espacios, comas, acentos o los símbolos .#-",
-      })
-
-    }else if (this.validarCampos() == true){
+    }else if (this.formRegistra.valid){
 
     if (this.data) {
 
