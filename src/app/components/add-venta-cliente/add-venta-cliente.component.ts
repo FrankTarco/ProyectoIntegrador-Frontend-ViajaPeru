@@ -3,6 +3,7 @@ import {FormControl, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { AddPagoClienteComponent } from 'src/app/dialogs/add-pago-cliente/add-pago-cliente.component';
 import { Itinerario } from 'src/app/models/itinerario.model';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-add-venta-cliente',
@@ -32,13 +33,19 @@ export class AddVentaClienteComponent {
   }
 
   openDialog(){
-    this.objEnviar={
-      correo:this.correoCliente,
-      tipoPago:this.fontStyleControl.value,
-      telefono:this.telefono
+
+    if(this.fontStyleControl.value === ''){
+      Swal.fire({ icon: 'error', title: 'Obligatorio', text: "Debe elegir el tipo de pago"})
     }
-    let data:any = this.objEnviar
-    const dialogRef = this.dialog.open(AddPagoClienteComponent, {data,})
+    else{
+      this.objEnviar={
+        correo:this.correoCliente,
+        tipoPago:this.fontStyleControl.value,
+        telefono:this.telefono
+      }
+      let data:any = this.objEnviar
+      const dialogRef = this.dialog.open(AddPagoClienteComponent, {data,})
+    }  
 
   }
 

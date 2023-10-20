@@ -5,6 +5,7 @@
 </div>
 
 <div class="container">
+<h6 class="text-center">Datos para su {{objPago.tipo}}</h6>    
 <div mat-dialog-content>
     <div class="row">
            <mat-form-field appearance="outline" style="width: 100%;">
@@ -30,10 +31,21 @@
            <mat-form-field appearance="outline" class="p-1">
             <mat-label>Tipo de Documento</mat-label>
             <mat-select [(ngModel)]="objCliente.cod_tipodocumento">
-                <mat-option [value]="-1"> [Seleccione] </mat-option>
-                <mat-option  *ngFor="let x of lstDocumentos" [value]="x.cod_tipodocumento">
+                <mat-option [value]=-1> [Seleccione] </mat-option>
+                <ng-container *ngFor="let x of lstDocumentos">
+                    <ng-container *ngIf="objPago.tipo ==='Factura'">
+                     <mat-option *ngIf="x.descripcion==='RUC'" [value]="x.cod_tipodocumento">
                     {{x.descripcion}}
-                </mat-option>   
+                    </mat-option>    
+                    </ng-container>
+
+                    <ng-container *ngIf="objPago.tipo ==='Boleta'">
+                        <mat-option *ngIf="x.descripcion!=='RUC'" [value]="x.cod_tipodocumento">
+                       {{x.descripcion}}
+                       </mat-option>    
+                    </ng-container>
+                     
+                </ng-container>             
             </mat-select> 
         </mat-form-field> 
 

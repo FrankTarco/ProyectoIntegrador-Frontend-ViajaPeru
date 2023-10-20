@@ -79,10 +79,10 @@
                                 <section>
                                     <p>Eliga el tipo de comprobante que desee</p>
                                     <mat-button-toggle-group [formControl]="fontStyleControl" aria-label="Font Style">
-                                      <mat-button-toggle value="Boleta" style="background: red;width: 150px;border-radius: 20px; color: white;font-weight: bold;">Boleta</mat-button-toggle>
-                                      <mat-button-toggle value="Factura" style="background: white;width: 150px;border-radius: 20px;border:2px solid red;margin-left: -25px;z-index:-1;">Factura</mat-button-toggle>
+                                      <mat-button-toggle value="Boleta" [style]="fontStyleControl.value === 'Boleta' || fontStyleControl.value === '' ? 'background: red;width: 150px;border-radius: 20px;color: white;font-weight: bold;' : 'background: white;width: 150px;border-radius: 20px;border:2px solid red;z-index:-1;'">Boleta</mat-button-toggle>
+                                      <mat-button-toggle value="Factura" [style]="fontStyleControl.value === 'Factura' ? 'background: red;width: 150px;border-radius: 20px;margin-left: -25px;color: white;font-weight: bold;' : 'background: white;width: 150px;border-radius: 20px;border:2px solid red;margin-left: -25px;z-index:-1;'">Factura</mat-button-toggle>
                                     </mat-button-toggle-group>
-                                    <p>Usted eleigio {{fontStyleControl.value}}</p>
+                                    <p>Usted eleigio <b class="text-danger">{{fontStyleControl.value}}</b> </p>
                                   </section>  
                             
                             </div>
