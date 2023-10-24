@@ -46,12 +46,13 @@
                         <h6 class="m-0 font-weight-bold text-dark">Registro Pasajero {{(i+1)}}</h6>
                     </div>
                     <!-- Card Body -->
+                    <form id="formPasajero" [formGroup]="formRegistra">
                     <div class="card-body mt-2">
                         <div class="row">
                             <div class="col-md-6">
                                 <mat-form-field appearance="outline" class="p-1" style="width: 100%;">
                                     <mat-label>Tipo de Documento</mat-label>
-                                    <mat-select [(ngModel)]="asientos[i].cod_tipodocumento" #ngtipo="ngModel">
+                                    <mat-select [(ngModel)]="asientos[i].cod_tipodocumento"  formControlName="validaTipo">
                                         <mat-option value="-1"> [Seleccione] </mat-option>
                                         <ng-container *ngFor="let x of lstDocumentos">
                                             <mat-option  *ngIf="x.descripcion !== 'RUC'" [value]="x.cod_tipodocumento">
@@ -59,8 +60,10 @@
                                             </mat-option> 
                                         </ng-container>                                      
                                     </mat-select> 
-                                    <mat-hint style="color: red;" *ngIf="asientos[i].cod_tipodocumento==null || asientos[i].cod_tipodocumento==-1">
-                                        *Campo Obligatorio
+                                    <mat-hint style="color:red" *ngIf="formRegistra.controls.validaTipo.touched">
+                                        <span *ngIf="formRegistra.controls.validaTipo.hasError('min')">
+                                        Debe seleccionar el tipo de documento
+                                        </span>
                                     </mat-hint>
                                 </mat-form-field> 
                         
@@ -68,57 +71,56 @@
                             <div class="col-md-6">
                                 <mat-form-field appearance="outline" style="width: 100%;">
                                     <mat-label>Número de documento</mat-label>
-                                    <input matInput placeholder="Placeholder" [(ngModel)]="asientos[i].numeroDocumento" #ngDNI="ngModel">                    
-                                    <mat-hint style="color: red;" *ngIf="asientos[i].cod_tipodocumento==null">
-                                        *Campo Obligatorio
+                                    <input matInput placeholder="Placeholder" [(ngModel)]="asientos[i].numeroDocumento" formControlName="ValidaDNI">                    
+                                    <mat-hint style="color:red" *ngIf="formRegistra.controls.ValidaDNI.touched">
+                                        <span *ngIf="formRegistra.controls.ValidaDNI.hasError('required')">
+                                        El documento es Requerido
+                                        </span>
+                                       
                                     </mat-hint>
-                                    <mat-hint style="color: red;" *ngIf="asientos[i].cod_tipodocumento==1;validarDocumento(i)">
-                                        {{ validarDocumento(i) }}
-                                      </mat-hint>
-                                      <mat-hint style="color: red;" *ngIf="asientos[i].cod_tipodocumento==2;validarCEX(i)">
-                                        {{ validarCEX(i) }}
-                                      </mat-hint>
-                                      <mat-hint style="color: red;" *ngIf="asientos[i].cod_tipodocumento==3;validarPTP(i)">
-                                        {{ validarPTP(i) }}
-                                      </mat-hint>
                                 </mat-form-field>
                             </div>
 
                             <div class="col-md-6">
                                 <mat-form-field appearance="outline" style="width: 100%;">
                                     <mat-label>Nombres</mat-label>
-                                    <input matInput placeholder="Nombre del Pasajero" [(ngModel)]="asientos[i].nombre">  
-                                    <mat-hint style="color: red;" *ngIf="validarnombre(i)">
-                                        {{ validarnombre(i) }}
-                                      </mat-hint>                  
+                                    <input matInput placeholder="Nombre del Pasajero" [(ngModel)]="asientos[i].nombre" formControlName="ValidaNombres">  
+                                    <mat-hint style="color:red" *ngIf="formRegistra.controls.ValidaNombres.touched">
+                                    <span *ngIf="formRegistra.controls.ValidaNombres.hasError('required')">
+                                        Los nombres son requeridos.
+                                        </span>  
+                                    </mat-hint>
                                   </mat-form-field>
                             </div>
                             
                             <div class="col-md-6">
                                 <mat-form-field appearance="outline" style="width: 100%;">
                                     <mat-label>Apellidos</mat-label>
-                                    <input matInput placeholder="Placeholder" [(ngModel)]="asientos[i].apellidos">   
-                                    <mat-hint style="color: red;" *ngIf="validarApellidos(i)">
-                                        {{ validarApellidos(i) }}
-                                      </mat-hint>                        
+                                    <input matInput placeholder="Placeholder" [(ngModel)]="asientos[i].apellidos" formControlName="ValidaApellidos">   
+                                    <mat-hint style="color:red" *ngIf="formRegistra.controls.ValidaApellidos.touched">
+                                        <span *ngIf="formRegistra.controls.ValidaApellidos.hasError('required')">
+                                            Los apellidos son requeridos.
+                                            </span>  
+                                        </mat-hint>              
                                   </mat-form-field>
                             </div>
 
                             <div class="col-md-6">
                                 <mat-form-field appearance="outline" style="width: 100%;">
                                     <mat-label>Edad</mat-label>
-                                    <input matInput type="number" placeholder="Placeholder"  [(ngModel)]="asientos[i].edad" >  
-                                 
-                                      <mat-hint style="color: red;" *ngIf="edadValido(asientos[i].edad!)">
-                                        {{ mensajeErrorEdad }}
-                                      </mat-hint>
+                                    <input matInput type="number"  placeholder="Placeholder"  [(ngModel)]="asientos[i].edad" formControlName="ValidaEdad">  
+                                    <mat-hint style="color:red" *ngIf="formRegistra.controls.ValidaEdad.touched">
+                                        <span *ngIf="formRegistra.controls.ValidaEdad.hasError('required')">
+                                            La edad es requerida.
+                                            </span>  
+                                        </mat-hint> 
                                   </mat-form-field>
                             </div>
 
                             </div>
                         </div>
 
-
+                    </form>
                 </div>
 
             </div>
@@ -173,16 +175,15 @@
                 </div>
 
                 <div class="col-md-12">
-                    <button class="btn btn-danger" (click)="verificar()" style="width: 100%;">Avanzar</button>
+                    <button class="btn btn-danger" [disabled]="formRegistra.invalid" (click)="verificar()" style="width: 100%;">Avanzar</button>
                 </div>
 
               </div>
-              
+            
               
               
              </div>
-
-             
+            
 
                 
             </div>

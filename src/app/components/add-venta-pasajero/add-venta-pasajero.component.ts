@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormControl, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Boleto } from 'src/app/models/boleto.model';
 import { Itinerario } from 'src/app/models/itinerario.model';
@@ -15,11 +15,13 @@ import Swal from 'sweetalert2';
   styleUrls: ['./add-venta-pasajero.component.css']
 })
 export class AddVentaPasajeroComponent {
-
+  dnival = /^(?!0{8}$)\d{8}$/;
   isCollapsed = false;
   // pasajeros = [{ nombre: '', edad: '' }];
   // fontStyleControl = new FormControl('');
   // fontStyle?: string;
+
+
 
   cantidadAsientos: any = []
   asientosSeleccionados: number[] = JSON.parse(localStorage.getItem("asientos")!);
@@ -37,7 +39,7 @@ export class AddVentaPasajeroComponent {
 
   lstDocumentos: TipoDocumento[] = []
 
-  constructor(private datosService: EnvioDatosItinerarioService, private router: Router, private utilService: UtilService) {
+  constructor(private datosService: EnvioDatosItinerarioService,private formBuilder:FormBuilder, private router: Router, private utilService: UtilService) {
     utilService.listarTiopoDocumento().subscribe(
       x => this.lstDocumentos = x
     )
@@ -62,6 +64,14 @@ export class AddVentaPasajeroComponent {
 
     
   }
+
+  formRegistra = this.formBuilder.group({
+    validaTipo:['', [Validators.min(1)]],
+    ValidaDNI:['', [Validators.required,Validators.pattern(this.dnival)]],
+    ValidaNombres:['', [Validators.required,Validators.pattern('[A-Za-z0-9 ,áéíóúüñÁÉÍÓÚÑÜ]{3,150}')]],
+    ValidaApellidos:['', [Validators.required,Validators.pattern('[A-Za-z0-9 ,áéíóúüñÁÉÍÓÚÑÜ]{3,150}')]],
+    ValidaEdad:['',Validators.required,Validators.min(0)]
+  })
 
 
 
