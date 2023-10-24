@@ -5,32 +5,54 @@
 </div>
 
 <div class="container">
-<h6 class="text-center">Datos para su {{objPago.tipo}}</h6>    
+<h6 class="text-center">Datos para su {{objPago.tipo}}</h6>
+<form id="formCliente" [formGroup]="formRegistro">   
 <div mat-dialog-content>
     <div class="row">
            <mat-form-field appearance="outline" style="width: 100%;">
                 <mat-label>Numero de tarjeta</mat-label>
-                <input matInput placeholder="Placeholder" [(ngModel)]="objPago.numero_tarjeta">
-              </mat-form-field>
+                <input matInput placeholder="Placeholder" [(ngModel)]="objPago.numero_tarjeta" formControlName="valTarjeta">
+                <mat-hint style="color:red" *ngIf="formRegistro.controls['valTarjeta'].touched">
+                    <span *ngIf="formRegistro.controls['valTarjeta'].hasError('required')">
+                    La tarjeta es obligatoria
+                    </span>
+                    <span *ngIf="formRegistro.controls['valTarjeta'].hasError('pattern')">
+                    La tarjeta debe tener 16 digitos
+                    </span>
+                </mat-hint> 
+            </mat-form-field>
     </div>
 
     <div class="row">
 
             <mat-form-field appearance="outline" style="width: 50%;">
              <mat-label>MM/AA</mat-label>
-             <input matInput placeholder="Placeholder">
+             <input matInput placeholder="Placeholder" formControlName="valMes">
+             <mat-hint style="color:red" *ngIf="formRegistro.controls['valMes'].touched">
+                <span *ngIf="formRegistro.controls['valMes'].hasError('required')">
+                Debe rellenar este campo
+                </span>
+            </mat-hint>
             </mat-form-field>
 
             <mat-form-field appearance="outline" style="width: 50%; padding-left: 5px;">
             <mat-label>CVV</mat-label>
-            <input matInput placeholder="Placeholder">
+            <input matInput placeholder="Placeholder" formControlName="valCvv">
+            <mat-hint style="color:red" *ngIf="formRegistro.controls['valCvv'].touched">
+                <span *ngIf="formRegistro.controls['valCvv'].hasError('required')">
+                El CVV es obligatorio
+                </span>
+                <span *ngIf="formRegistro.controls['valCvv'].hasError('pattern')">
+                Deben de ser 3 digitos
+                </span>
+            </mat-hint>
            </mat-form-field>
     </div>
 
     <div class="row">
            <mat-form-field appearance="outline" class="p-1">
             <mat-label>Tipo de Documento</mat-label>
-            <mat-select [(ngModel)]="objCliente.cod_tipodocumento">
+            <mat-select [(ngModel)]="objCliente.cod_tipodocumento" formControlName="valTipo">
                 <mat-option [value]=-1> [Seleccione] </mat-option>
                 <ng-container *ngFor="let x of lstDocumentos">
                     <ng-container *ngIf="objPago.tipo ==='Factura'">
@@ -46,13 +68,26 @@
                     </ng-container>
                      
                 </ng-container>             
-            </mat-select> 
+            </mat-select>
+            <mat-hint style="color:red" *ngIf="formRegistro.controls['valTipo'].touched">
+                <span *ngIf="formRegistro.controls['valTipo'].hasError('min')">
+                Debe seleccionar
+                </span>
+            </mat-hint> 
         </mat-form-field> 
 
         <mat-form-field appearance="outline" class="p-1">
             <mat-label>Número de Documento</mat-label>
-            <input matInput placeholder="Número de Documento" [(ngModel)]="objCliente.numeroDocumento">
-            
+            <input matInput placeholder="Número de Documento" [(ngModel)]="objCliente.numeroDocumento" (ngModelChange)="clienteEncontrado()" formControlName="valDocumento">
+            <mat-hint style="color:red" *ngIf="formRegistro.controls['valDocumento'].touched">
+                <span *ngIf="formRegistro.controls['valDocumento'].hasError('required')">
+                {{documentMessage.required}}
+                </span>
+                <span *ngIf="formRegistro.controls['valDocumento'].hasError('pattern')">
+                {{documentMessage.pattern}}
+                </span>
+            </mat-hint> 
+
           </mat-form-field>  
 
     </div>
@@ -60,11 +95,22 @@
     <div class="row">
         <mat-form-field appearance="outline" style="width: 100%;">
              <mat-label>Nombre o Razon social</mat-label>
-             <input matInput placeholder="Placeholder" [(ngModel)]="objCliente.nombre">
+             <input matInput placeholder="Placeholder" [(ngModel)]="objCliente.nombre" formControlName="valNombre">
+             <mat-hint style="color:red" *ngIf="formRegistro.controls['valNombre'].touched">
+                <span *ngIf="formRegistro.controls['valNombre'].hasError('required')">
+                El nombre o razon es requerido
+                </span>
+                <span *ngIf="formRegistro.controls['valNombre'].hasError('pattern')">
+                Debe tener minimo 3 y maximo 40 caracteres
+                </span>
+            </mat-hint> 
            </mat-form-field>
     </div>
 
 </div>
+
+</form> 
+
 
 <div mat-dialog-actions>
     <button mat-raised-button color="warn" class="mb-3" style="width: 100%;height: 45px;" (click)="concretarRegistro()"> Pagar S/.{{total}}</button>

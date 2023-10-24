@@ -1,4 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Boleto } from 'src/app/models/boleto.model';
@@ -55,13 +56,72 @@ export class AddPagoClienteComponent implements OnInit{
 
   ventaRequest:Ventarequest= {};
 
+  formRegistro: FormGroup;
+
+  documentMessage = {
+    required:'',
+    pattern:''
+  }
+
+
   constructor(private utilService:UtilService, private _dialog:MatDialogRef<AddPagoClienteComponent>, 
-    @Inject(MAT_DIALOG_DATA)public data:any,private transaccionService:TransaccionService,private router:Router){
+    @Inject(MAT_DIALOG_DATA)public data:any,private transaccionService:TransaccionService,private router:Router,
+    private formBuilder:FormBuilder){
 
     utilService.listarTiopoDocumento().subscribe(
       x => this.lstDocumentos = x
     )
+
+    this.formRegistro = this.formBuilder.group({
+      valTarjeta: ['',[Validators.required,Validators.pattern('[0-9]{16}')]],
+      valMes: ['',[Validators.required]],
+      valCvv: ['',[Validators.required,Validators.pattern('[0-9]{3}')]],
+      valTipo: ['',[Validators.min(1)]],
+      valDocumento: [{value:'', disabled:true},[Validators.required]],
+      valNombre: [{value:'', disabled:false},[Validators.required,Validators.pattern('[a-zA-ZáéíóúñüÁÉÍÓÚÑÜ. ]{3,40}')]]
+    })
+
+    this.formRegistro.get('valTipo')!.valueChanges.subscribe((tipo: number) => {
+      this.actualizarValidadorDocumento(tipo);
+    });
+
   }
+
+  private actualizarValidadorDocumento(tipo: number): void {
+    this.formRegistro.get('valDocumento')!.clearValidators();
+
+    if (tipo === 1) {
+      this.formRegistro.get('valDocumento')!.setValidators([Validators.required,Validators.pattern(/^\d{8}$/)]);
+      this.formRegistro.get('valDocumento')!.enable();
+      this.documentMessage.required = 'El DNI es obligatorio'
+      this.documentMessage.pattern = 'Debe tener 8 digitos'
+    }
+    else if(tipo === 2){
+      this.formRegistro.get('valDocumento')!.setValidators([Validators.required,Validators.pattern(/^\d{9}$/)]);
+      this.formRegistro.get('valDocumento')!.enable();
+      this.documentMessage.required = 'El C.E.X es obligatorio'
+      this.documentMessage.pattern = 'Debe tener 9 digitos'
+    }
+    else if(tipo === 3){
+      this.formRegistro.get('valDocumento')!.setValidators([Validators.required,Validators.pattern(/^[A-Z]{2}\d{6}$/)]);
+      this.formRegistro.get('valDocumento')!.enable();
+      this.documentMessage.required = 'El pasaporte es obligatorio'
+      this.documentMessage.pattern = 'Ejemplo: AA000000'
+    }
+    else if(tipo === 4){
+      this.formRegistro.get('valDocumento')!.setValidators([Validators.required,Validators.pattern(/^\d{11}$/)]);
+      this.formRegistro.get('valDocumento')!.enable();
+      this.documentMessage.required = 'El RUC es obligatorio'
+      this.documentMessage.pattern = 'Debe tener 11 digitos'
+    }
+    else{
+      this.formRegistro.get('valDocumento')!.disable();
+      this.objCliente.numeroDocumento = ''
+    }
+
+    this.formRegistro.get('valDocumento')!.updateValueAndValidity();
+  }
+
 
   ngOnInit(): void {
     this.objCliente.email=this.data.correo;
@@ -90,6 +150,9 @@ export class AddPagoClienteComponent implements OnInit{
           this._dialog.close();
           //ELIMINO TODA LA DATA
           localStorage.clear();
+          this.getPdf();
+          this.enviarCorreo();
+
           //PASO AL INICIO DE NUESTRO SISTEMA
           this.router.navigate(["index"]);
         }     
@@ -98,6 +161,53 @@ export class AddPagoClienteComponent implements OnInit{
     
   }
 
+  clienteEncontrado(){
+
+    if(this.objCliente.numeroDocumento === ''){
+
+    }
+    else{
+      this.transaccionService.encontrarCliente(this.objCliente.numeroDocumento!).subscribe(
+        x =>{
+           if(x === null){
+            this.objCliente.nombre = ""
+            this.formRegistro.get('valNombre')!.enable();
+            //this.inputBloq.razonSocial = false
+           }
+           else{
+            this.objCliente.nombre = x.nombre
+            this.formRegistro.get('valNombre')!.disable();
+            //this.inputBloq.razonSocial = true
+           }
+        }
+      )
+    }
+
+  }
+
+
+  getPdf(){
+    this.transaccionService.generarListaPdf().subscribe(
+      (data)=>{
+        let download = window.URL.createObjectURL(data)
+        let link = document.createElement('a')
+        link.href=download
+        link.download="cdp.pdf"
+        link.click()
+      }
+    )
+  }
+
+  enviarCorreo(){
+    this.transaccionService.enviarCorreo(this.objCliente.email!).subscribe(
+      ()=>{
+        console.log('Correo enviado correctamente');
+      },
+      (error) => {
+        console.error('Error al enviar el correo', error);
+      }
+    );
+  }
 
 
 }
