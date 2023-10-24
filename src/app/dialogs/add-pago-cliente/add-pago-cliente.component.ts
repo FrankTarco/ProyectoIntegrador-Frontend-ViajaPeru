@@ -73,9 +73,9 @@ export class AddPagoClienteComponent implements OnInit{
     )
 
     this.formRegistro = this.formBuilder.group({
-      valTarjeta: ['',[Validators.required,Validators.pattern('[0-9]{16}')]],
+      valTarjeta: ['',[Validators.required,Validators.pattern(/^(?!0{16}$)\d{16}$/)]],
       valMes: ['',[Validators.required]],
-      valCvv: ['',[Validators.required,Validators.pattern('[0-9]{3}')]],
+      valCvv: ['',[Validators.required,Validators.pattern(/^(?!0{3}$)\d{3}$/)]],
       valTipo: ['',[Validators.min(1)]],
       valDocumento: [{value:'', disabled:true},[Validators.required]],
       valNombre: [{value:'', disabled:false},[Validators.required,Validators.pattern('[a-zA-ZáéíóúñüÁÉÍÓÚÑÜ. ]{3,40}')]]
@@ -91,25 +91,25 @@ export class AddPagoClienteComponent implements OnInit{
     this.formRegistro.get('valDocumento')!.clearValidators();
 
     if (tipo === 1) {
-      this.formRegistro.get('valDocumento')!.setValidators([Validators.required,Validators.pattern(/^\d{8}$/)]);
+      this.formRegistro.get('valDocumento')!.setValidators([Validators.required,Validators.pattern(/^(?!0{8}$)\d{8}$/)]);
       this.formRegistro.get('valDocumento')!.enable();
       this.documentMessage.required = 'El DNI es obligatorio'
       this.documentMessage.pattern = 'Debe tener 8 digitos'
     }
     else if(tipo === 2){
-      this.formRegistro.get('valDocumento')!.setValidators([Validators.required,Validators.pattern(/^\d{9}$/)]);
+      this.formRegistro.get('valDocumento')!.setValidators([Validators.required,Validators.pattern(/^(?!0{12}$)\d{12}$/)]);
       this.formRegistro.get('valDocumento')!.enable();
       this.documentMessage.required = 'El C.E.X es obligatorio'
-      this.documentMessage.pattern = 'Debe tener 9 digitos'
+      this.documentMessage.pattern = 'Debe tener 12 digitos'
     }
     else if(tipo === 3){
-      this.formRegistro.get('valDocumento')!.setValidators([Validators.required,Validators.pattern(/^[A-Z]{2}\d{6}$/)]);
+      this.formRegistro.get('valDocumento')!.setValidators([Validators.required,Validators.pattern(/^[A-Z]{2}(?!000000)\d{6}$/)]);
       this.formRegistro.get('valDocumento')!.enable();
       this.documentMessage.required = 'El pasaporte es obligatorio'
       this.documentMessage.pattern = 'Ejemplo: AA000000'
     }
     else if(tipo === 4){
-      this.formRegistro.get('valDocumento')!.setValidators([Validators.required,Validators.pattern(/^\d{11}$/)]);
+      this.formRegistro.get('valDocumento')!.setValidators([Validators.required,Validators.pattern(/^(?!0{11}$)\d{11}$/)]);
       this.formRegistro.get('valDocumento')!.enable();
       this.documentMessage.required = 'El RUC es obligatorio'
       this.documentMessage.pattern = 'Debe tener 11 digitos'

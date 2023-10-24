@@ -17,10 +17,10 @@ export class AddEditTerramozaComponent implements OnInit {
   lstTipoDocumento: TipoDocumento[] = []
 
   estado = 'form';
-  dniPatt = /^[0-9]{8}$/;
-  cePatt = /^[0-9]{12}$/;
+  dniPatt = /^(?!0{8}$)\d{8}$/;
+  cePatt = /^(?!0{12}$)\d{12}$/;
   ptpPatt = /^[A-Za-z0-9]{6,12}$/;
-  rucPatt = /^[0-9]{11}$/;
+  rucPatt = /^(?!0{11}$)\d{11}$/;
 
   nombrePatt = /^[a-zA-ZáéíóúñüÁÉÍÓÚÑÜ\s]{3,30}$/;
   objTerramoza: Terramoza = {

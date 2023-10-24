@@ -154,7 +154,7 @@ export class AddVentaPasajeroComponent {
   mensajeErrorEdad: string = '';
 
   edadValido(edad: number) {
-    if (edad === null || edad < 0 || edad > 99) {
+    if (edad === null || edad <= 0 || edad > 99) {
       this.mensajeErrorEdad = 'La edad debe estar entre 0 y 99.';
       return true;
     }

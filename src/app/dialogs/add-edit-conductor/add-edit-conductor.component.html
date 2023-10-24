@@ -13,9 +13,11 @@
             <mat-label>Documento</mat-label>
             <mat-select [(ngModel)]="objConductor.cod_tipodocumento" #ngtipo="ngModel">
                 <mat-option [value]=-1> [Seleccione] </mat-option>
-                <mat-option  *ngFor="let x of lstTipo" [value]="x.cod_tipodocumento">
-                    {{x.descripcion}}
-                </mat-option>
+                <ng-container *ngFor="let x of lstTipo">
+                    <mat-option *ngIf="x.descripcion !== 'RUC'"  [value]="x.cod_tipodocumento">
+                        {{x.descripcion}}
+                    </mat-option>
+                </ng-container>     
             </mat-select>
             <mat-hint style="color: red;" *ngIf="objConductor.cod_tipodocumento==-1">
                 *Campo Obligatorio

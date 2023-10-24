@@ -55,9 +55,11 @@
             <mat-label>Documento</mat-label>
             <mat-select [(ngModel)]="objTerramoza.cod_tipodocumento">
                 <mat-option [value]=-1> [Seleccione] </mat-option>
-                <mat-option *ngFor="let td of lstTipoDocumento" [value]="td.cod_tipodocumento">
-                    {{td.descripcion}}
-                </mat-option>
+                <ng-container *ngFor="let td of lstTipoDocumento">
+                    <mat-option *ngIf="td.descripcion !== 'RUC'"  [value]="td.cod_tipodocumento">
+                        {{td.descripcion}}
+                    </mat-option>
+                </ng-container>       
             </mat-select>
         </mat-form-field>
 
