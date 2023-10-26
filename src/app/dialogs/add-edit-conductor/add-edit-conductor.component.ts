@@ -155,7 +155,14 @@ export class AddEditConductorComponent implements OnInit {
       })
 
 
-    } else if (this.validarCampos() == true) {
+    } else if(this.objConductor.nrodocumento !== this.objConductor.nrolicencia?.substring(2)){
+      Swal.fire({
+        icon: 'error',
+        title: 'El dni debe coincidir con el numero de licencia',
+      })
+    }
+    
+    else if (this.validarCampos() == true) {
 
 
       if (this.data) {

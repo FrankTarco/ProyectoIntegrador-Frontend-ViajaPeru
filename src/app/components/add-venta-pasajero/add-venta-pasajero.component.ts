@@ -15,13 +15,11 @@ import Swal from 'sweetalert2';
   styleUrls: ['./add-venta-pasajero.component.css']
 })
 export class AddVentaPasajeroComponent {
-  dnival = /^(?!0{8}$)\d{8}$/;
+
   isCollapsed = false;
   // pasajeros = [{ nombre: '', edad: '' }];
   // fontStyleControl = new FormControl('');
   // fontStyle?: string;
-
-
 
   cantidadAsientos: any = []
   asientosSeleccionados: number[] = JSON.parse(localStorage.getItem("asientos")!);
@@ -39,7 +37,13 @@ export class AddVentaPasajeroComponent {
 
   lstDocumentos: TipoDocumento[] = []
 
-  constructor(private datosService: EnvioDatosItinerarioService,private formBuilder:FormBuilder, private router: Router, private utilService: UtilService) {
+  nombreRegex = /^[a-zA-ZáéíóúñüÁÉÍÓÚÑÜ\s]{3,30}$/;
+  DNIRegex = /^[0-9]{8}$/;
+  ceRegex = /^[0-9]{12}$/;
+  ptpRegex = /^[A-Z]{2}(?!000000)\d{6}$/;
+ // if (edad === null || edad < 0 || edad > 99)
+
+  constructor(private datosService: EnvioDatosItinerarioService, private router: Router, private utilService: UtilService,private formBuilder:FormBuilder) {
     utilService.listarTiopoDocumento().subscribe(
       x => this.lstDocumentos = x
     )
@@ -56,24 +60,37 @@ export class AddVentaPasajeroComponent {
 
   verificar() {
       
+      for(let i=0; i<this.asientos.length; i++){
+        if(!this.nombreRegex.test(this.asientos[i].nombre!) || this.asientos[i].nombre === undefined
+        || !this.nombreRegex.test(this.asientos[i].apellidos!) || this.asientos[i].apellidos === undefined
+        || this.asientos[i].edad === undefined || this.asientos[i].edad! < 0 || this.asientos[i].edad! > 99
+        || this.asientos[i].cod_tipodocumento === -1 || this.asientos[i].cod_tipodocumento === undefined
+        || this.asientos[i].numeroDocumento === undefined
+        ){
+          Swal.fire({icon: 'error',title: 'Los datos deben ser llenados correctamente',})
+          break;
+        }     
+        else if(this.asientos[i].cod_tipodocumento === 1 && !this.DNIRegex.test(this.asientos[i].numeroDocumento!)){
+          Swal.fire({icon: 'error',title: 'Los datos deben ser llenados correctamente',})
+          break;
+        }
+        else if(this.asientos[i].cod_tipodocumento === 2 && !this.ceRegex.test(this.asientos[i].numeroDocumento!)){
+          Swal.fire({icon: 'error',title: 'Los datos deben ser llenados correctamente',})
+          break;
+        }
+        else if(this.asientos[i].cod_tipodocumento === 3 && !this.ptpRegex.test(this.asientos[i].numeroDocumento!)){
+          Swal.fire({icon: 'error',title: 'Los datos deben ser llenados correctamente',})
+          break;
+        }
 
+        else{
+          localStorage.setItem("lstPasajeros", JSON.stringify(this.asientos));
+          localStorage.setItem("lstBoletos", JSON.stringify(this.boletos));
+          this.router.navigate(["ventacliente"]);
+        }     
+      }
 
-      localStorage.setItem("lstPasajeros", JSON.stringify(this.asientos));
-      localStorage.setItem("lstBoletos", JSON.stringify(this.boletos));
-      this.router.navigate(["ventacliente"]);
-
-    
   }
-
-  formRegistra = this.formBuilder.group({
-    validaTipo:['', [Validators.min(1)]],
-    ValidaDNI:['', [Validators.required,Validators.pattern(this.dnival)]],
-    ValidaNombres:['', [Validators.required,Validators.pattern('[A-Za-z0-9 ,áéíóúüñÁÉÍÓÚÑÜ]{3,150}')]],
-    ValidaApellidos:['', [Validators.required,Validators.pattern('[A-Za-z0-9 ,áéíóúüñÁÉÍÓÚÑÜ]{3,150}')]],
-    ValidaEdad:['',Validators.required,Validators.min(0)]
-  })
-
-
 
   validarDocumento(i: number) {
     const documento = this.asientos[i].numeroDocumento;
@@ -119,7 +136,7 @@ export class AddVentaPasajeroComponent {
     }
 
 
-    const ptpRegex = /^[A-Za-z0-9]{6,12}$/;
+    const ptpRegex = /^[A-Z]{2}(?!000000)\d{6}$/;
 
     if (!ptpRegex.test(documento)) {
       return '* P.T.P incorrecto';
@@ -164,7 +181,7 @@ export class AddVentaPasajeroComponent {
   mensajeErrorEdad: string = '';
 
   edadValido(edad: number) {
-    if (edad === null || edad <= 0 || edad > 99) {
+    if (edad === null || edad < 0 || edad > 99) {
       this.mensajeErrorEdad = 'La edad debe estar entre 0 y 99.';
       return true;
     }
