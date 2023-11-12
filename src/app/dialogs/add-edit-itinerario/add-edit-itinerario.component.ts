@@ -132,6 +132,7 @@ fechaFormateada = this.fechaMenosUnDia.toISOString().slice(0, 16);
             }
             else{
               Swal.fire({icon:'success',title:'Resultado del registro', text: x.mensaje})
+              console.log(this.objItinerario)
               this._dialog.close(true)
             }           
           }

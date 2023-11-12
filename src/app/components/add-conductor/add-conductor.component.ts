@@ -7,6 +7,8 @@ import { AddEditConductorComponent } from 'src/app/dialogs/add-edit-conductor/ad
 import { ConductorService } from 'src/app/services/conductor.service';
 import { Conductor } from 'src/app/models/conductor.model';
 import Swal from 'sweetalert2';
+import jspdf from 'jspdf';
+import { ImpresionService } from 'src/app/services/impresion.service';
 
 @Component({
   selector: 'app-add-conductor',
@@ -21,7 +23,7 @@ export class AddConductorComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-constructor(private conductorService:ConductorService, public dialog:MatDialog){
+constructor(private conductorService:ConductorService, public dialog:MatDialog,private impresionService:ImpresionService){
 }
 
 
@@ -101,6 +103,21 @@ applyFilter(event: Event) {
     this.dataSource.paginator.firstPage();
   }
 }
+
+imprimirConductorPdf(){
+  const encabezado = ['codigo', 'nombre', 'apellido','documento','licencia','telefono']
+  const cuerpo = this.dataSource.data.map(conductorItem => [
+    conductorItem.cod_conductor,
+    conductorItem.nom_chofer,
+    conductorItem.ape_chofer,
+    conductorItem.nrodocumento,
+    conductorItem.nrolicencia,
+    conductorItem.telefono
+  ]);
+  const doc = new jspdf();
+      this.impresionService.imprimir(encabezado, cuerpo, 'Reporte de conductores', true)
+  }
+
 
 
 }

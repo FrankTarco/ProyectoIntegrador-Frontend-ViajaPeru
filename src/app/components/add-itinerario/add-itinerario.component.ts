@@ -9,6 +9,8 @@ import { Itinerario } from 'src/app/models/itinerario.model';
 import { EquipobusService } from 'src/app/services/equipobus.service';
 import { ItinerarioService } from 'src/app/services/itinerario.service';
 import Swal from 'sweetalert2';
+import jspdf from 'jspdf';
+import { ImpresionService } from 'src/app/services/impresion.service';
 
 @Component({
   selector: 'app-add-itinerario',
@@ -23,7 +25,7 @@ export class AddItinerarioComponent {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private equipoBus:EquipobusService,private itinerarioService:ItinerarioService,private dialog:MatDialog){
+  constructor(private equipoBus:EquipobusService,private itinerarioService:ItinerarioService,private dialog:MatDialog,private impresionService:ImpresionService){
 
   }
 
@@ -73,6 +75,22 @@ applyFilter(event: Event) {
     this.dataSource.paginator.firstPage();
   }
 }
+
+imprimirItinerarioPdf(){
+  const encabezado = ['codigo', 'Origen', 'Destino', 'Salida', 'Llegada', 'Bus', 'Precio']
+  const cuerpo = this.dataSource.data.map(itinerarioItem => [
+    itinerarioItem.cod_itinerario,
+    itinerarioItem.objOrigen.nombre,
+    itinerarioItem.objLlegada.nombre,
+    itinerarioItem.fecha_salida,
+    itinerarioItem.fecha_llegada,
+    itinerarioItem.objBus.placa,
+    itinerarioItem.precio
+  ]);
+  const doc = new jspdf();
+      this.impresionService.imprimir(encabezado, cuerpo, 'Reporte de itinerarios', true)
+  }
+
 
 eliminarBus(codigo:string){  
   this.itinerarioService.eliminarItinerario(codigo).subscribe({

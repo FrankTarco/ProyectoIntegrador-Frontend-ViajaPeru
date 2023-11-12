@@ -26,6 +26,14 @@ export class TransaccionService {
     return this.http.get(url+'/email/'+correo)
   }
 
+  generarFacturaPdf(){
+    return this.http.get(url+'/export/factura',{responseType:'blob'})
+  }
+
+  enviarFacturaCorreo(correo:string){
+    return this.http.get(url+'/email/factura/'+correo)
+  }
+
   encontrarCliente(documento:string):Observable<Cliente>{
     return this.http.get(url+'/cliente/'+documento)
   }

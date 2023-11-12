@@ -5,10 +5,10 @@ import { MatSort } from '@angular/material/sort';
 import { MatDialog } from '@angular/material/dialog';
 import Swal from 'sweetalert2';
 import { TerramozaService } from 'src/app/services/terramoza.service';
-import { UtilService } from 'src/app/services/util.service';
-import { TipoDocumento } from 'src/app/models/tipodocumento.model';
 import { Terramoza } from 'src/app/models/terramoza.model';
+import jspdf from 'jspdf';
 import { AddEditTerramozaComponent } from 'src/app/dialogs/add-edit-terramoza/add-edit-terramoza.component';
+import { ImpresionService } from 'src/app/services/impresion.service';
 
 @Component({
   selector: 'app-add-terramoza',
@@ -26,7 +26,7 @@ export class AddTerramozaComponent implements OnInit {
   lstTerramozas:Terramoza[] = []
 
   constructor(private terramozaService:TerramozaService,
-    public dialog:MatDialog){ }
+    public dialog:MatDialog,private impresionService:ImpresionService){ }
 
 
   ngOnInit(): void {
@@ -76,6 +76,21 @@ export class AddTerramozaComponent implements OnInit {
       this.dataSource.paginator.firstPage();
     }
   }
+
+  imprimirTerramozaPdf(){
+    const encabezado = ['codigo', 'nombre', 'apellido paterno', 'apellido materno', 'documento']
+    const cuerpo = this.dataSource.data.map(terramozaItem => [
+      terramozaItem.cod_terramoza,
+      terramozaItem.nombre,
+      terramozaItem.ape_pater,
+      terramozaItem.ape_mater,
+      terramozaItem.numerodocumento
+    ]);
+    const doc = new jspdf();
+        this.impresionService.imprimir(encabezado, cuerpo, 'Reporte de terramozas', true)
+    }
+  
+
 
   eliminar(codigo:string){
 

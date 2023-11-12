@@ -86,6 +86,12 @@ export class AddVentaPasajeroComponent {
         else{
           localStorage.setItem("lstPasajeros", JSON.stringify(this.asientos));
           localStorage.setItem("lstBoletos", JSON.stringify(this.boletos));
+          for(let i=0; i<this.asientos.length; i++){
+            if(this.asientos[i].edad! < 18){
+              Swal.fire({icon: 'info',title: 'Recuerde que todo menor de edad debe mostrar el permiso para viajar',})
+              break;
+            }
+          }
           this.router.navigate(["ventacliente"]);
         }     
       }

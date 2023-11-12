@@ -44,7 +44,8 @@ export class AddPagoClienteComponent implements OnInit{
     cod_tipodocumento:-1,
     numeroDocumento:"",
     email:"",
-    telefono:""
+    telefono:"",
+    direccion:""
   }
 
 
@@ -78,12 +79,25 @@ export class AddPagoClienteComponent implements OnInit{
       valCvv: ['',[Validators.required,Validators.pattern(/^(?!0{3}$)\d{3}$/)]],
       valTipo: ['',[Validators.min(1)]],
       valDocumento: [{value:'', disabled:true},[Validators.required]],
-      valNombre: [{value:'', disabled:false},[Validators.required,Validators.pattern('[a-zA-ZáéíóúñüÁÉÍÓÚÑÜ. ]{3,40}')]]
+      valNombre: [{value:'', disabled:false},[Validators.required,Validators.pattern('[a-zA-ZáéíóúñüÁÉÍÓÚÑÜ. ]{3,40}')]],
+      valDireccion: ['']
     })
 
     this.formRegistro.get('valTipo')!.valueChanges.subscribe((tipo: number) => {
       this.actualizarValidadorDocumento(tipo);
     });
+
+  }
+
+  private actualizarValidadorDireccion(tipo:string): void{
+    this.formRegistro.get('valDireccion')!.clearValidators();
+
+    if(tipo === 'Factura'){
+      this.formRegistro.get('valDireccion')!.setValidators([Validators.required]);
+    }
+    else {
+      this.formRegistro.get('valDireccion')!.setValidators([]);
+    }
 
   }
 
@@ -127,10 +141,17 @@ export class AddPagoClienteComponent implements OnInit{
     this.objCliente.email=this.data.correo;
     this.objCliente.telefono=this.data.telefono;
     this.objPago.tipo = this.data.tipoPago;
+
+    this.actualizarValidadorDireccion(this.objPago.tipo!);
   }
 
   concretarRegistro(){
-    //CREAR LA DATA
+
+    if(this.formRegistro.invalid){
+      Swal.fire({icon:'error',title:'Algo salio mal', text: "Debe completar correctamente el formulario"})
+    }
+    else{    
+      //CREAR LA DATA
     this.ventaRequest = {ventaBoleto:this.objVentaBoleto,
       pasajeros:this.lstPasajeros,
       boletos:this.lstBoletos,
@@ -150,15 +171,22 @@ export class AddPagoClienteComponent implements OnInit{
           this._dialog.close();
           //ELIMINO TODA LA DATA
           localStorage.clear();
-          this.getPdf();
-          this.enviarCorreo();
-
+          if(this.objPago.tipo === 'Boleta'){
+            this.getPdf();
+            this.enviarCorreo();
+          }
+          else{
+            this.getFactura();
+            this.enviarFacturaCorreo();
+          }
           //PASO AL INICIO DE NUESTRO SISTEMA
           this.router.navigate(["index"]);
         }     
       }
     )
     
+  }
+       
   }
 
   clienteEncontrado(){
@@ -207,6 +235,29 @@ export class AddPagoClienteComponent implements OnInit{
         console.error('Error al enviar el correo', error);
       }
     );
+  }
+
+  enviarFacturaCorreo(){
+    this.transaccionService.enviarFacturaCorreo(this.objCliente.email!).subscribe(
+      ()=>{
+        console.log('Correo enviado correctamente');
+      },
+      (error) => {
+        console.error('Error al enviar el correo', error);
+      }
+    );
+  }
+
+  getFactura(){
+    this.transaccionService.generarFacturaPdf().subscribe(
+      (data)=>{
+        let download = window.URL.createObjectURL(data)
+        let link = document.createElement('a')
+        link.href=download
+        link.download="factura.pdf"
+        link.click()
+      }
+    )
   }
 
 

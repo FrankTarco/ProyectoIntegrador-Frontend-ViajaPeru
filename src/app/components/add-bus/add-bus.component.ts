@@ -7,6 +7,8 @@ import { Bus } from 'src/app/models/bus.model';
 import { MatDialog } from '@angular/material/dialog';
 import { AddEditBusComponent } from 'src/app/dialogs/add-edit-bus/add-edit-bus.component';
 import Swal from 'sweetalert2';
+import jspdf from 'jspdf';
+import { ImpresionService } from 'src/app/services/impresion.service';
 
 
 @Component({
@@ -25,7 +27,7 @@ export class AddBusComponent implements OnInit{
   @ViewChild(MatSort) sort!: MatSort;
 
 
-  constructor(private busService:BusService,public dialog:MatDialog) {
+  constructor(private busService:BusService,public dialog:MatDialog,private impresionService:ImpresionService) {
   }
 
   openDialog() {
@@ -74,6 +76,22 @@ export class AddBusComponent implements OnInit{
       this.dataSource.paginator.firstPage();
     }
   }
+
+  imprimirBusPdf(){
+    const encabezado = ['codigo', 'placa', 'marca', 'año', 'ruedas', 'combustible', 'servicio']
+    const cuerpo = this.dataSource.data.map(busItem => [
+      busItem.cod_bus,
+      busItem.placa,
+      busItem.marca,
+      busItem.fabricacion,
+      busItem.cantidad_ruedas,
+      busItem.objCombustible.nombre,
+      busItem.objServicio.nombre
+    ]);
+    const doc = new jspdf();
+        this.impresionService.imprimir(encabezado, cuerpo, 'Reporte de buses', true)
+    }
+
 
   eliminarBus(codigo:number){  
   

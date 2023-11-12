@@ -28,7 +28,7 @@ if (guardar){
 const hoy = new Date();
 doc.save('Reporte'+hoy.getDate() + hoy.getMonth() + hoy.getFullYear() + hoy.getTime() + ' .pdf');
 }else{
-
+console.log("No se guardo nada")
 }
   }
 
