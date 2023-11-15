@@ -1,115 +1,27 @@
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+*{margin: 0;padding: 0;box-sizing: border-box;font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;}
+
+body{position: relative;display: flex;justify-content: center;align-items: center;min-height: 100vh;background-image: url(https://img.freepik.com/fotos-premium/autobuses-turisticos-estacionamiento-al-amanecer-o-al-atardecer_106035-1198.jpg?w=740);background-repeat: no-repeat;background-position: center center;background-attachment: fixed;background-size: cover;}
+
+body::before{position: absolute;content: ' ';top: 0;bottom: 0;left: 0;right: 0;background-color: rgba(0, 0, 0, .7);
 }
 
-body{
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    background-image: url(https://img.freepik.com/fotos-premium/autobuses-turisticos-estacionamiento-al-amanecer-o-al-atardecer_106035-1198.jpg?w=740);
-    background-repeat: no-repeat;
-    background-position: center center;
-    background-attachment: fixed;
-    background-size: cover;
-}
+.box{position: relative;width: 380px;height: 420px;background: #1c1c1c;border-radius: 8px;overflow: hidden;}
 
-body::before{
-    position: absolute;
-    content: ' ';
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background-color: rgba(0, 0, 0, .7);
-}
-
-.box{
-    position: relative;
-    width: 380px;
-    height: 420px;
-    background: #1c1c1c;
-    border-radius: 8px;
-    overflow: hidden;
-}
-
-.box::before{
-    content: ' ';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 380px;
-    height: 420px;
-    background: linear-gradient(0deg,transparent,
-    transparent,#fb3200,#fb3200,#fb3200);
-    z-index: 1;
-    transform-origin: bottom right;
-    animation: animate 6s linear infinite;
-}
+.box::before{content: ' ';position: absolute;top: -50%;left: -50%;width: 380px;height: 420px;background: linear-gradient(0deg,transparent,transparent,#fb3200,#fb3200,#fb3200);z-index: 1;transform-origin: bottom right;animation: animate 6s linear infinite;}
 
 .box::after{
-    content: ' ';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 380px;
-    height: 420px;
-    background: linear-gradient(0deg,transparent,
-    transparent,#fb3200,#fb3200,#fb3200);
-    z-index: 1;
-    transform-origin: bottom right;
-    animation: animate 6s linear infinite;
-    animation-delay: -3s;
+    content: ' ';position: absolute;top: -50%;left: -50%;width: 380px;height: 420px;background: linear-gradient(0deg,transparent,transparent,#fb3200,#fb3200,#fb3200);z-index: 1;transform-origin: bottom right;animation: animate 6s linear infinite;animation-delay: -3s;
 }
 
-.borderLine{
-    position: absolute;
-    top: 0;
-    inset: 0;
-}
+.borderLine{position: absolute;top: 0;inset: 0;}
 
-.borderLine::before{
-    content: ' ';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 380px;
-    height: 420px;
-    background: linear-gradient(0deg,transparent,
-    transparent,#ff0f47,#ff0f47,#ff0f47);
-    z-index: 1;
-    transform-origin: bottom right;
-    animation: animate 6s linear infinite;
-    animation-delay: -1.5s;
-}
+.borderLine::before{content: ' ';position: absolute;top: -50%;left: -50%;width: 380px;height: 420px;background: linear-gradient(0deg,transparent,transparent,#ff0f47,#ff0f47,#ff0f47);z-index: 1;transform-origin: bottom right;animation: animate 6s linear infinite;animation-delay: -1.5s;}
 
-.borderLine::after{
-    content: ' ';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 380px;
-    height: 420px;
-    background: linear-gradient(0deg,transparent,
-    transparent,#ff0f47,#ff0f47,#ff0f47);
-    z-index: 1;
-    transform-origin: bottom right;
-    animation: animate 6s linear infinite;
-    animation-delay: -4.5s;
-}
+.borderLine::after{content: ' ';position: absolute;top: -50%;left: -50%;width: 380px;height: 420px;background: linear-gradient(0deg,transparent,transparent,#ff0f47,#ff0f47,#ff0f47);z-index: 1;transform-origin: bottom right;animation: animate 6s linear infinite;animation-delay: -4.5s;}
 
 @keyframes animate{
-    0%{
-        transform: rotate(0deg);
-    }
-    100%{
-        transform: rotate(360deg);
-    }
-}
+    0%{transform: rotate(0deg);}
+    100%{transform: rotate(360deg);}}
 
 .box form{
     position: absolute;
