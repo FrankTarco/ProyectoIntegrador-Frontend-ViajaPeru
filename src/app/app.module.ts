@@ -35,6 +35,9 @@ import { AddPagoClienteComponent } from './dialogs/add-pago-cliente/add-pago-cli
 import { AddVentaPasajeroComponent } from './components/add-venta-pasajero/add-venta-pasajero.component';
 import { AddFooterComponent } from './components/add-footer/add-footer.component';
 import { ModVentaComponent } from './components/mod-venta/mod-venta.component';
+import { AddSpinnerModule } from './components/add-spinner/add-spinner.module';
+import { ApiInterceptorService } from './interceptors/api-interceptor.service';
+import { InfoVentaComponent } from './dialogs/info-venta/info-venta.component';
 
 registerLocaleData(localeES);
 
@@ -64,7 +67,8 @@ registerLocaleData(localeES);
     AddPagoClienteComponent,
     AddVentaPasajeroComponent,
     AddFooterComponent,
-    ModVentaComponent
+    ModVentaComponent,
+    InfoVentaComponent
   ],
   imports: [
     BrowserModule,
@@ -75,11 +79,13 @@ registerLocaleData(localeES);
     BrowserAnimationsModule,
     AppMaterialModule,
     CommonModule,
-    MatIconModule
+    MatIconModule,
+    AddSpinnerModule
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'es'},
-    { provide: HTTP_INTERCEPTORS, useClass: ProdInterceptorService, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: ProdInterceptorService, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ApiInterceptorService, multi: true}
   ],
   bootstrap: [AppComponent]
 })

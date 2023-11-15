@@ -1,0 +1,27 @@
+<div mat-dialog-title class="row">
+    <div class="col-md-12"><img src="../../../assets/img/viajaperulogo.png" alt="" width="200px"></div>
+
+    <mat-divider></mat-divider>
+    
+</div>
+
+
+<div class="container">
+    <h1>Información Detallada de la venta</h1>
+    <div class="cliente-info">
+        <p><strong>Nombre:</strong> {{objPago.cliente.nombre}}</p>
+        <p><strong>Documento:</strong> {{objPago.cliente.numeroDocumento}}</p>
+        <p><strong>Pago:</strong> {{objPago.venta.precioTotal | currency:'PEN':'symbol':'1.2-2'}}</p>
+        <p><strong>Fecha de operacion:</strong> {{objPago.fecha_operacion}}</p>
+        <p><strong>Itinerario:</strong> {{objPago.venta.itinerario.cod_itinerario}}</p>
+        <p><strong>Origen:</strong> {{objPago.venta.itinerario.objOrigen.nombre}}</p>
+        <p><strong>Destino:</strong> {{objPago.venta.itinerario.objLlegada.nombre}}</p>
+        <p><strong>Bus:</strong> {{objPago.venta.itinerario.objBus.placa}}</p>
+        <p><strong>Servicio:</strong> {{objPago.venta.itinerario.objBus.objServicio.nombre}}</p>
+        <!-- Agrega más información aquí según tus necesidades -->
+    </div>
+</div>
+
+<div mat-dialog-actions>
+    <button mat-raised-button type="button" [mat-dialog-close]="false">Salir</button>
+</div>
