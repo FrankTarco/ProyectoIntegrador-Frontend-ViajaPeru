@@ -39,4 +39,8 @@ export class UtilService {
     return this.http.get<any>(url+'/lista/boletos/'+codigo)
   }
 
+  listarVentasGrafico():Observable<Object[]>{
+    return this.http.get<Object[]>(url+'/lista/chart')
+  }
+
 }

@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import {Observable} from 'rxjs'
 import { Ventarequest } from '../models/ventarequest.model';
 import { Cliente } from '../models/cliente.model';
+import { Pago } from '../models/pago.model';
 
 const url = AppSettings.API_ENDPOINT + '/transaccion'
 
@@ -36,6 +37,10 @@ export class TransaccionService {
 
   encontrarCliente(documento:string):Observable<Cliente>{
     return this.http.get(url+'/cliente/'+documento)
+  }
+
+  listarPagos():Observable<Pago[]>{
+    return this.http.get<Pago[]>(url+"/lista/pagos")
   }
 
 }

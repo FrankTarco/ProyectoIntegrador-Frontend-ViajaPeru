@@ -34,6 +34,7 @@ import { AddVentaClienteComponent } from './components/add-venta-cliente/add-ven
 import { AddPagoClienteComponent } from './dialogs/add-pago-cliente/add-pago-cliente.component';
 import { AddVentaPasajeroComponent } from './components/add-venta-pasajero/add-venta-pasajero.component';
 import { AddFooterComponent } from './components/add-footer/add-footer.component';
+import { ModVentaComponent } from './components/mod-venta/mod-venta.component';
 
 registerLocaleData(localeES);
 
@@ -62,7 +63,8 @@ registerLocaleData(localeES);
     AddVentaClienteComponent,
     AddPagoClienteComponent,
     AddVentaPasajeroComponent,
-    AddFooterComponent
+    AddFooterComponent,
+    ModVentaComponent
   ],
   imports: [
     BrowserModule,
