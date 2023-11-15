@@ -1,6 +1,6 @@
 export class AppSettings {
 
-    public static API_ENDPOINT='http://localhost:8090/rest';
+    public static API_ENDPOINT='https://viajaperuback.onrender.com/rest';
 
-    public static LOGIN_POINT='http://localhost:8090/url'
+    public static LOGIN_POINT='https://viajaperuback.onrender.com/url'
  }
